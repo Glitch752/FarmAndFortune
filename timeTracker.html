@@ -585,7 +585,9 @@
                 if(hackatimeSecondsAfterLatestCommit >= 50 * 60) {
                     console.log('Sending unlogged hackatime notification');
                     new Notification('Milkyway Time Tracker', {
-                        body: 'You have over 50 minutes hours of unlogged hackatime. Make sure to commit!',
+                        body: `You have ${
+                            Math.floor(hackatimeSecondsAfterLatestCommit / 60)
+                        } minutes hours of unlogged hackatime. Make sure to commit!`,
                         icon: 'https://milkyway.hackclub.com/icon.png'
                     });
                 }
