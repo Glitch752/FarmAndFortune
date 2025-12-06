@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2d1p2gey38o3"]
+
+[sub_resource type="TileSet" id="TileSet_q3wo1"]
+
+[node name="Level" type="Node2D"]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+position = Vector2(-121.08925, -36.483963)
+tile_set = SubResource("TileSet_q3wo1")
