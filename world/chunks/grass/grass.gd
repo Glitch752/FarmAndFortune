@@ -4,7 +4,8 @@ extends MultiMeshInstance2D
 
 func _ready() -> void:
     # Calculate the extent from the tilemap size
-    var extent = max(tiles.get_used_rect().size.x, tiles.get_used_rect().size.y) * tiles.tile_set.tile_size.x / 2
+    # var extent = max(tiles.get_used_rect().size.x, tiles.get_used_rect().size.y) * tiles.tile_set.tile_size.x / 2
+    var extent = MapSingleton.CHUNK_SIZE * tiles.tile_set.tile_size.x / 2
 
     var mesh := ArrayMesh.new()
     var arrays = []
@@ -33,8 +34,6 @@ func _ready() -> void:
     multimesh.mesh = mesh
 
     var scatter_count = 25000
-    # We'll reduce this later once we know how many instances fit
-    multimesh.instance_count = scatter_count
 
     # Prevents Godot from trying to calculate it
     multimesh.custom_aabb = AABB(Vector3(-extent, -extent, 0), Vector3(extent * 2, extent * 2, 0))
@@ -53,6 +52,7 @@ func _ready() -> void:
 
 
     var instances = 0
+    var instance_positions = []
     for i in scatter_count:
         var x = randf() * extent * 2 - extent
         var y = float(i) / scatter_count * extent * 2 - extent
@@ -65,7 +65,9 @@ func _ready() -> void:
             .scaled(Vector2.ONE * instance_scale)\
             .translated(Vector2(x, y))
 
-        multimesh.set_instance_transform_2d(instances, instance_transform)
+        instance_positions.append(instance_transform)
         instances += 1
     
     multimesh.instance_count = instances
+    for i in instances:
+        multimesh.set_instance_transform_2d(i, instance_positions[i])

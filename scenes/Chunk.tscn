@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=4 uid="uid://brwdoqe1trhyn"]
+[gd_scene load_steps=9 format=4 uid="uid://brwdoqe1trhyn"]
 
 [ext_resource type="Texture2D" uid="uid://b781mwig38ecy" path="res://art/images/groundTiles.png" id="1_01iku"]
-[ext_resource type="Shader" uid="uid://d4kd5qbqrpmuo" path="res://world/grass/grass.gdshader" id="2_unaa7"]
-[ext_resource type="Script" uid="uid://clbtc4i2fpg6c" path="res://world/grass/grass.gd" id="3_hq0pm"]
+[ext_resource type="Script" uid="uid://qelv7y1ox7hi" path="res://world/chunks/chunk.gd" id="1_hq0pm"]
+[ext_resource type="Shader" uid="uid://d4kd5qbqrpmuo" path="res://world/chunks/grass/grass.gdshader" id="2_unaa7"]
+[ext_resource type="Script" uid="uid://clbtc4i2fpg6c" path="res://world/chunks/grass/grass.gd" id="3_hq0pm"]
+[ext_resource type="Texture2D" uid="uid://gvliporbv7td" path="res://world/chunks/grass/noiseTexture.png" id="3_unaa7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o3c2t"]
 texture = ExtResource("1_01iku")
@@ -17,10 +19,15 @@ sources/0 = SubResource("TileSetAtlasSource_o3c2t")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xtyve"]
 shader = ExtResource("2_unaa7")
+shader_parameter/TOP_COLOR = Color(0.416, 0.553, 0.349, 1)
+shader_parameter/BOTTOM_COLOR = Color(0.263, 0.369, 0.329, 1)
+shader_parameter/NOISE_TEXTURE = ExtResource("3_unaa7")
 
 [node name="Chunk" type="Node2D"]
+script = ExtResource("1_hq0pm")
 
 [node name="GroundTileMap" type="TileMapLayer" parent="."]
+self_modulate = Color(1, 1, 1, 0.49019608)
 tile_map_data = PackedByteArray("AAD8//z/AAABAAAAAAD8//3/AAAAAAAAAAD8//7/AAAAAAAAAAD8////AAAAAAAAAAD8/wAAAAAAAAAAAAD8/wEAAAAAAAAAAAD8/wIAAAAAAAAAAAD8/wMAAAAAAAAAAAD9//z/AAABAAAAAAD9//3/AAAAAAAAAAD9//7/AAAAAAAAAAD9////AAAAAAAAAAD9/wAAAAAAAAAAAAD9/wEAAAAAAAAAAAD9/wIAAAAAAAAAAAD9/wMAAAAAAAAAAAD+//z/AAAAAAAAAAD+//3/AAAAAAAAAAD+//7/AAAAAAAAAAD+////AAAAAAAAAAD+/wAAAAAAAAAAAAD+/wEAAAAAAAAAAAD+/wIAAAAAAAAAAAD+/wMAAAAAAAAAAAD///z/AAAAAAAAAAD///3/AAAAAAAAAAD///7/AAAAAAAAAAD/////AAAAAAAAAAD//wAAAAAAAAAAAAD//wEAAAAAAAAAAAD//wIAAAAAAAAAAAD//wMAAAABAAAAAAAAAPz/AAABAAAAAAAAAP3/AAAAAAAAAAAAAP7/AAAAAAAAAAAAAP//AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAMAAAABAAAAAAABAPz/AAABAAAAAAABAP3/AAAAAAAAAAABAP7/AAAAAAAAAAABAP//AAAAAAAAAAABAAAAAAAAAAAAAAABAAEAAAAAAAAAAAABAAIAAAAAAAAAAAABAAMAAAABAAAAAAACAPz/AAAAAAAAAAACAP3/AAAAAAAAAAACAP7/AAAAAAAAAAACAP//AAAAAAAAAAACAAAAAAAAAAAAAAACAAEAAAAAAAAAAAACAAIAAAABAAAAAAACAAMAAAABAAAAAAADAPz/AAAAAAAAAAADAP3/AAAAAAAAAAADAP7/AAAAAAAAAAADAP//AAAAAAAAAAADAAAAAAAAAAAAAAADAAEAAAAAAAAAAAADAAIAAAABAAAAAAADAAMAAAABAAAAAAD7//v/AAABAAAAAAD7//z/AAABAAAAAAD7//3/AAABAAAAAAD7//7/AAAAAAAAAAD7////AAAAAAAAAAD7/wAAAAAAAAAAAAD7/wEAAAAAAAAAAAD7/wIAAAAAAAAAAAD7/wMAAAAAAAAAAAD7/wQAAAAAAAAAAAD8//v/AAABAAAAAAD8/wQAAAAAAAAAAAD9//v/AAABAAAAAAD9/wQAAAABAAAAAAD+//v/AAABAAAAAAD+/wQAAAABAAAAAAD///v/AAABAAAAAAD//wQAAAABAAAAAAAAAPv/AAABAAAAAAAAAAQAAAABAAAAAAABAPv/AAABAAAAAAABAAQAAAABAAAAAAACAPv/AAABAAAAAAACAAQAAAABAAAAAAADAPv/AAAAAAAAAAADAAQAAAABAAAAAAAEAPv/AAAAAAAAAAAEAPz/AAAAAAAAAAAEAP3/AAAAAAAAAAAEAP7/AAAAAAAAAAAEAP//AAAAAAAAAAAEAAAAAAAAAAAAAAAEAAEAAAABAAAAAAAEAAIAAAABAAAAAAAEAAMAAAABAAAAAAAEAAQAAAABAAAAAAA=")
 tile_set = SubResource("TileSet_gbv6n")
 navigation_enabled = false
@@ -28,3 +35,5 @@ navigation_enabled = false
 [node name="Grass" type="MultiMeshInstance2D" parent="GroundTileMap"]
 material = SubResource("ShaderMaterial_xtyve")
 script = ExtResource("3_hq0pm")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
