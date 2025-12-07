@@ -1,11 +1,11 @@
 extends MultiMeshInstance2D
 
-@onready var tiles: TileMapLayer = $".."
+@onready var chunk: Node2D = find_parent("Chunk")
 
 func _ready() -> void:
     # Calculate the extent from the tilemap size
     # var extent = max(tiles.get_used_rect().size.x, tiles.get_used_rect().size.y) * tiles.tile_set.tile_size.x / 2
-    var extent = MapSingleton.CHUNK_SIZE * tiles.tile_set.tile_size.x / 2
+    var extent = MapSingleton.CHUNK_SIZE * MapSingleton.TILE_SIZE / float(2)
 
     var mesh := ArrayMesh.new()
     var arrays = []
@@ -39,13 +39,10 @@ func _ready() -> void:
     multimesh.custom_aabb = AABB(Vector3(-extent, -extent, 0), Vector3(extent * 2, extent * 2, 0))
 
     var check_tile = func(x, y):
-        var tile_pos = tiles.local_to_map(tiles.to_local(Vector2(x, y)))
-        var cell_data = tiles.get_cell_tile_data(tile_pos)
-        if cell_data == null:
-            return true
-        if cell_data.get_custom_data("has_grass") != true:
-            return false
-        return true
+        return chunk.check_grass_at_position(Vector2(
+            x + extent,
+            y + extent
+        ))
 
     var base_scale = 0.6
     var side_margin = base_scale * 1.5

@@ -101,10 +101,8 @@ float dualfbm(vec2 p) {
     return fbm(p);
 }
 
-//rgb(68, 139, 190)
-const vec3 WATER_BASE_COLOR = vec3(0.267, 0.545, 0.745);
-//rgb(144, 205, 236)
-const vec3 WATER_LIGHT_COLOR = vec3(0.565, 0.803, 0.925);
+uniform vec3 WATER_BASE_COLOR: source_color = vec3(0.267, 0.545, 0.745);
+uniform vec3 WATER_LIGHT_COLOR: source_color = vec3(0.565, 0.803, 0.925);
 
 const float WATER_COLOR_STEPS = 10.0;
 
