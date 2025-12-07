@@ -59,6 +59,11 @@ void fragment() {
 
     float height_ratio = UV.y;
 
+    // Stylized white shading stripe on the right side of the blade
+    float triangle_x = 0.5 + (UV.x - 0.5) / UV.y;
+    float stripe = smoothstep(0.6, 0.95, triangle_x);
+    color += stripe * 0.3;
+
     // Toon shading
     int toon_levels = 160;
     vec3 toon_color = floor(mix(color, BOTTOM_COLOR, height_ratio) * float(toon_levels)) / float(toon_levels);

@@ -9,10 +9,23 @@ enum TerrainType {
     WATER
 }
 
-class MapChunk:
-    var terrain_types: PackedByteArray
-
 var chunks: Dictionary[Vector2i, MapChunk] = {}
+
+func get_chunk_at(chunk_pos: Vector2i) -> MapChunk:
+    return chunks.get(chunk_pos, null)
+func get_terrain_at(world_pos: Vector2i) -> int:
+    var chunk_pos = Vector2i(
+        floor(world_pos.x / float(CHUNK_SIZE)),
+        floor(world_pos.y / float(CHUNK_SIZE))
+    )
+    var local_pos = Vector2i(
+        world_pos.x % CHUNK_SIZE,
+        world_pos.y % CHUNK_SIZE
+    )
+    var chunk = get_chunk_at(chunk_pos)
+    if chunk == null:
+        return -1
+    return chunk._get_terrain_at(local_pos)
 
 func _ready():
     _generate_map()
@@ -26,5 +39,7 @@ func _generate_map():
             var chunk = MapChunk.new()
             chunk.terrain_types = PackedByteArray()
             for i in CHUNK_SIZE * CHUNK_SIZE:
-                chunk.terrain_types.append(TerrainType.GRASS)
+                chunk.terrain_types.append(
+                    TerrainType.GRASS if randf() < 0.8 else TerrainType.WATER
+                )
             chunks[chunk_pos] = chunk
