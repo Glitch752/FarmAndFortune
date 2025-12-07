@@ -53,3 +53,5 @@ func _create_noise_texture():
 
     # Save the noise texture to a resource file, maybe?
     ResourceSaver.save(noise_texture, "res://world/chunks/water/water_noise_texture.res")
+
+    print("Done")

@@ -54,9 +54,14 @@ void fragment() {
     float blade_rand = hashNormalized(instance_id);
     float pos_var = texture(NOISE_TEXTURE, model_pos.xy * 0.0005).r;
 
-    float variation = (pos_var * 0.2 - 0.1) + (blade_rand * 0.05 - 0.025);
+    float variation = (pos_var * 0.4 - 0.2) + (blade_rand * 0.1 - 0.05);
     color += variation;
 
     float height_ratio = UV.y;
-    COLOR = vec4(mix(color, BOTTOM_COLOR, height_ratio), 1.0);
+
+    // Toon shading
+    int toon_levels = 160;
+    vec3 toon_color = floor(mix(color, BOTTOM_COLOR, height_ratio) * float(toon_levels)) / float(toon_levels);
+
+    COLOR = vec4(toon_color, 1.0);
 }

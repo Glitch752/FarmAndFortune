@@ -5,6 +5,10 @@ shader_type canvas_item;
 
 uniform sampler3D worley_texture;
 
+// NOTE: Per https://github.com/godotengine/godot/issues/81627,
+// you must add a 1x1 texture to any polygon this is used on...
+// for some reason
+
 // float noise3D(vec3 p) {
 //     p = fract(p * 0.3183099 + 0.1);
 //     p *= 17.0;
@@ -34,8 +38,38 @@ uniform sampler3D worley_texture;
 //     return sqrt(r);
 // }
 
+float worleyTexture(vec3 p) {
+    return texture(worley_texture, fract(p)).r;
+}
+
 float worley3D(vec3 p) {
-    return texture(worley_texture, p * 0.1).r;
+    p = p * 0.1;
+    
+    // We need to use custom trilinear filtering because for some reason
+    // godot doesn't support it for 3D textures?
+    int size = textureSize(worley_texture, 0).x;
+    float filterStep = 1.0 / float(size);
+    
+    vec3 ip = floor(p * float(size)) * filterStep;
+    vec3 c000 = ip + vec3(0.0, 0.0, 0.0) * filterStep;
+    vec3 c100 = ip + vec3(1.0, 0.0, 0.0) * filterStep;
+    vec3 c010 = ip + vec3(0.0, 1.0, 0.0) * filterStep;
+    vec3 c110 = ip + vec3(1.0, 1.0, 0.0) * filterStep;
+    vec3 c001 = ip + vec3(0.0, 0.0, 1.0) * filterStep;
+    vec3 c101 = ip + vec3(1.0, 0.0, 1.0) * filterStep;
+    vec3 c011 = ip + vec3(0.0, 1.0, 1.0) * filterStep;
+    vec3 c111 = ip + vec3(1.0, 1.0, 1.0) * filterStep;
+
+    vec3 f = fract(p * float(size));
+    float c00 = mix(worleyTexture(c000), worleyTexture(c100), f.x);
+    float c10 = mix(worleyTexture(c010), worleyTexture(c110), f.x);
+    float c01 = mix(worleyTexture(c001), worleyTexture(c101), f.x);
+    float c11 = mix(worleyTexture(c011), worleyTexture(c111), f.x);
+
+    float c0 = mix(c00, c10, f.y);
+    float c1 = mix(c01, c11, f.y);
+
+    return mix(c0, c1, f.z);
 }
 
 float fbm(vec2 p) {
@@ -43,7 +77,7 @@ float fbm(vec2 p) {
     float rz = 0.0;
     vec2 base = p;
 
-    for (float i = 1.0; i < 5.0; i++) {
+    for(float i = 1.0; i < 5.0; i++) {
         vec3 pos = vec3(p, TIME * 0.3) / 2.0;
         rz += abs((worley3D(pos) - 0.5) * 2.0) / z;
         z *= 2.0;
@@ -67,28 +101,25 @@ float dualfbm(vec2 p) {
     return fbm(p);
 }
 
+//rgb(68, 139, 190)
+const vec3 WATER_BASE_COLOR = vec3(0.267, 0.545, 0.745);
+//rgb(144, 205, 236)
+const vec3 WATER_LIGHT_COLOR = vec3(0.565, 0.803, 0.925);
+
+const float WATER_COLOR_STEPS = 10.0;
+
 vec3 makeWater(vec2 p) {
     float rz = dualfbm(p);
 
-    vec3 col = vec3(0.2, 0.5, 0.8) / rz / 5.0;
-    col = pow(abs(col), vec3(0.99));
-
-    float q = (col.r + col.g + col.b) / 3.0;
-    q = round(q * 5.0) / 5.0;
-
-    col = vec3(q, 0.5, 0.8);
-
+	float intensity = min(1.5, 0.1 / rz);
+    vec3 col = mix(
+        WATER_BASE_COLOR, WATER_LIGHT_COLOR,
+        floor(intensity * WATER_COLOR_STEPS) / WATER_COLOR_STEPS
+    );
     return col;
 }
 
+
 void fragment() {
-    vec2 uv = UV * 2.0 - 1.0;
-
-    // Preserve aspect ratio
-    float aspect = float(TEXTURE_PIXEL_SIZE.y / TEXTURE_PIXEL_SIZE.x);
-    uv.x *= aspect;
-
-    uv *= 3.0;
-
-    COLOR = vec4(makeWater(uv), 1.0);
+    COLOR = vec4(makeWater(UV * 15.0), 1.0);
 }
