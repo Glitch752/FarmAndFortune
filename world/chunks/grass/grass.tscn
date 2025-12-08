@@ -1,14 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://dlpcrj3iiklkh"]
+[gd_scene load_steps=6 format=3 uid="uid://dlpcrj3iiklkh"]
 
 [ext_resource type="Shader" uid="uid://d4kd5qbqrpmuo" path="res://graphics/grass.gdshader" id="1_yj5bu"]
-[ext_resource type="Texture2D" uid="uid://gvliporbv7td" path="res://world/chunks/grass/noiseTexture.png" id="2_66vaf"]
 [ext_resource type="Script" uid="uid://clbtc4i2fpg6c" path="res://world/chunks/grass/grass.gd" id="3_45ut5"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hynjg"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_yj5bu"]
+width = 256
+height = 256
+noise = SubResource("FastNoiseLite_hynjg")
+seamless = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xtyve"]
 shader = ExtResource("1_yj5bu")
 shader_parameter/TOP_COLOR = Color(0.416, 0.553, 0.349, 1)
 shader_parameter/BOTTOM_COLOR = Color(0.263, 0.369, 0.329, 1)
-shader_parameter/NOISE_TEXTURE = ExtResource("2_66vaf")
+shader_parameter/NOISE_TEXTURE = SubResource("NoiseTexture2D_yj5bu")
 
 [node name="Grass" type="MultiMeshInstance2D"]
 material = SubResource("ShaderMaterial_xtyve")

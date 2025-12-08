@@ -38,6 +38,9 @@ func _process(_delta):
         camera.position - (get_viewport_rect().size / 2.0) / camera.zoom,
         get_viewport_rect().size / camera.zoom
     )
+    var rect_margin = 10.0
+    viewport_rect.position -= Vector2.ONE * rect_margin
+    viewport_rect.size += Vector2.ONE * rect_margin * 2.0
 
     # TODO: This could be optimized, but like... whatever
     for chunk in chunks_node.get_children():

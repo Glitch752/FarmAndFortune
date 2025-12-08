@@ -6,6 +6,31 @@ var chunk_position: Vector2i = Vector2i.ZERO
 var terrain_types: PackedByteArray
 
 var _cell_geometry_cache: Dictionary[Vector2i, Array] = {}
+var grass_transforms: Array[Transform2D] = []
+
+func generate_grass_position_cache():
+    var extent = MapSingleton.CHUNK_SIZE * MapSingleton.TILE_SIZE / float(2)
+
+    var scatter_count = 250 * MapSingleton.CHUNK_SIZE * MapSingleton.CHUNK_SIZE
+    var base_scale = 0.6
+    var side_margin = base_scale * 1.5
+
+    for i in scatter_count:
+        var x = randf() * extent * 2 - extent
+        var y = float(i) / scatter_count * extent * 2 - extent
+
+        if not check_grass_at_position(Vector2(
+            x + extent,
+            y + extent
+        )):
+            continue
+        
+        var instance_scale = randf() * base_scale + base_scale
+        var instance_transform = Transform2D()\
+            .scaled(Vector2.ONE * instance_scale)\
+            .translated(Vector2(x, y))
+
+        grass_transforms.append(instance_transform)
 
 func check_grass_at_position(local_pos: Vector2) -> bool:
     var grid_x = floori(local_pos.x / MapSingleton.TILE_SIZE)

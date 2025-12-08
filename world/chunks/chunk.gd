@@ -14,7 +14,7 @@ var size: Vector2:
         )
 
 const JAGGED_STRENGTH: float = 0.1 # how much the edges stick out
-const JAGGED_DETAIL: int = 8 # how many extra points per edge
+const JAGGED_DETAIL: int = 3 # how many extra points per edge
 var tile_size = 16 # $"GroundTileMap".tile_set.tile_size.x
 
 # Dictionary[Vector2i, Array[PackedVector2Array]]
@@ -24,6 +24,8 @@ func generate() -> void:
     chunk_data = MapSingleton.get_chunk_at(chunk_position)
 
     generate_ground_polygon()
+
+    chunk_data.generate_grass_position_cache()
 
 func _ready():
     for child in $GroundMeshes.get_children():
@@ -41,9 +43,10 @@ func _on_camera_visibility_changed(new_visibility: bool) -> void:
     if new_visibility:
         var grass = preload("./grass/grass.tscn").instantiate()
         grass.position = Vector2.ONE * (tile_size * MapSingleton.CHUNK_SIZE / 2.)
+        grass.name = "Grass"
         add_child(grass)
     else:
-        var grass = find_child("Grass", false, true)
+        var grass = get_node_or_null("Grass")
         if grass:
             grass.queue_free()
 
