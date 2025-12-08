@@ -1,18 +1,17 @@
-[gd_scene load_steps=11 format=3 uid="uid://brwdoqe1trhyn"]
+[gd_scene load_steps=10 format=3 uid="uid://brwdoqe1trhyn"]
 
 [ext_resource type="Script" uid="uid://qelv7y1ox7hi" path="res://world/chunks/chunk.gd" id="1_hq0pm"]
-[ext_resource type="Shader" uid="uid://b5yvihuuu18ex" path="res://world/chunks/water.gdshader" id="2_o3c2t"]
+[ext_resource type="Shader" uid="uid://b5yvihuuu18ex" path="res://world/chunks/water/water.gdshader" id="2_o3c2t"]
 [ext_resource type="Shader" uid="uid://d4kd5qbqrpmuo" path="res://world/chunks/grass/grass.gdshader" id="2_unaa7"]
 [ext_resource type="Script" uid="uid://c1u7imhx7fpqr" path="res://world/chunks/water/water.gd" id="3_gbv6n"]
 [ext_resource type="Script" uid="uid://clbtc4i2fpg6c" path="res://world/chunks/grass/grass.gd" id="3_hq0pm"]
 [ext_resource type="Texture2D" uid="uid://gvliporbv7td" path="res://world/chunks/grass/noiseTexture.png" id="3_unaa7"]
-[ext_resource type="ImageTexture3D" uid="uid://du473n0wrpoam" path="res://world/chunks/water/water_noise_texture.res" id="3_xtyve"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gbv6n"]
 shader = ExtResource("2_o3c2t")
-shader_parameter/worley_texture = ExtResource("3_xtyve")
-shader_parameter/WATER_BASE_COLOR = Color(0.3315, 0.40050834, 0.65, 1)
-shader_parameter/WATER_LIGHT_COLOR = Color(0.5225, 0.67925, 0.95, 1)
+shader_parameter/WATER_BASE_COLOR = Color(0.47088656, 0.4648, 0.83, 1)
+shader_parameter/UV_OFFSET = Vector2(0, 0)
+shader_parameter/sun_dir_2d = Vector2(0.6, -0.4)
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_xtyve"]
 
@@ -34,7 +33,23 @@ polygon = PackedVector2Array(-80, -80, 80, -80, 80, 80, -80, 80)
 uv = PackedVector2Array(0, 0, 1, 0, 1, 1, 0, 1)
 script = ExtResource("3_gbv6n")
 
-[node name="GroundMesh" type="MeshInstance2D" parent="."]
+[node name="GroundMeshes" type="Polygon2D" parent="."]
+clip_children = 1
+polygon = PackedVector2Array(0, 0, 160, 0, 160, 180, 0, 180)
+
+[node name="Dirt" type="MeshInstance2D" parent="GroundMeshes"]
+modulate = Color(0.35686275, 0.22745098, 0.1254902, 1)
+position = Vector2(0, 2.5)
+
+[node name="Dirt2" type="MeshInstance2D" parent="GroundMeshes"]
+modulate = Color(0.36, 0.28860003, 0.234, 1)
+position = Vector2(0, -1)
+
+[node name="Sand" type="MeshInstance2D" parent="GroundMeshes"]
+modulate = Color(0.58267003, 0.66, 0.4158, 1)
+position = Vector2(0, 1)
+
+[node name="Grass" type="MeshInstance2D" parent="GroundMeshes"]
 modulate = Color(0.2627451, 0.37254903, 0.32941177, 1)
 
 [node name="Grass" type="MultiMeshInstance2D" parent="."]

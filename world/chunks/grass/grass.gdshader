@@ -64,9 +64,11 @@ void fragment() {
     float stripe = smoothstep(0.6, 0.95, triangle_x);
     color += stripe * 0.3;
 
-    // Toon shading
-    int toon_levels = 160;
-    vec3 toon_color = floor(mix(color, BOTTOM_COLOR, height_ratio) * float(toon_levels)) / float(toon_levels);
+    color = mix(color, BOTTOM_COLOR, height_ratio);
 
-    COLOR = vec4(toon_color, 1.0);
+    // Toon shading
+    // int toon_levels = 16;
+    // color = floor(color * float(color)) / float(toon_levels);
+
+    COLOR = vec4(color, 1.0);
 }

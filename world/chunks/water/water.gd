@@ -2,7 +2,15 @@
 
 extends Polygon2D
 
+@onready var chunk: Node2D = $".."
+
+func _ready() -> void:
+    material = material.duplicate()
+    (material as ShaderMaterial).set_shader_parameter("UV_OFFSET", chunk.chunk_position)
+
+
 @export_tool_button("Create 3D noise texture")
+@warning_ignore("unused_private_class_variable")
 var _create_noise_texture_button = _create_noise_texture
 
 func _create_noise_texture():

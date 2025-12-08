@@ -1,21 +1,25 @@
 extends Node2D
 
 var chunk_position: Vector2i = Vector2i.ZERO
-@onready var chunk_data: MapChunk = MapSingleton.get_chunk_at(chunk_position)
+var chunk_data: MapChunk
 
 const JAGGED_STRENGTH: float = 0.1 # how much the edges stick out
-const JAGGED_DETAIL: int = 3 # how many extra points per edge
+const JAGGED_DETAIL: int = 8 # how many extra points per edge
 var tile_size = 16 # $"GroundTileMap".tile_set.tile_size.x
 
 # Dictionary[Vector2i, Array[PackedVector2Array]]
 var _cell_geometry_cache: Dictionary[Vector2i, Array] = {}
 var ground_mesh: ArrayMesh = null
 
-func _init() -> void:
+func generate() -> void:
+    chunk_data = MapSingleton.get_chunk_at(chunk_position)
+
     generate_ground_polygon()
 
-func _ready():    
-    $GroundMesh.mesh = ground_mesh
+func _ready():
+    for child in $GroundMeshes.get_children():
+        child.mesh = ground_mesh
+    
     ground_mesh = null
 
     queue_redraw()
@@ -25,7 +29,9 @@ func generate_ground_polygon():
     _cell_geometry_cache.clear()
 
     var is_filled = func(pos: Vector2i):
-        return MapSingleton.get_terrain_at(pos) == MapSingleton.TerrainType.GRASS
+        return MapSingleton.get_terrain_at(
+            pos + chunk_position * MapSingleton.CHUNK_SIZE
+        ) == MapSingleton.TerrainType.GRASS
 
     # 1: TL, 2: TR, 4: BR, 8: BL
     var polygon_table = {
@@ -144,13 +150,17 @@ func _generate_jagged_edge_points(start: Vector2, end: Vector2) -> PackedVector2
 func check_grass_at_position(local_pos: Vector2) -> bool:
     var grid_x = floori(local_pos.x / tile_size)
     var grid_y = floori(local_pos.y / tile_size)
-    var key = Vector2i(grid_x, grid_y)
+    var tile = Vector2i(grid_x, grid_y)
     
+    # if outside our grid, we return true since it's grass in the neighboring chunk
+    if not chunk_data.is_tile_in_chunk(tile):
+        return true
+
     # check if this cell has any terrain geometry
-    if not _cell_geometry_cache.has(key):
+    if not _cell_geometry_cache.has(tile):
         return false
     
-    var polys = _cell_geometry_cache[key]
+    var polys = _cell_geometry_cache[tile]
     for poly in polys:
         if Geometry2D.is_point_in_polygon(local_pos, poly):
             return true

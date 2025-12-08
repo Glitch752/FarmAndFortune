@@ -3,7 +3,7 @@ extends Node
 const TILE_SIZE = 16
 const CHUNK_SIZE = 10
 # In chunks
-const MAP_SIZE = 16
+const MAP_SIZE = 3
 
 enum TerrainType {
     GRASS,
@@ -40,8 +40,9 @@ func _init():
 func _generate_map():
     chunks = {}
 
-    for x in MAP_SIZE:
-        for y in MAP_SIZE:
+    # We need to generate 1 more chunk than the map size to cover all tiles
+    for x in MAP_SIZE + 1:
+        for y in MAP_SIZE + 1:
             var chunk_pos = Vector2i(x, y)
             var chunk = MapChunk.new()
             chunk.terrain_types = PackedByteArray()

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b2d1p2gey38o3"]
 
-[ext_resource type="PackedScene" uid="uid://brwdoqe1trhyn" path="res://scenes/Chunk.tscn" id="2_6vs76"]
+[ext_resource type="Script" uid="uid://cwh0bxalewkly" path="res://world/map.gd" id="2_6vs76"]
 [ext_resource type="Script" uid="uid://cgva58gvhc5e0" path="res://scripts/camera_controller.gd" id="2_k5jlv"]
 
 [node name="Level" type="Node2D"]
@@ -9,4 +9,5 @@
 zoom = Vector2(4, 4)
 script = ExtResource("2_k5jlv")
 
-[node name="Chunk" parent="." instance=ExtResource("2_6vs76")]
+[node name="Map" type="Node2D" parent="."]
+script = ExtResource("2_6vs76")

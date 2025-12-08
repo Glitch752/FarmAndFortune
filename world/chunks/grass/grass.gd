@@ -1,6 +1,6 @@
 extends MultiMeshInstance2D
 
-@onready var chunk: Node2D = find_parent("Chunk")
+@onready var chunk: Node2D = $".."
 
 func _ready() -> void:
     # Calculate the extent from the tilemap size
