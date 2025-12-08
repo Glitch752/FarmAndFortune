@@ -3,6 +3,13 @@ extends Node2D
 var chunk_position: Vector2i = Vector2i.ZERO
 var chunk_data: MapChunk
 
+var size: Vector2:
+    get:
+        return Vector2(
+            MapSingleton.CHUNK_SIZE * MapSingleton.TILE_SIZE,
+            MapSingleton.CHUNK_SIZE * MapSingleton.TILE_SIZE
+        )
+
 const JAGGED_STRENGTH: float = 0.1 # how much the edges stick out
 const JAGGED_DETAIL: int = 8 # how many extra points per edge
 var tile_size = 16 # $"GroundTileMap".tile_set.tile_size.x

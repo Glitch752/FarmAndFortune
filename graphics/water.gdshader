@@ -5,6 +5,8 @@
 
 // uniform sampler3D worley_texture;
 
+// #include "res:///graphics/pixelate.gdshaderinc"
+
 // // NOTE: Per https://github.com/godotengine/godot/issues/81627,
 // // you must add a 1x1 texture to any polygon this is used on...
 // // for some reason
@@ -105,98 +107,117 @@
 // uniform vec3 WATER_LIGHT_COLOR: source_color = vec3(0.565, 0.803, 0.925);
 // uniform vec2 UV_OFFSET = vec2(0.0, 0.0);
 
-// const float WATER_COLOR_STEPS = 100.0;
+// const float WATER_COLOR_STEPS = 5.0;
 
 // vec3 makeWater(vec2 p) {
 //     float rz = dualfbm(p);
 
 // 	float intensity = min(1.5, 0.1 / rz);
-//     vec3 col = mix(
-//         WATER_BASE_COLOR, WATER_LIGHT_COLOR,
-//         floor(intensity * WATER_COLOR_STEPS) / WATER_COLOR_STEPS
-//     );
+//     // intensity = floor(intensity * WATER_COLOR_STEPS) / WATER_COLOR_STEPS;
+//     vec3 col = mix(WATER_BASE_COLOR, WATER_LIGHT_COLOR, intensity);
 //     return col;
 // }
 
 
 // void fragment() {
-//     COLOR = vec4(makeWater((UV + UV_OFFSET) * 15.0), 1.0);
+//     COLOR = vec4(makeWater((pixelate(UV + UV_OFFSET, 150.0)) * 15.0), 1.0);
 // }
-
-
-
-
-
 
 
 shader_type canvas_item;
 
 uniform vec3 WATER_BASE_COLOR: source_color = vec3(0.267, 0.545, 0.745);
 uniform vec2 UV_OFFSET = vec2(0.0, 0.0);
+uniform sampler2D FOAM_TEXTURE: hint_default_black;
 
-// Fake 2D "sun" direction projected into 3D normal space
-// (normalized)
-uniform vec2 sun_dir_2d = vec2(0.6, -0.4);
-
-float get_wave_coord(vec2 uv, vec2 direction) {
-    return uv.x * direction.x + uv.y * direction.y;
+float random(vec2 st) {
+    return fract(sin(dot(st, vec2(12.9898, 78.233))) * 43758.5453123);
 }
 
-vec3 sine_normal(vec2 uv, float frequency, float amplitude, float rotation, float time) {
-    vec2 direction = vec2(sin(rotation), cos(rotation));
-    float coord = get_wave_coord(uv, direction);
-
-    vec2 normal2 = frequency * amplitude * direction * cos(coord * frequency + time);
-    return vec3(normal2.x, 0.0, normal2.y);
-}
-
-vec3 steep_sine_normal(vec2 uv, float frequency, float amplitude, float rotation, float time) {
-    vec2 direction = vec2(sin(rotation), cos(rotation));
-    float coord = get_wave_coord(uv, direction);
-
-    float steepness = 2.0;
-    float h = pow((sin(coord * frequency + time) + 1.0) * 0.5,
-                  max(1.0, steepness - 1.0));
-
-    vec2 normal2 = direction * steepness * frequency * amplitude * h *
-                   cos(coord * frequency + time);
-
-    return vec3(normal2.x, 0.0, normal2.y);
-}
-
-const int SUM_OF_SINES_ITERATIONS = 6;
-
-vec3 get_water_normal(vec2 uv) {
-    vec3 normal = vec3(0.0);
-    float frequency = 20.0;
-    float amplitude = 1.0;
-    float rotation = 0.0;
-    float time = TIME / 4.0;
-
-    for(int i = 0; i < SUM_OF_SINES_ITERATIONS; i++) {
-        normal += steep_sine_normal(uv, frequency, amplitude, rotation, time);
-
-        frequency *= 2.5;
-        amplitude /= 2.5;
-        rotation += 0.2;
-        rotation *= 1.1;
-        time *= 1.6;
-    }
-
-    return normalize(normal);
+vec2 random2(vec2 p) {
+    return fract(
+        sin(vec2(
+            dot(p, vec2(127.1, 311.7)),
+            dot(p, vec2(269.5, 183.3))
+        )) * 43758.5453
+    );
 }
 
 void fragment() {
-    vec2 uv = UV + UV_OFFSET;
+    vec2 st = (UV + UV_OFFSET - TIME * vec2(-0.005, -0.005)) * 25.0;
 
-    vec3 normal = get_water_normal(uv);
+    vec2 i_st = floor(st);
+    vec2 f_st = fract(st);
 
-    vec3 light_dir = normalize(vec3(sun_dir_2d.x, 0.0, sun_dir_2d.y));
+    float m_dist = 8.0;
+    float m_angle = 0.0;
+    vec2 mb = vec2(0.0);
+    vec2 mr = vec2(0.0);
 
-    float light_dot = dot(normal, light_dir);
+    // First pass
+    for(int y = -1; y <= 1; y++) {
+        for(int x = -1; x <= 1; x++) {
+            vec2 neighbor = vec2(float(x), float(y));
+            vec2 point = random2(i_st + neighbor);
 
-    float diffuse = clamp(light_dot * 0.3 + 0.6, 0.0, 1.0);
-    float specular = pow(max(light_dot, 0.0), 32.0) * 0.5;
+            point = 0.5 + 0.5 * sin(0.5 * TIME + 6.2831 * point);
 
-    COLOR = vec4(WATER_BASE_COLOR * diffuse + specular, 1.0);
+            vec2 diff = neighbor + point - f_st;
+            float dist = dot(diff, diff);
+
+            if(dist < m_dist) {
+                m_dist = dist;
+                m_angle = atan(diff.y, diff.x);
+                mb = neighbor;
+                mr = diff;
+            }
+        }
+    }
+
+    // second pass
+    m_dist = 8.0;
+    vec2 nb = vec2(0.0);
+    vec2 nr = vec2(0.0);
+
+    for(int y = -2; y <= 2; y++) {
+        for(int x = -2; x <= 2; x++) {
+
+            vec2 neighbor = mb + vec2(float(x), float(y));
+            vec2 point = random2(i_st + neighbor);
+            point = 0.5 + 0.5 * sin(0.5 * TIME + 6.2831 * point);
+
+            vec2 diff = neighbor + point - f_st;
+            float dist = dot(0.5 * (mr + diff), normalize(diff - mr));
+
+            if (dist < m_dist) {
+                m_dist = dist;
+                nb = point;
+                nr = 0.5 * (diff - mr);
+            }
+        }
+    }
+
+    float n_dist = m_dist / 1.0;
+    float c_id = random(i_st + mb);
+
+    float th = 0.35 * 0.5 * (sin(TIME + 101.0 * c_id) + 1.0);
+
+    float height = step(th, n_dist) * (n_dist - th) * (length(nr) - th);
+    vec3 normal = normalize(vec3(n_dist * nr, 1.0));
+
+    vec3 light_dir = normalize(vec3(0.9, 0.0, 0.5));
+    float t1 = clamp(dot(light_dir, normal), 0.45, 1.0);
+    t1 *= t1;
+    t1 *= 5.;
+    t1 += 0.1;
+
+    // Foam calculation
+    float foam = texture(FOAM_TEXTURE, UV).r * (0.5 + height) * 1.5;
+
+    vec3 foam_color = vec3(0.95, 0.98, 1.0); // light foam color
+    vec3 water_color = t1 * WATER_BASE_COLOR;
+
+    vec3 final_color = mix(water_color, foam_color, foam);
+
+    COLOR = vec4(final_color, 1.0);
 }
