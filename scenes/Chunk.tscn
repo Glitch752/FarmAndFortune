@@ -1,24 +1,16 @@
-[gd_scene load_steps=10 format=3 uid="uid://brwdoqe1trhyn"]
+[gd_scene load_steps=6 format=3 uid="uid://brwdoqe1trhyn"]
 
 [ext_resource type="Script" uid="uid://qelv7y1ox7hi" path="res://world/chunks/chunk.gd" id="1_hq0pm"]
 [ext_resource type="Shader" uid="uid://b5yvihuuu18ex" path="res://graphics/water.gdshader" id="2_o3c2t"]
-[ext_resource type="Shader" uid="uid://d4kd5qbqrpmuo" path="res://graphics/grass.gdshader" id="2_unaa7"]
 [ext_resource type="Script" uid="uid://c1u7imhx7fpqr" path="res://world/chunks/water/water.gd" id="3_gbv6n"]
-[ext_resource type="Script" uid="uid://clbtc4i2fpg6c" path="res://world/chunks/grass/grass.gd" id="3_hq0pm"]
-[ext_resource type="Texture2D" uid="uid://gvliporbv7td" path="res://world/chunks/grass/noiseTexture.png" id="3_unaa7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gbv6n"]
 shader = ExtResource("2_o3c2t")
-shader_parameter/WATER_BASE_COLOR = Color(0.20708989, 0.20059997, 0.59, 1)
+shader_parameter/WATER_BASE_COLOR = Color(0.2132, 0.2899, 0.52, 1)
 shader_parameter/UV_OFFSET = Vector2(0, 0)
+shader_parameter/FOAM_TEXTURE_MARGIN = 1
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_xtyve"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xtyve"]
-shader = ExtResource("2_unaa7")
-shader_parameter/TOP_COLOR = Color(0.416, 0.553, 0.349, 1)
-shader_parameter/BOTTOM_COLOR = Color(0.263, 0.369, 0.329, 1)
-shader_parameter/NOISE_TEXTURE = ExtResource("3_unaa7")
 
 [node name="Chunk" type="Node2D"]
 script = ExtResource("1_hq0pm")
@@ -50,8 +42,3 @@ position = Vector2(0, 1)
 
 [node name="Grass" type="MeshInstance2D" parent="GroundMeshes"]
 modulate = Color(0.2627451, 0.37254903, 0.32941177, 1)
-
-[node name="Grass" type="MultiMeshInstance2D" parent="."]
-material = SubResource("ShaderMaterial_xtyve")
-position = Vector2(80, 80)
-script = ExtResource("3_hq0pm")

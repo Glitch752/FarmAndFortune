@@ -129,6 +129,16 @@ shader_type canvas_item;
 uniform vec3 WATER_BASE_COLOR: source_color = vec3(0.267, 0.545, 0.745);
 uniform vec2 UV_OFFSET = vec2(0.0, 0.0);
 uniform sampler2D FOAM_TEXTURE: hint_default_black;
+uniform int FOAM_TEXTURE_MARGIN = 1;
+
+vec2 foam_texture_coord(vec2 uv) {
+    // the foam texture, which is textureSize(FOAM_TEXTURE) pixels, has a margin of
+    // FOAM_TEXTURE_MARGIN pixels on every side. This converts the UV to span only the
+    // non-margin area.
+    float tex_size = float(textureSize(FOAM_TEXTURE, 0).x);
+    float margin_uv = float(FOAM_TEXTURE_MARGIN) / tex_size;
+    return uv * (1.0 - 2.0 * margin_uv) + vec2(margin_uv, margin_uv);
+}
 
 float random(vec2 st) {
     return fract(sin(dot(st, vec2(12.9898, 78.233))) * 43758.5453123);
@@ -144,7 +154,7 @@ vec2 random2(vec2 p) {
 }
 
 void fragment() {
-    vec2 st = (UV + UV_OFFSET - TIME * vec2(-0.005, -0.005)) * 25.0;
+    vec2 st = (UV + UV_OFFSET - TIME * vec2(-0.005, -0.005)) * 25.0 * vec2(1.0, 1.3);
 
     vec2 i_st = floor(st);
     vec2 f_st = fract(st);
@@ -212,7 +222,7 @@ void fragment() {
     t1 += 0.1;
 
     // Foam calculation
-    float foam = texture(FOAM_TEXTURE, UV).r * (0.5 + height) * 1.5;
+    float foam = texture(FOAM_TEXTURE, foam_texture_coord(UV)).r * (0.5 + height) * 1.5;
 
     vec3 foam_color = vec3(0.95, 0.98, 1.0); // light foam color
     vec3 water_color = t1 * WATER_BASE_COLOR;

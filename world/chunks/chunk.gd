@@ -3,6 +3,9 @@ extends Node2D
 var chunk_position: Vector2i = Vector2i.ZERO
 var chunk_data: MapChunk
 
+var visible_to_camera: bool = false
+signal camera_visibility_changed(new_visibility: bool)
+
 var size: Vector2:
     get:
         return Vector2(
@@ -15,7 +18,6 @@ const JAGGED_DETAIL: int = 8 # how many extra points per edge
 var tile_size = 16 # $"GroundTileMap".tile_set.tile_size.x
 
 # Dictionary[Vector2i, Array[PackedVector2Array]]
-var _cell_geometry_cache: Dictionary[Vector2i, Array] = {}
 var ground_mesh: ArrayMesh = null
 
 func generate() -> void:
@@ -29,11 +31,25 @@ func _ready():
     
     ground_mesh = null
 
+    camera_visibility_changed.connect(_on_camera_visibility_changed)
+
     queue_redraw()
+
+func _on_camera_visibility_changed(new_visibility: bool) -> void:
+    visible_to_camera = new_visibility
+
+    if new_visibility:
+        var grass = preload("./grass/grass.tscn").instantiate()
+        grass.position = Vector2.ONE * (tile_size * MapSingleton.CHUNK_SIZE / 2.)
+        add_child(grass)
+    else:
+        var grass = find_child("Grass", false, true)
+        if grass:
+            grass.queue_free()
 
 ## uses marching squares to generate a ground polygon based on the terrain types of the map
 func generate_ground_polygon():
-    _cell_geometry_cache.clear()
+    chunk_data._cell_geometry_cache.clear()
 
     var is_filled = func(pos: Vector2i):
         return MapSingleton.get_terrain_at(
@@ -89,7 +105,7 @@ func generate_ground_polygon():
                 
                 _triangulate_poly_fan(st, built_poly)
 
-            _cell_geometry_cache[grid_pos] = final_polys
+            chunk_data._cell_geometry_cache[grid_pos] = final_polys
 
     # 3. finalize
     st.index() # Optimize vertices (this is super inefficient anyway though oops)
@@ -153,23 +169,3 @@ func _generate_jagged_edge_points(start: Vector2, end: Vector2) -> PackedVector2
         points.append(base_pos + (normal * noise * (tile_size * JAGGED_STRENGTH)))
         
     return points
-
-func check_grass_at_position(local_pos: Vector2) -> bool:
-    var grid_x = floori(local_pos.x / tile_size)
-    var grid_y = floori(local_pos.y / tile_size)
-    var tile = Vector2i(grid_x, grid_y)
-    
-    # if outside our grid, we return true since it's grass in the neighboring chunk
-    if not chunk_data.is_tile_in_chunk(tile):
-        return true
-
-    # check if this cell has any terrain geometry
-    if not _cell_geometry_cache.has(tile):
-        return false
-    
-    var polys = _cell_geometry_cache[tile]
-    for poly in polys:
-        if Geometry2D.is_point_in_polygon(local_pos, poly):
-            return true
-            
-    return false

@@ -1,7 +1,31 @@
 
 class_name MapChunk
 
+var chunk_position: Vector2i = Vector2i.ZERO
+
 var terrain_types: PackedByteArray
+
+var _cell_geometry_cache: Dictionary[Vector2i, Array] = {}
+
+func check_grass_at_position(local_pos: Vector2) -> bool:
+    var grid_x = floori(local_pos.x / MapSingleton.TILE_SIZE)
+    var grid_y = floori(local_pos.y / MapSingleton.TILE_SIZE)
+    var tile = Vector2i(grid_x, grid_y)
+    
+    # if outside our grid, we return true since it's grass in the neighboring chunk
+    if not is_tile_in_chunk(tile):
+        return true
+
+    # check if this cell has any terrain geometry
+    if not _cell_geometry_cache.has(tile):
+        return false
+    
+    var polys = _cell_geometry_cache[tile]
+    for poly in polys:
+        if Geometry2D.is_point_in_polygon(local_pos, poly):
+            return true
+            
+    return false
 
 func _get_terrain_at(local_pos: Vector2i) -> int:
     var index = local_pos.y * MapSingleton.CHUNK_SIZE + local_pos.x

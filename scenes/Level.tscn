@@ -5,9 +5,13 @@
 
 [node name="Level" type="Node2D"]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(4, 4)
-script = ExtResource("2_k5jlv")
-
 [node name="Map" type="Node2D" parent="."]
 script = ExtResource("2_6vs76")
+
+[node name="Camera2D" type="Camera2D" parent="Map"]
+zoom = Vector2(4, 4)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+script = ExtResource("2_k5jlv")
+
+[node name="Chunks" type="Node2D" parent="Map"]

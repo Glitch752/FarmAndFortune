@@ -39,7 +39,7 @@ func _ready() -> void:
     multimesh.custom_aabb = AABB(Vector3(-extent, -extent, 0), Vector3(extent * 2, extent * 2, 0))
 
     var check_tile = func(x, y):
-        return chunk.check_grass_at_position(Vector2(
+        return chunk.chunk_data.check_grass_at_position(Vector2(
             x + extent,
             y + extent
         ))

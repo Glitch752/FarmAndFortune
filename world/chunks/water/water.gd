@@ -5,6 +5,7 @@ extends Polygon2D
 @onready var chunk: Node2D = $".."
 
 const FOAM_TEXTURE_SIZE: int = 32
+const FOAM_TEXTURE_GENERATION_MARGIN: int = 1
 
 func _ready() -> void:
     material = material.duplicate()
@@ -13,16 +14,23 @@ func _ready() -> void:
     var foam_image = generate_foam_texture()
     var foam_texture = ImageTexture.create_from_image(foam_image)
     (material as ShaderMaterial).set_shader_parameter("FOAM_TEXTURE", foam_texture)
+    (material as ShaderMaterial).set_shader_parameter("FOAM_TEXTURE_MARGIN", FOAM_TEXTURE_GENERATION_MARGIN / float(FOAM_TEXTURE_SIZE))
 
 
-func generate_foam_texture(size: int = FOAM_TEXTURE_SIZE, blur_radius: int = 2) -> Image:
-    var foam_image = Image.create(size, size, false, Image.FORMAT_R8)
+func generate_foam_texture(size: int = FOAM_TEXTURE_SIZE, blur_radius: int = 1) -> Image:
+    var generation_size = size + FOAM_TEXTURE_GENERATION_MARGIN * 2;
+    var foam_image = Image.create(generation_size, generation_size, false, Image.FORMAT_R8)
 
     # set pixels to white where there is grass
-    for y in size:
-        for x in size:
-            var local_pos = Vector2(x, y) * (chunk.size / float(size))
-            if chunk.check_grass_at_position(local_pos):
+    for y in generation_size:
+        for x in generation_size:
+            var world_pos = Vector2(
+                # why is this over 2? uhh... your guess is as good as mine.
+                # it makes it look better though!
+                x - FOAM_TEXTURE_GENERATION_MARGIN / 2.0,
+                y - FOAM_TEXTURE_GENERATION_MARGIN / 2.0
+            ) * (chunk.size / float(size)) + chunk.position
+            if MapSingleton.check_grass_at_position(world_pos):
                 foam_image.set_pixel(x, y, Color.WHITE)
             else:
                 foam_image.set_pixel(x, y, Color.BLACK)
