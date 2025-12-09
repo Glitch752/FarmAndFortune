@@ -8,6 +8,13 @@ var terrain_types: PackedByteArray
 var _cell_geometry_cache: Dictionary[Vector2i, Array] = {}
 var grass_transforms: Array[Transform2D] = []
 
+signal unlocked_changed(new_unlocked: bool)
+var unlocked: bool = false:
+    set(val):
+        if unlocked != val:
+            unlocked = val
+            unlocked_changed.emit(val)
+
 func generate_grass_position_cache():
     var extent = MapSingleton.CHUNK_SIZE * MapSingleton.TILE_SIZE / float(2)
 

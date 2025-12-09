@@ -64,6 +64,8 @@ func _generate_map():
     noise.fractal_octaves = 2
     noise.fractal_gain = 0.4
 
+    var center = Vector2(MAP_SIZE / 2.0, MAP_SIZE / 2.0)
+    
     # We need to generate 1 more chunk than the map size to cover all tiles
     for x in MAP_SIZE + 1:
         for y in MAP_SIZE + 1:
@@ -71,6 +73,11 @@ func _generate_map():
             var chunk = MapChunk.new()
             chunk.chunk_position = chunk_pos
             chunk.terrain_types = PackedByteArray()
+
+            # If this chunk is within a radius of the center of the map, unlock it
+            if chunk_pos.distance_to(center) < MAP_SIZE / 2.0:
+                chunk.unlocked = true
+            
             for i in CHUNK_SIZE * CHUNK_SIZE:
                 var noise_val = noise.get_noise_2d(
                     chunk_pos.x * CHUNK_SIZE + (i % CHUNK_SIZE),

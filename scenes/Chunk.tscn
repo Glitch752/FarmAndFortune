@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://brwdoqe1trhyn"]
+[gd_scene load_steps=7 format=3 uid="uid://brwdoqe1trhyn"]
 
 [ext_resource type="Script" uid="uid://qelv7y1ox7hi" path="res://world/chunks/chunk.gd" id="1_hq0pm"]
 [ext_resource type="Shader" uid="uid://b5yvihuuu18ex" path="res://graphics/water.gdshader" id="2_o3c2t"]
 [ext_resource type="Script" uid="uid://c1u7imhx7fpqr" path="res://world/chunks/water/water.gd" id="3_gbv6n"]
+[ext_resource type="Script" uid="uid://7iwa384nh1ac" path="res://graphics/outlined_polygon.gd" id="4_unaa7"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gbv6n"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_01iku"]
 shader = ExtResource("2_o3c2t")
 shader_parameter/WATER_BASE_COLOR = Color(0.2132, 0.2899, 0.52, 1)
 shader_parameter/UV_OFFSET = Vector2(0, 0)
@@ -17,7 +18,7 @@ script = ExtResource("1_hq0pm")
 
 [node name="Water" type="Polygon2D" parent="."]
 z_index = -1
-material = SubResource("ShaderMaterial_gbv6n")
+material = SubResource("ShaderMaterial_01iku")
 position = Vector2(80, 80)
 texture = SubResource("PlaceholderTexture2D_xtyve")
 polygon = PackedVector2Array(-80, -80, 80, -80, 80, 80, -80, 80)
@@ -25,6 +26,7 @@ uv = PackedVector2Array(0, 0, 1, 0, 1, 1, 0, 1)
 script = ExtResource("3_gbv6n")
 
 [node name="GroundMeshes" type="Polygon2D" parent="."]
+visible = false
 clip_children = 1
 polygon = PackedVector2Array(0, 0, 160, 0, 160, 180, 0, 180)
 
@@ -42,3 +44,15 @@ position = Vector2(0, 1)
 
 [node name="Grass" type="MeshInstance2D" parent="GroundMeshes"]
 modulate = Color(0.2627451, 0.37254903, 0.32941177, 1)
+
+[node name="Outline" type="Polygon2D" parent="."]
+z_index = 10
+position = Vector2(80, 80)
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(-80, -80, 80, -80, 80, 80, -80, 80)
+script = ExtResource("4_unaa7")
+outline_color = Color(0.86, 0.6272267, 0.61920005, 0.50980395)
+outline_thickness = 0.15
+outline_dashed = true
+dash_length = 5.0
+metadata/_custom_type_script = "uid://7iwa384nh1ac"
