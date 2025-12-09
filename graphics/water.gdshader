@@ -212,6 +212,13 @@ void fragment() {
 
     float th = 0.35 * 0.5 * (sin(TIME + 101.0 * c_id) + 1.0);
 
+    // Foam calculation
+    float foam = texture(FOAM_TEXTURE, foam_texture_coord(UV)).r * (0.5 + height) * 1.5;
+
+    // TODO: raise water height based on foam
+    // not sure how to make this work with normals though...
+    // can we find its derivative somehow?
+
     float height = step(th, n_dist) * (n_dist - th) * (length(nr) - th);
     vec3 normal = normalize(vec3(n_dist * nr, 1.0));
 
@@ -220,9 +227,6 @@ void fragment() {
     t1 *= t1;
     t1 *= 5.;
     t1 += 0.1;
-
-    // Foam calculation
-    float foam = texture(FOAM_TEXTURE, foam_texture_coord(UV)).r * (0.5 + height) * 1.5;
 
     vec3 foam_color = vec3(0.95, 0.98, 1.0); // light foam color
     vec3 water_color = t1 * WATER_BASE_COLOR;

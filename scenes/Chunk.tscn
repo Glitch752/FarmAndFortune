@@ -26,7 +26,6 @@ uv = PackedVector2Array(0, 0, 1, 0, 1, 1, 0, 1)
 script = ExtResource("3_gbv6n")
 
 [node name="GroundMeshes" type="Polygon2D" parent="."]
-visible = false
 clip_children = 1
 polygon = PackedVector2Array(0, 0, 160, 0, 160, 180, 0, 180)
 

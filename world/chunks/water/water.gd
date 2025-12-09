@@ -14,7 +14,7 @@ func _ready() -> void:
     var foam_image = generate_foam_texture()
     var foam_texture = ImageTexture.create_from_image(foam_image)
     (material as ShaderMaterial).set_shader_parameter("FOAM_TEXTURE", foam_texture)
-    (material as ShaderMaterial).set_shader_parameter("FOAM_TEXTURE_MARGIN", FOAM_TEXTURE_GENERATION_MARGIN / float(FOAM_TEXTURE_SIZE))
+    (material as ShaderMaterial).set_shader_parameter("FOAM_TEXTURE_MARGIN", FOAM_TEXTURE_GENERATION_MARGIN)
 
 
 func generate_foam_texture(size: int = FOAM_TEXTURE_SIZE, blur_radius: int = 1) -> Image:
@@ -27,8 +27,8 @@ func generate_foam_texture(size: int = FOAM_TEXTURE_SIZE, blur_radius: int = 1) 
             var world_pos = Vector2(
                 # why is this over 2? uhh... your guess is as good as mine.
                 # it makes it look better though!
-                x - FOAM_TEXTURE_GENERATION_MARGIN / 2.0,
-                y - FOAM_TEXTURE_GENERATION_MARGIN / 2.0
+                x - FOAM_TEXTURE_GENERATION_MARGIN,
+                y - FOAM_TEXTURE_GENERATION_MARGIN
             ) * (chunk.size / float(size)) + chunk.position
             if MapSingleton.check_grass_at_position(world_pos):
                 foam_image.set_pixel(x, y, Color.WHITE)

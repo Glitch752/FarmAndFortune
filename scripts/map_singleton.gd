@@ -65,6 +65,7 @@ func _generate_map():
     noise.fractal_gain = 0.4
 
     var center = Vector2(MAP_SIZE / 2.0, MAP_SIZE / 2.0)
+    var tile_center = center * CHUNK_SIZE
     
     # We need to generate 1 more chunk than the map size to cover all tiles
     for x in MAP_SIZE:
@@ -81,10 +82,22 @@ func _generate_map():
             
             for i in CHUNK_SIZE * CHUNK_SIZE:
                 @warning_ignore("integer_division")
-                var noise_val = noise.get_noise_2d(
+                var tile_pos = Vector2i(
                     chunk_pos.x * CHUNK_SIZE + (i % CHUNK_SIZE),
                     chunk_pos.y * CHUNK_SIZE + (i / CHUNK_SIZE)
                 )
+
+                var noise_val = noise.get_noise_2d(tile_pos.x, tile_pos.y)
+
+                # Add a small radius of guarenteed land at the center of the map
+                # to make sure the player always has a starting area
+                var center_radius = CHUNK_SIZE * 0.9
+                noise_val += clamp(
+                    (center_radius - tile_pos.distance_to(tile_center)) / center_radius,
+                    0.0,
+                    1.5
+                )
+
                 chunk.terrain_types.append(
                     TerrainType.GRASS if noise_val > 0.0 else TerrainType.WATER
                 )
