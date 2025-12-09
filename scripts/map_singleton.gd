@@ -3,7 +3,7 @@ extends Node
 const TILE_SIZE = 16
 const CHUNK_SIZE = 10
 # In chunks
-const MAP_SIZE = 8
+const MAP_SIZE = 9
 
 enum TerrainType {
     GRASS,
@@ -67,18 +67,20 @@ func _generate_map():
     var center = Vector2(MAP_SIZE / 2.0, MAP_SIZE / 2.0)
     
     # We need to generate 1 more chunk than the map size to cover all tiles
-    for x in MAP_SIZE + 1:
-        for y in MAP_SIZE + 1:
+    for x in MAP_SIZE:
+        for y in MAP_SIZE:
             var chunk_pos = Vector2i(x, y)
+
             var chunk = MapChunk.new()
             chunk.chunk_position = chunk_pos
             chunk.terrain_types = PackedByteArray()
 
             # If this chunk is within a radius of the center of the map, unlock it
-            if chunk_pos.distance_to(center) < MAP_SIZE / 2.0:
+            if chunk_pos.distance_to(center) < 0.8:
                 chunk.unlocked = true
             
             for i in CHUNK_SIZE * CHUNK_SIZE:
+                @warning_ignore("integer_division")
                 var noise_val = noise.get_noise_2d(
                     chunk_pos.x * CHUNK_SIZE + (i % CHUNK_SIZE),
                     chunk_pos.y * CHUNK_SIZE + (i / CHUNK_SIZE)

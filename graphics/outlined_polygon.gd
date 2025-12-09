@@ -16,7 +16,10 @@ var outline_dashed: bool = false
 @export
 var dash_length: float = 10.0
 
-var outline_line_visibility: PackedByteArray = []
+var outline_line_visibility: PackedByteArray = []:
+    set(new_visibility):
+        outline_line_visibility = new_visibility
+        queue_redraw()
 
 func _draw():
     if outline_color.a == 0.0:

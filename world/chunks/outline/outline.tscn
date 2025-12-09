@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://big08vlywlkf0"]
+
+[ext_resource type="Shader" uid="uid://jjwct1vtpe40" path="res://world/chunks/outline.gdshader" id="1_15px5"]
+[ext_resource type="Script" uid="uid://dbk0jr72w4u6c" path="res://world/chunks/outline.gd" id="2_ymc4b"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o3c2t"]
+shader = ExtResource("1_15px5")
+shader_parameter/STRIPE_COLOR = Color(0.039215688, 0.039215688, 0.050980393, 1)
+
+[sub_resource type="Gradient" id="Gradient_15px5"]
+interpolation_mode = 1
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ymc4b"]
+gradient = SubResource("Gradient_15px5")
+width = 1
+
+[node name="Outline" type="Polygon2D"]
+z_index = 10
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(-80, -80, 80, -80, 80, 80, -80, 80)
+script = ExtResource("2_ymc4b")
+outline_color = Color(0.86, 0.6272267, 0.61920005, 0.50980395)
+outline_thickness = 0.25
+outline_dashed = true
+dash_length = 5.0
+metadata/_custom_type_script = "uid://7iwa384nh1ac"
+
+[node name="Background" type="Polygon2D" parent="."]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_o3c2t")
+color = Color(0, 0, 0, 0.47843137)
+texture = SubResource("GradientTexture1D_ymc4b")
+polygon = PackedVector2Array(-80, -80, 80, -80, 80, 80, -80, 80)
+uv = PackedVector2Array(-1, -1, 1, -1, 1, 1, -1, 1)
