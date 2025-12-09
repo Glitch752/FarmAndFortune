@@ -21,9 +21,9 @@ color = Color(1, 1, 1, 0)
 polygon = PackedVector2Array(-80, -80, 80, -80, 80, 80, -80, 80)
 script = ExtResource("2_ymc4b")
 outline_color = Color(0.86, 0.6272267, 0.61920005, 0.50980395)
-outline_thickness = 0.25
+outline_thickness = 0.35
 outline_dashed = true
-dash_length = 5.0
+dash_length = 4.0
 metadata/_custom_type_script = "uid://7iwa384nh1ac"
 
 [node name="Background" type="Polygon2D" parent="."]

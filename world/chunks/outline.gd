@@ -6,17 +6,20 @@ var chunk_position: Vector2i = Vector2i.ZERO
 @export
 var locked_background: Color = Color(0.0, 0.0, 0.0, 0.7)
 
-@onready var chunk_data: MapChunk
-@onready var surrounding_chunk_data: Array[MapChunk] = [
-    MapSingleton.get_chunk_at(chunk_position + Vector2i.UP),
-    MapSingleton.get_chunk_at(chunk_position + Vector2i.RIGHT),
-    MapSingleton.get_chunk_at(chunk_position + Vector2i.DOWN),
-    MapSingleton.get_chunk_at(chunk_position + Vector2i.LEFT)
-]
+@onready var bg: Polygon2D = $"Background"
+
+var chunk_data: MapChunk
+var surrounding_chunk_data: Array[MapChunk]
 
 func _ready():
     chunk_position = $"..".chunk_position
     chunk_data = $"..".chunk_data
+    surrounding_chunk_data = [
+        MapSingleton.get_chunk_at(chunk_position + Vector2i.UP),
+        MapSingleton.get_chunk_at(chunk_position + Vector2i.RIGHT),
+        MapSingleton.get_chunk_at(chunk_position + Vector2i.DOWN),
+        MapSingleton.get_chunk_at(chunk_position + Vector2i.LEFT)
+    ]
 
     _update_outline_visibility()
     if chunk_data != null:
@@ -31,9 +34,9 @@ func _ready():
 
 func _on_chunk_unlocked_changed(new_unlocked: bool) -> void:
     if new_unlocked:
-        color = Color.TRANSPARENT
+        bg.color = Color.TRANSPARENT
     else:
-        color = locked_background
+        bg.color = locked_background
 
 func _update_outline_visibility() -> void:
     outline_line_visibility = PackedByteArray()

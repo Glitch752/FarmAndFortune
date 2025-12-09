@@ -46,4 +46,4 @@ position = Vector2(0, 1)
 modulate = Color(0.2627451, 0.37254903, 0.32941177, 1)
 
 [node name="Outline" parent="." instance=ExtResource("4_unaa7")]
-position = Vector2(81, 80)
+position = Vector2(80, 80)

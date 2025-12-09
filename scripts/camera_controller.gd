@@ -22,3 +22,6 @@ func _process(delta):
         limit_top + world_view_size.y / 2,
         limit_bottom - world_view_size.y / 2
     )
+
+    # TODO: If the camera is entirely over locked chunks,
+    # add a keybind and control hint to reset its position
