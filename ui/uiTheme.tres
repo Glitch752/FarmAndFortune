@@ -1,0 +1,18 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://chyuq11b71wpt"]
+
+[ext_resource type="FontFile" uid="uid://bfj17jv1uyl00" path="res://ui/Ubuntu/Ubuntu-Regular.ttf" id="1_2vlra"]
+[ext_resource type="StyleBox" uid="uid://bdd81p0708w5t" path="res://ui/buttonPanelNormal.tres" id="1_wgyry"]
+[ext_resource type="StyleBox" uid="uid://nuwutydgefr7" path="res://ui/buttonPanelHover.tres" id="1_xxhm2"]
+[ext_resource type="StyleBox" uid="uid://cixbw0a8bppr6" path="res://ui/buttonPanelPress.tres" id="2_gud00"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xxhm2"]
+
+[resource]
+default_base_scale = 1.0
+default_font = ExtResource("1_2vlra")
+default_font_size = 16
+Button/styles/focus = SubResource("StyleBoxEmpty_xxhm2")
+Button/styles/hover = ExtResource("1_xxhm2")
+Button/styles/hover_pressed = ExtResource("2_gud00")
+Button/styles/normal = ExtResource("1_wgyry")
+Button/styles/pressed = ExtResource("2_gud00")

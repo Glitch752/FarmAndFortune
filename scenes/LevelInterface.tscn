@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7m6n2cj5286m"]
+
+[ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="1_xdkid"]
+[ext_resource type="StyleBox" uid="uid://dwmkl21pqn0ad" path="res://ui/primaryPanel.tres" id="2_msvpg"]
+[ext_resource type="Texture2D" uid="uid://rbmahqeahnf6" path="res://ui/icons/store.png" id="3_msvpg"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xdkid"]
+font_color = Color(0.5, 1, 0.60833335, 1)
+
+[node name="LevelInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_xdkid")
+
+[node name="Stats" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -109.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 56.0
+grow_horizontal = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="Stats"]
+layout_mode = 2
+theme = ExtResource("1_xdkid")
+theme_override_styles/panel = ExtResource("2_msvpg")
+
+[node name="Label" type="Label" parent="Stats/PanelContainer"]
+layout_mode = 2
+text = "$1,000,000"
+label_settings = SubResource("LabelSettings_xdkid")
+
+[node name="Buttons" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 56.0
+offset_bottom = 56.0
+
+[node name="Button" type="Button" parent="Buttons"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+icon = ExtResource("3_msvpg")
+icon_alignment = 1
+expand_icon = true
