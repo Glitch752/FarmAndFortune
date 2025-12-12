@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0qm7ovj3aec4"]
+
+[ext_resource type="Script" uid="uid://cg6lymgrsy06d" path="res://ui/nodes/sized_button.gd" id="1_y040r"]
+[ext_resource type="Texture2D" uid="uid://cysal3jjxlduu" path="res://ui/icons/tools/shovel.png" id="2_c3fve"]
+
+[node name="Button" type="Button"]
+custom_minimum_size = Vector2(108, 36)
+flat = true
+script = ExtResource("1_y040r")
+metadata/_custom_type_script = "uid://cg6lymgrsy06d"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+texture = ExtResource("2_c3fve")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Shovel"

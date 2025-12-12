@@ -80,6 +80,9 @@ func _generate_map():
             if chunk_pos.distance_to(center) < 0.8:
                 chunk.unlocked = true
             
+            # TODO: make the map more... river-y? and not island-y
+            # this should feel like a forest, not a lake with land in it...
+
             for i in CHUNK_SIZE * CHUNK_SIZE:
                 @warning_ignore("integer_division")
                 var tile_pos = Vector2i(
