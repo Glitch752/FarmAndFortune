@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bfttmmdwpwctf"]
+[gd_scene load_steps=13 format=3 uid="uid://bfttmmdwpwctf"]
 
 [ext_resource type="Material" uid="uid://4p2g18w6yasx" path="res://ui/panelBlur.tres" id="1_7i3ss"]
 [ext_resource type="StyleBox" uid="uid://bdd81p0708w5t" path="res://ui/buttonPanelNormal.tres" id="2_1f8kp"]
@@ -7,11 +7,24 @@
 [ext_resource type="StyleBox" uid="uid://nuwutydgefr7" path="res://ui/buttonPanelHover.tres" id="4_n2mwi"]
 [ext_resource type="StyleBox" uid="uid://cixbw0a8bppr6" path="res://ui/buttonPanelPress.tres" id="5_bbolg"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n2mwi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bbolg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n1sxp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jcjv8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_thy41"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s6n7u"]
+
 [node name="BlurButton" type="PanelContainer"]
 editor_description = "needed because shaders on buttons don't work reliably or consistently - sometimes even accross Godot versions... Instead, we wrap the button in a panel container with the background and handle updating the used panel manually."
 material = ExtResource("1_7i3ss")
-theme_override_styles/panel = ExtResource("2_1f8kp")
+theme_override_styles/panel = ExtResource("5_bbolg")
 script = ExtResource("3_1f8kp")
+icon = ExtResource("3_mhnvl")
 normal_style = ExtResource("2_1f8kp")
 hover_style = ExtResource("4_n2mwi")
 press_style = ExtResource("5_bbolg")
@@ -19,6 +32,12 @@ press_style = ExtResource("5_bbolg")
 [node name="Button" type="Button" parent="."]
 custom_minimum_size = Vector2(52, 52)
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_n2mwi")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_bbolg")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_n1sxp")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_jcjv8")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_thy41")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_s6n7u")
 icon = ExtResource("3_mhnvl")
 flat = true
 icon_alignment = 1

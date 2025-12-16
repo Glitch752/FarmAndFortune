@@ -1,11 +1,37 @@
-[gd_scene load_steps=3 format=3 uid="uid://c0qm7ovj3aec4"]
+[gd_scene load_steps=13 format=3 uid="uid://c0qm7ovj3aec4"]
 
+[ext_resource type="Material" uid="uid://4p2g18w6yasx" path="res://ui/panelBlur.tres" id="1_c3fve"]
 [ext_resource type="Script" uid="uid://cg6lymgrsy06d" path="res://ui/nodes/sized_button.gd" id="1_y040r"]
 [ext_resource type="Texture2D" uid="uid://cysal3jjxlduu" path="res://ui/icons/tools/shovel.png" id="2_c3fve"]
+[ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="2_vgv5g"]
+[ext_resource type="Script" uid="uid://dtiyyefskk5op" path="res://ui/nodes/stack_container.gd" id="4_o0ldk"]
+[ext_resource type="Script" uid="uid://d0ucdkwax7bqx" path="res://ui/nodes/transform_container.gd" id="5_l6iv4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c3fve"]
+bg_color = Color(0, 0, 0, 0.003921569)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vgv5g"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o0ldk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l6iv4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tkqn5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_c3fve"]
+font_size = 18
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 0.39215687)
 
 [node name="Button" type="Button"]
-custom_minimum_size = Vector2(108, 36)
-flat = true
+material = ExtResource("1_c3fve")
+custom_minimum_size = Vector2(110, 36)
+theme = ExtResource("2_vgv5g")
+theme_override_styles/normal = SubResource("StyleBoxFlat_c3fve")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_vgv5g")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_o0ldk")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_l6iv4")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_tkqn5")
 script = ExtResource("1_y040r")
 metadata/_custom_type_script = "uid://cg6lymgrsy06d"
 
@@ -18,10 +44,29 @@ theme_override_constants/margin_right = 8
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 4
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+[node name="StackContainer" type="Container" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+script = ExtResource("4_o0ldk")
+metadata/_custom_type_script = "uid://dtiyyefskk5op"
+
+[node name="TransformContainer" type="Container" parent="MarginContainer/HBoxContainer/StackContainer"]
+layout_mode = 2
+script = ExtResource("5_l6iv4")
+visual_position = Vector2(1, 1)
+metadata/_custom_type_script = "uid://d0ucdkwax7bqx"
+
+[node name="TextureShadow" type="TextureRect" parent="MarginContainer/HBoxContainer/StackContainer/TransformContainer"]
+modulate = Color(0, 0, 0, 0.39215687)
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
+texture = ExtResource("2_c3fve")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="TextureTop" type="TextureRect" parent="MarginContainer/HBoxContainer/StackContainer"]
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 texture = ExtResource("2_c3fve")
@@ -31,3 +76,4 @@ stretch_mode = 5
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "Shovel"
+label_settings = SubResource("LabelSettings_c3fve")

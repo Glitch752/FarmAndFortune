@@ -37,7 +37,7 @@ void vertex() {
     if(UV.y < 0.5) {
         vec3 position = MODEL_MATRIX[3].xyz;
         float offset = hashNormalized(INSTANCE_ID) * 0.2;
-        float position_sum = position.x + position.y;
+        float position_sum = position.y - 0.6 * position.x;
         // Use 3 octaves of fBm, lacunarity 2.0, gain 0.5
         float wave = fbm(UV.x, TIME * 0.5, offset, position_sum, 3, 2.0, 0.5);
         VERTEX.x += wave * (UV.y - 0.5) * 2.0;
