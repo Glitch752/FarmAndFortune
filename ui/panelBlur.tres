@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://4p2g18w6yasx"]
+
+[ext_resource type="Shader" uid="uid://coof3kxlypjxl" path="res://graphics/glassblur.gdshader" id="1_1v1pu"]
+
+[resource]
+shader = ExtResource("1_1v1pu")
+shader_parameter/blur = 2.0
