@@ -44,11 +44,8 @@ func _update_style():
     var style: StyleBox
     if button.button_pressed:
         style = press_style
-        print("press")
     elif hovered:
         style = hover_style
-        print("hover")
     else:
         style = normal_style
-        print("normal")
     add_theme_stylebox_override("panel", style)

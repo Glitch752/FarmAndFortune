@@ -1,9 +1,9 @@
 [gd_scene load_steps=13 format=3 uid="uid://c0qm7ovj3aec4"]
 
 [ext_resource type="Material" uid="uid://4p2g18w6yasx" path="res://ui/panelBlur.tres" id="1_c3fve"]
-[ext_resource type="Script" uid="uid://cg6lymgrsy06d" path="res://ui/nodes/sized_button.gd" id="1_y040r"]
 [ext_resource type="Texture2D" uid="uid://cysal3jjxlduu" path="res://ui/icons/tools/shovel.png" id="2_c3fve"]
 [ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="2_vgv5g"]
+[ext_resource type="Script" uid="uid://ct6slv7ptkvep" path="res://scripts/tool_button.gd" id="3_l6iv4"]
 [ext_resource type="Script" uid="uid://dtiyyefskk5op" path="res://ui/nodes/stack_container.gd" id="4_o0ldk"]
 [ext_resource type="Script" uid="uid://d0ucdkwax7bqx" path="res://ui/nodes/transform_container.gd" id="5_l6iv4"]
 
@@ -32,7 +32,7 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_vgv5g")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_o0ldk")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_l6iv4")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_tkqn5")
-script = ExtResource("1_y040r")
+script = ExtResource("3_l6iv4")
 metadata/_custom_type_script = "uid://cg6lymgrsy06d"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -59,6 +59,7 @@ visual_position = Vector2(1, 1)
 metadata/_custom_type_script = "uid://d0ucdkwax7bqx"
 
 [node name="TextureShadow" type="TextureRect" parent="MarginContainer/HBoxContainer/StackContainer/TransformContainer"]
+unique_name_in_owner = true
 modulate = Color(0, 0, 0, 0.39215687)
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
@@ -67,6 +68,7 @@ expand_mode = 5
 stretch_mode = 5
 
 [node name="TextureTop" type="TextureRect" parent="MarginContainer/HBoxContainer/StackContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
 texture = ExtResource("2_c3fve")
@@ -74,6 +76,7 @@ expand_mode = 5
 stretch_mode = 5
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Shovel"
 label_settings = SubResource("LabelSettings_c3fve")
