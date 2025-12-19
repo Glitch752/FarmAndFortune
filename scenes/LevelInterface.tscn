@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bfttmmdwpwctf" path="res://ui/BlurButton.tscn" id="4_5idoe"]
 [ext_resource type="StyleBox" uid="uid://bdd81p0708w5t" path="res://ui/buttonPanelNormal.tres" id="4_5xd67"]
 [ext_resource type="PackedScene" uid="uid://c0qm7ovj3aec4" path="res://ui/ToolButton.tscn" id="4_x080e"]
-[ext_resource type="Script" uid="uid://nk838dy10qo0" path="res://ui/nodes/selection_highlight_vbox.gd" id="6_ldihh"]
+[ext_resource type="Script" uid="uid://c8dhtfiqxnb" path="res://ui/interaction_tool_ui.gd" id="6_ldihh"]
 [ext_resource type="Texture2D" uid="uid://cysal3jjxlduu" path="res://ui/icons/tools/shovel.png" id="7_fcdxv"]
 [ext_resource type="Texture2D" uid="uid://c0ngbrq5klc0r" path="res://ui/icons/tools/plant.png" id="8_wh1fv"]
 [ext_resource type="Texture2D" uid="uid://cigrreghgq3r7" path="res://ui/icons/tools/hand.png" id="9_ldihh"]
