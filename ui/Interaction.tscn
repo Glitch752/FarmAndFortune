@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://b70htm1f5xsu1"]
+
+[ext_resource type="Script" uid="uid://lfn28q261rn8" path="res://ui/interaction.gd" id="1_ato7f"]
+[ext_resource type="PackedScene" uid="uid://dubicjcr4ojb8" path="res://ui/InteractionHighlight.tscn" id="2_hkuyk"]
+
+[node name="Interaction" type="Node2D"]
+script = ExtResource("1_ato7f")
+
+[node name="InteractionHighlight" parent="." instance=ExtResource("2_hkuyk")]
+unique_name_in_owner = true

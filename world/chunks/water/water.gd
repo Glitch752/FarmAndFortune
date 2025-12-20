@@ -9,7 +9,8 @@ const FOAM_TEXTURE_GENERATION_MARGIN: int = 1
 
 func _ready() -> void:
     material = material.duplicate()
-    (material as ShaderMaterial).set_shader_parameter("UV_OFFSET", chunk.chunk_position)
+    if !Engine.is_editor_hint():
+        (material as ShaderMaterial).set_shader_parameter("UV_OFFSET", chunk.chunk_position)
 
     var foam_image = generate_foam_texture()
     var foam_texture = ImageTexture.create_from_image(foam_image)

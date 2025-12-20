@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b2d1p2gey38o3"]
+[gd_scene load_steps=5 format=3 uid="uid://b2d1p2gey38o3"]
 
 [ext_resource type="Script" uid="uid://cwh0bxalewkly" path="res://world/map.gd" id="2_6vs76"]
 [ext_resource type="Script" uid="uid://cgva58gvhc5e0" path="res://scripts/camera_controller.gd" id="2_k5jlv"]
 [ext_resource type="PackedScene" uid="uid://c7m6n2cj5286m" path="res://scenes/LevelInterface.tscn" id="3_6vs76"]
+[ext_resource type="PackedScene" uid="uid://b70htm1f5xsu1" path="res://ui/Interaction.tscn" id="3_kl8ac"]
 
 [node name="Level" type="Node2D"]
 
@@ -16,6 +17,8 @@ position_smoothing_speed = 10.0
 script = ExtResource("2_k5jlv")
 
 [node name="Chunks" type="Node2D" parent="Map"]
+
+[node name="Interaction" parent="." instance=ExtResource("3_kl8ac")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

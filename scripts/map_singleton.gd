@@ -40,6 +40,17 @@ func get_terrain_at_world(world_pos: Vector2) -> int:
     )
     return get_terrain_at(tile_pos)
 
+func tile_to_world_position(tile_pos: Vector2i) -> Vector2:
+    return Vector2(
+        tile_pos.x * TILE_SIZE + TILE_SIZE / 2.0,
+        tile_pos.y * TILE_SIZE + TILE_SIZE / 2.0
+    )
+func world_to_tile_position(world_pos: Vector2) -> Vector2i:
+    return Vector2i(
+        floor(world_pos.x / float(TILE_SIZE)),
+        floor(world_pos.y / float(TILE_SIZE))
+    )
+
 func check_grass_at_position(pos: Vector2):
     var chunk = get_chunk_at_world(pos)
     if chunk == null:
