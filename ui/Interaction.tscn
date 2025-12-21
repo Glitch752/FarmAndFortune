@@ -8,3 +8,4 @@ script = ExtResource("1_ato7f")
 
 [node name="InteractionHighlight" parent="." instance=ExtResource("2_hkuyk")]
 unique_name_in_owner = true
+z_index = 0
