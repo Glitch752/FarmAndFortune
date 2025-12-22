@@ -1,4 +1,4 @@
-extends Polygon2D
+extends Node2D
 
 const JAGGED_STRENGTH: float = 0.1 # how much the edges stick out
 const JAGGED_DETAIL: int = 3 # how many extra points per edge

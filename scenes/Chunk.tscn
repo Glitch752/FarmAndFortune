@@ -51,7 +51,9 @@ color = Color(0.1342, 0.22, 0.18568, 1)
 y_offset = 1.0
 metadata/_custom_type_script = "uid://5ac4txrji5f3"
 
-[node name="Chunk" type="Node2D"]
+[node name="Chunk" type="Polygon2D"]
+clip_children = 1
+polygon = PackedVector2Array(0, 0, 160, 0, 160, 180, 0, 180)
 script = ExtResource("1_hq0pm")
 
 [node name="Water" type="Polygon2D" parent="."]
