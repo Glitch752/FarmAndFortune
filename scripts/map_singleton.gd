@@ -6,6 +6,7 @@ const CHUNK_SIZE = 10
 const MAP_SIZE = 9
 
 enum TerrainType {
+    NONE,
     GRASS,
     WATER
 }
@@ -20,7 +21,7 @@ func get_chunk_at_world(world_pos: Vector2) -> MapChunk:
         floor(world_pos.y / float(CHUNK_SIZE * TILE_SIZE))
     )
     return get_chunk_at(chunk_pos)
-func get_terrain_at(tile_pos: Vector2i) -> int:
+func get_terrain_at(tile_pos: Vector2i) -> TerrainType:
     var chunk_pos = Vector2i(
         floor(tile_pos.x / float(CHUNK_SIZE)),
         floor(tile_pos.y / float(CHUNK_SIZE))
@@ -31,9 +32,9 @@ func get_terrain_at(tile_pos: Vector2i) -> int:
     )
     var chunk = get_chunk_at(chunk_pos)
     if chunk == null:
-        return -1
+        return TerrainType.NONE
     return chunk._get_terrain_at(local_pos)
-func get_terrain_at_world(world_pos: Vector2) -> int:
+func get_terrain_at_world(world_pos: Vector2) -> TerrainType:
     var tile_pos = Vector2i(
         floor(world_pos.x / float(TILE_SIZE)),
         floor(world_pos.y / float(TILE_SIZE))

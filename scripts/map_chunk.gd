@@ -20,7 +20,6 @@ func generate_grass_position_cache():
 
     var scatter_count = 250 * MapSingleton.CHUNK_SIZE * MapSingleton.CHUNK_SIZE
     var base_scale = 0.6
-    var side_margin = base_scale * 1.5
 
     for i in scatter_count:
         var x = randf() * extent * 2 - extent
@@ -59,11 +58,11 @@ func check_grass_at_position(local_pos: Vector2) -> bool:
             
     return false
 
-func _get_terrain_at(local_pos: Vector2i) -> int:
+func _get_terrain_at(local_pos: Vector2i) -> MapSingleton.TerrainType:
     var index = local_pos.y * MapSingleton.CHUNK_SIZE + local_pos.x
     if index < 0 or index >= terrain_types.size():
-        return -1
-    return terrain_types[index]
+        return MapSingleton.TerrainType.NONE
+    return terrain_types[index] as MapSingleton.TerrainType
 
 func is_tile_in_chunk(tile: Vector2i) -> bool:
     return tile.x >= 0 and tile.x < MapSingleton.CHUNK_SIZE and tile.y >= 0 and tile.y < MapSingleton.CHUNK_SIZE

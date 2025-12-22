@@ -3,6 +3,9 @@ extends MultiMeshInstance2D
 @onready var chunk: Node2D = $".."
 
 func _ready() -> void:
+    generate_mesh_positions()
+
+func generate_mesh_positions():
     # Calculate the extent from the tilemap size
     # var extent = max(tiles.get_used_rect().size.x, tiles.get_used_rect().size.y) * tiles.tile_set.tile_size.x / 2
 
@@ -36,7 +39,7 @@ func _ready() -> void:
     var extent = MapSingleton.CHUNK_SIZE * MapSingleton.TILE_SIZE / float(2)
     multimesh.custom_aabb = AABB(Vector3(-extent, -extent, 0), Vector3(extent * 2, extent * 2, 0))
 
-    var chunk_data = $"..".chunk_data
+    var chunk_data = $"../..".chunk_data
     var grass_transforms: Array[Transform2D] = chunk_data.grass_transforms
 
     multimesh.instance_count = grass_transforms.size()

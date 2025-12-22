@@ -12,6 +12,12 @@ var interaction_shortcuts: Dictionary[Key, InteractionType] = {
     Key.KEY_3: InteractionType.Harvest
 }
 
+signal highlight_changed(new_tile: Vector2i)
+var highlighted_tile: Vector2i = Vector2i.ZERO:
+    set(tile):
+        highlighted_tile = tile
+        highlight_changed.emit(tile)
+
 signal interaction_changed(current_interaction: InteractionType)
 var current_interaction: InteractionType = InteractionType.Dig:
     set(value):

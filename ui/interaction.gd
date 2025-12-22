@@ -5,6 +5,7 @@ extends Node2D
 var highlighted_tile: Vector2i = Vector2i.ZERO:
     set(tile):
         highlighted_tile = tile
+        InteractionSingleton.highlighted_tile = tile
         interp_highlight()
 var highlight_color: Color:
     set(value):
@@ -26,8 +27,7 @@ func _on_interaction_changed(current_interaction: InteractionSingleton.Interacti
             highlight_color = Color(0.5, 1, 0.5)
         InteractionSingleton.InteractionType.Harvest:
             highlight_color = Color(0.5, 0.5, 1)
-            
-
+    
 func _process(_d) -> void:
     var pos = get_viewport().get_camera_2d().get_global_mouse_position()
     highlighted_tile = MapSingleton.world_to_tile_position(pos)

@@ -1,0 +1,49 @@
+[gd_scene load_steps=7 format=3 uid="uid://6ef38i4nu0r2"]
+
+[ext_resource type="Script" uid="uid://dx5c0ryk3pbwt" path="res://world/chunks/ground_mesh.gd" id="1_cin2m"]
+[ext_resource type="Script" uid="uid://5ac4txrji5f3" path="res://world/chunks/ground_layer.gd" id="2_pgmgs"]
+
+[sub_resource type="Resource" id="Resource_v74x4"]
+script = ExtResource("2_pgmgs")
+color = Color(0.35686275, 0.22745098, 0.1254902, 1)
+y_offset = 1.5
+metadata/_custom_type_script = "uid://5ac4txrji5f3"
+
+[sub_resource type="Resource" id="Resource_pgmgs"]
+script = ExtResource("2_pgmgs")
+color = Color(0.36078432, 0.2901961, 0.23529412, 1)
+y_offset = -0.5
+metadata/_custom_type_script = "uid://5ac4txrji5f3"
+
+[sub_resource type="Resource" id="Resource_7832n"]
+script = ExtResource("2_pgmgs")
+color = Color(0.58431375, 0.65882355, 0.41568628, 1)
+y_offset = 1.0
+metadata/_custom_type_script = "uid://5ac4txrji5f3"
+
+[sub_resource type="Resource" id="Resource_1scgv"]
+script = ExtResource("2_pgmgs")
+color = Color(0.2627451, 0.37254903, 0.32941177, 1)
+y_offset = 0.5
+metadata/_custom_type_script = "uid://5ac4txrji5f3"
+
+[node name="GroundMesh" type="Polygon2D"]
+clip_children = 1
+polygon = PackedVector2Array(0, 0, 160, 0, 160, 180, 0, 180)
+script = ExtResource("1_cin2m")
+layers = Array[ExtResource("2_pgmgs")]([SubResource("Resource_v74x4"), SubResource("Resource_pgmgs"), SubResource("Resource_7832n"), SubResource("Resource_1scgv")])
+
+[node name="Dirt" type="MeshInstance2D" parent="."]
+modulate = Color(0.35686275, 0.22745098, 0.1254902, 1)
+position = Vector2(0, 1.5)
+
+[node name="Dirt2" type="MeshInstance2D" parent="."]
+modulate = Color(0.36, 0.28860003, 0.234, 1)
+position = Vector2(0, -0.5)
+
+[node name="Sand" type="MeshInstance2D" parent="."]
+modulate = Color(0.58431375, 0.65882355, 0.41568628, 1)
+position = Vector2(0, 1)
+
+[node name="Grass" type="MeshInstance2D" parent="."]
+modulate = Color(0.2627451, 0.37254903, 0.32941177, 1)

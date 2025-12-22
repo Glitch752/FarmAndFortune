@@ -27,10 +27,10 @@ func _ready():
     # limits to the world size
     var world_size = MapSingleton.MAP_SIZE * MapSingleton.CHUNK_SIZE * MapSingleton.TILE_SIZE
     camera.position = Vector2(world_size, world_size) / 2.0
-    camera.limit_left = 0
-    camera.limit_top = 0
-    camera.limit_right = world_size
-    camera.limit_bottom = world_size
+    camera.limit_left = MapSingleton.TILE_SIZE / 2.0
+    camera.limit_top = MapSingleton.TILE_SIZE / 2.0
+    camera.limit_right = world_size - MapSingleton.TILE_SIZE / 2.0
+    camera.limit_bottom = world_size - MapSingleton.TILE_SIZE / 2.0
 
 # Find what chunks are visible and update them if they are
 func _process(_delta):
