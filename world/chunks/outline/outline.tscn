@@ -6,6 +6,9 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o3c2t"]
 shader = ExtResource("1_15px5")
 shader_parameter/STRIPE_COLOR = Color(0.039215688, 0.039215688, 0.050980393, 1)
+shader_parameter/stripe_width = 0.08
+shader_parameter/stripe_spacing = 0.2
+shader_parameter/speed = 0.03
 
 [sub_resource type="Gradient" id="Gradient_15px5"]
 interpolation_mode = 1
@@ -20,7 +23,7 @@ z_index = 10
 color = Color(1, 1, 1, 0)
 polygon = PackedVector2Array(-80, -80, 80, -80, 80, 80, -80, 80)
 script = ExtResource("2_ymc4b")
-outline_color = Color(0.86, 0.6272267, 0.61920005, 0.50980395)
+outline_color = Color(0.86, 0.6272267, 0.61920005, 0.7176471)
 outline_thickness = 0.35
 outline_dashed = true
 dash_length = 4.0

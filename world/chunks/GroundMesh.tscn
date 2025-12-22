@@ -32,18 +32,3 @@ clip_children = 1
 polygon = PackedVector2Array(0, 0, 160, 0, 160, 180, 0, 180)
 script = ExtResource("1_cin2m")
 layers = Array[ExtResource("2_pgmgs")]([SubResource("Resource_v74x4"), SubResource("Resource_pgmgs"), SubResource("Resource_7832n"), SubResource("Resource_1scgv")])
-
-[node name="Dirt" type="MeshInstance2D" parent="."]
-modulate = Color(0.35686275, 0.22745098, 0.1254902, 1)
-position = Vector2(0, 1.5)
-
-[node name="Dirt2" type="MeshInstance2D" parent="."]
-modulate = Color(0.36, 0.28860003, 0.234, 1)
-position = Vector2(0, -0.5)
-
-[node name="Sand" type="MeshInstance2D" parent="."]
-modulate = Color(0.58431375, 0.65882355, 0.41568628, 1)
-position = Vector2(0, 1)
-
-[node name="Grass" type="MeshInstance2D" parent="."]
-modulate = Color(0.2627451, 0.37254903, 0.32941177, 1)

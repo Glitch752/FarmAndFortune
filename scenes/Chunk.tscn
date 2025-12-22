@@ -1,12 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://brwdoqe1trhyn"]
+[gd_scene load_steps=15 format=3 uid="uid://brwdoqe1trhyn"]
 
 [ext_resource type="Script" uid="uid://qelv7y1ox7hi" path="res://world/chunks/chunk.gd" id="1_hq0pm"]
 [ext_resource type="Shader" uid="uid://b5yvihuuu18ex" path="res://graphics/water.gdshader" id="2_o3c2t"]
 [ext_resource type="Script" uid="uid://c1u7imhx7fpqr" path="res://world/chunks/water/water.gd" id="3_gbv6n"]
 [ext_resource type="PackedScene" uid="uid://6ef38i4nu0r2" path="res://world/chunks/GroundMesh.tscn" id="4_hq0pm"]
 [ext_resource type="PackedScene" uid="uid://big08vlywlkf0" path="res://world/chunks/outline/outline.tscn" id="4_unaa7"]
+[ext_resource type="Script" uid="uid://5ac4txrji5f3" path="res://world/chunks/ground_layer.gd" id="5_o3c2t"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hq0pm"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o3c2t"]
 shader = ExtResource("2_o3c2t")
 shader_parameter/WATER_BASE_COLOR = Color(0.2132, 0.2899, 0.52, 1)
 shader_parameter/UV_OFFSET = Vector2(0, 0)
@@ -14,12 +15,48 @@ shader_parameter/FOAM_TEXTURE_MARGIN = 1
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_xtyve"]
 
+[sub_resource type="Resource" id="Resource_o3c2t"]
+script = ExtResource("5_o3c2t")
+color = Color(0.36078432, 0.2901961, 0.23529412, 1)
+y_offset = 0.5
+metadata/_custom_type_script = "uid://5ac4txrji5f3"
+
+[sub_resource type="Resource" id="Resource_7832n"]
+script = ExtResource("5_o3c2t")
+color = Color(0.58431375, 0.65882355, 0.41568628, 1)
+y_offset = 1.0
+metadata/_custom_type_script = "uid://5ac4txrji5f3"
+
+[sub_resource type="Resource" id="Resource_pgmgs"]
+script = ExtResource("5_o3c2t")
+color = Color(0.36078432, 0.2901961, 0.23529412, 1)
+y_offset = -0.5
+metadata/_custom_type_script = "uid://5ac4txrji5f3"
+
+[sub_resource type="Resource" id="Resource_v74x4"]
+script = ExtResource("5_o3c2t")
+color = Color(0.35686275, 0.22745098, 0.1254902, 1)
+y_offset = 1.5
+metadata/_custom_type_script = "uid://5ac4txrji5f3"
+
+[sub_resource type="Resource" id="Resource_1scgv"]
+script = ExtResource("5_o3c2t")
+color = Color(0.2627451, 0.37254903, 0.32941177, 1)
+y_offset = 0.5
+metadata/_custom_type_script = "uid://5ac4txrji5f3"
+
+[sub_resource type="Resource" id="Resource_gbv6n"]
+script = ExtResource("5_o3c2t")
+color = Color(0.1342, 0.22, 0.18568, 1)
+y_offset = 1.0
+metadata/_custom_type_script = "uid://5ac4txrji5f3"
+
 [node name="Chunk" type="Node2D"]
 script = ExtResource("1_hq0pm")
 
 [node name="Water" type="Polygon2D" parent="."]
 z_index = -100
-material = SubResource("ShaderMaterial_hq0pm")
+material = SubResource("ShaderMaterial_o3c2t")
 position = Vector2(80, 80)
 texture = SubResource("PlaceholderTexture2D_xtyve")
 polygon = PackedVector2Array(-80, -80, 80, -80, 80, 80, -80, 80)
@@ -30,6 +67,16 @@ script = ExtResource("3_gbv6n")
 unique_name_in_owner = true
 
 [node name="UnderMesh" parent="Ground" instance=ExtResource("4_hq0pm")]
+terrain_types = Array[int]([0, 1, 2])
+layers = Array[ExtResource("5_o3c2t")]([SubResource("Resource_o3c2t"), SubResource("Resource_7832n"), SubResource("Resource_pgmgs"), SubResource("Resource_v74x4")])
+update_on_changes = false
+
+[node name="GrassMesh" parent="Ground" instance=ExtResource("4_hq0pm")]
+z_index = 4
+z_as_relative = false
+terrain_types = Array[int]([0, 1])
+layers = Array[ExtResource("5_o3c2t")]([SubResource("Resource_1scgv"), SubResource("Resource_gbv6n")])
 
 [node name="Outline" parent="." instance=ExtResource("4_unaa7")]
+z_index = 20
 position = Vector2(80, 80)

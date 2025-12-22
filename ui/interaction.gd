@@ -31,3 +31,7 @@ func _on_interaction_changed(current_interaction: InteractionSingleton.Interacti
 func _process(_d) -> void:
     var pos = get_viewport().get_camera_2d().get_global_mouse_position()
     highlighted_tile = MapSingleton.world_to_tile_position(pos)
+
+    if Input.is_action_pressed("interact"):
+        InteractionSingleton.interact()
+        get_viewport().set_input_as_handled()

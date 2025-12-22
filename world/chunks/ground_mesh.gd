@@ -11,9 +11,12 @@ var chunk_position: Vector2i
 
 var ground_mesh: ArrayMesh = null
 
+## This is a hack, but easier than manually checking if we need to update lol
+@export var update_on_changes: bool = true
+
 func _ready():
     # Add a child MeshInstance2D for each layer
-    var i = 0
+    var i = layers.size()
     for layer in layers:
         var mesh_instance = MeshInstance2D.new()
         mesh_instance.modulate = layer.color
@@ -27,11 +30,18 @@ func _ready():
     if ground_mesh != null:
         for child in get_children():
             child.mesh = ground_mesh
+    
+    if update_on_changes:
+        chunk_data.half_tile_changed.connect(_on_terrain_changed)
 
+# Should be called before _ready.
 func init(data: MapChunk, pos: Vector2i):
     chunk_data = data
     chunk_position = pos
 
+    generate_ground_polygon()
+
+func _on_terrain_changed():
     generate_ground_polygon()
 
 ## uses marching squares to generate a ground polygon based on the terrain types of the map
@@ -39,9 +49,9 @@ func generate_ground_polygon():
     chunk_data._cell_geometry_cache.clear()
 
     var is_filled = func(pos: Vector2i):
-        return MapSingleton.get_terrain_at(
+        return terrain_types.has(MapSingleton.get_terrain_at(
             pos + chunk_position * MapSingleton.CHUNK_SIZE
-        ) == MapSingleton.TerrainType.GRASS
+        ))
 
     # 1: TL, 2: TR, 4: BR, 8: BL
     var polygon_table = {

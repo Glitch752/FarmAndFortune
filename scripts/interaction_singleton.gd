@@ -62,3 +62,21 @@ func _scroll_input(event: InputEventMouseButton):
         cycle(-1)
         get_viewport().set_input_as_handled()
         return
+
+func interact():
+    match current_interaction:
+        InteractionType.Dig:
+            dig_at_tile(highlighted_tile)
+        InteractionType.Plant:
+            plant_at_tile(highlighted_tile)
+        InteractionType.Harvest:
+            harvest_at_tile(highlighted_tile)
+
+func dig_at_tile(tile: Vector2i) -> void:
+    if MapSingleton.get_terrain_at(tile) == MapSingleton.TerrainType.GRASS:
+        MapSingleton.set_terrain_at(tile, MapSingleton.TerrainType.SOIL)
+
+func plant_at_tile(tile: Vector2i) -> void:
+    pass
+func harvest_at_tile(tile: Vector2i) -> void:
+    pass

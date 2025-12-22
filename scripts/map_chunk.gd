@@ -3,6 +3,10 @@ class_name MapChunk
 
 var chunk_position: Vector2i = Vector2i.ZERO
 
+# Emitted when the half-tile offset chunk around this one is changed
+# (meaning either this chunk or an up/left neighbor).
+# Used to regenerate chunks' ground meshes.
+signal half_tile_changed()
 var terrain_types: PackedByteArray
 
 var _cell_geometry_cache: Dictionary[Vector2i, Array] = {}
@@ -58,11 +62,22 @@ func check_grass_at_position(local_pos: Vector2) -> bool:
             
     return false
 
-func _get_terrain_at(local_pos: Vector2i) -> MapSingleton.TerrainType:
+func is_tile_in_chunk(tile: Vector2i) -> bool:
+    return tile.x >= 0 and tile.x < MapSingleton.CHUNK_SIZE and tile.y >= 0 and tile.y < MapSingleton.CHUNK_SIZE
+
+func get_terrain_at(local_pos: Vector2i) -> MapSingleton.TerrainType:
     var index = local_pos.y * MapSingleton.CHUNK_SIZE + local_pos.x
     if index < 0 or index >= terrain_types.size():
         return MapSingleton.TerrainType.NONE
     return terrain_types[index] as MapSingleton.TerrainType
 
-func is_tile_in_chunk(tile: Vector2i) -> bool:
-    return tile.x >= 0 and tile.x < MapSingleton.CHUNK_SIZE and tile.y >= 0 and tile.y < MapSingleton.CHUNK_SIZE
+## Sets the terrain at the given local position and returns if it changed.
+## Doesn't emit signals.
+func set_terrain_at(local_pos: Vector2i, terrain: MapSingleton.TerrainType) -> bool:
+    var index = local_pos.y * MapSingleton.CHUNK_SIZE + local_pos.x
+    if index < 0 or index >= terrain_types.size():
+        return false
+    if terrain_types[index] == terrain:
+        return false
+    terrain_types[index] = terrain
+    return true
