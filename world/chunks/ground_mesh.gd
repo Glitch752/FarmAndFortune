@@ -13,6 +13,8 @@ var ground_mesh: ArrayMesh = null
 
 ## This is a hack, but easier than manually checking if we need to update lol
 @export var update_on_changes: bool = true
+## Also a hack - we only update the cell geometry cache (used for grass) for a specific layer.
+@export var cache_geometry: bool = false
 
 func _ready():
     # Add a child MeshInstance2D for each layer
@@ -32,7 +34,7 @@ func _ready():
             child.mesh = ground_mesh
     
     if update_on_changes:
-        chunk_data.half_tile_changed.connect(_on_terrain_changed)
+        chunk_data.regenerate_terrain.connect(_on_terrain_changed)
 
 # Should be called before _ready.
 func init(data: MapChunk, pos: Vector2i):
@@ -46,7 +48,8 @@ func _on_terrain_changed():
 
 ## uses marching squares to generate a ground polygon based on the terrain types of the map
 func generate_ground_polygon():
-    chunk_data._cell_geometry_cache.clear()
+    if cache_geometry:        
+        chunk_data._cell_geometry_cache.clear()
 
     var is_filled = func(pos: Vector2i):
         return terrain_types.has(MapSingleton.get_terrain_at(
@@ -102,7 +105,8 @@ func generate_ground_polygon():
                 
                 _triangulate_poly_fan(st, built_poly)
 
-            chunk_data._cell_geometry_cache[grid_pos] = final_polys
+            if cache_geometry:
+                chunk_data._cell_geometry_cache[grid_pos] = final_polys
 
     # 3. finalize
     st.index() # Optimize vertices (this is super inefficient anyway though oops)

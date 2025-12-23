@@ -6,15 +6,15 @@ func _ready() -> void:
     generate_mesh_positions()
 
     material = material.duplicate()
-    (material as ShaderMaterial).set_shader_parameter("chunk_pos",
-        chunk.chunk_position * MapSingleton.CHUNK_SIZE * MapSingleton.TILE_SIZE
+    (material as ShaderMaterial).set_shader_parameter("origin_pos",
+        Vector2(chunk.chunk_position) * MapSingleton.CHUNK_SIZE * MapSingleton.TILE_SIZE
+            + Vector2.ONE * MapSingleton.TILE_SIZE / 2.
     )
     (material as ShaderMaterial).set_shader_parameter("clip_x", MapSingleton.CHUNK_SIZE * MapSingleton.TILE_SIZE);
 
-func generate_mesh_positions():
-    # Calculate the extent from the tilemap size
-    # var extent = max(tiles.get_used_rect().size.x, tiles.get_used_rect().size.y) * tiles.tile_set.tile_size.x / 2
+    chunk.chunk_data.regenerate_grass.connect(generate_mesh_positions)
 
+func generate_mesh_positions():
     var mesh := ArrayMesh.new()
     var arrays = []
 
@@ -43,7 +43,7 @@ func generate_mesh_positions():
 
     # Prevents Godot from trying to calculate it
     var extent = MapSingleton.CHUNK_SIZE * MapSingleton.TILE_SIZE / float(2)
-    multimesh.custom_aabb = AABB(Vector3(-extent, -extent, 0), Vector3(extent * 2, extent * 2, 0))
+    multimesh.custom_aabb = AABB(Vector3(0, 0, 0), Vector3(extent * 2, extent * 2, 0))
 
     var chunk_data = chunk.chunk_data
     var grass_transforms: Array[Transform2D] = chunk_data.grass_transforms

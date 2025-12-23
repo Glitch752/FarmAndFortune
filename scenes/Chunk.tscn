@@ -78,6 +78,7 @@ z_index = 4
 z_as_relative = false
 terrain_types = Array[int]([0, 1])
 layers = Array[ExtResource("5_o3c2t")]([SubResource("Resource_1scgv"), SubResource("Resource_gbv6n")])
+cache_geometry = true
 
 [node name="Outline" parent="." instance=ExtResource("4_unaa7")]
 z_index = 20

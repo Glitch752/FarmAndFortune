@@ -3,14 +3,23 @@ class_name MapChunk
 
 var chunk_position: Vector2i = Vector2i.ZERO
 
-# Emitted when the half-tile offset chunk around this one is changed
-# (meaning either this chunk or an up/left neighbor).
-# Used to regenerate chunks' ground meshes.
-signal half_tile_changed()
 var terrain_types: PackedByteArray
 
 var _cell_geometry_cache: Dictionary[Vector2i, Array] = {}
 var grass_transforms: Array[Transform2D] = []
+
+signal regenerate_terrain()
+signal regenerate_grass()
+
+# Called when the half-tile offset chunk around this one is changed
+# (meaning either this chunk or an up/left neighbor).
+# Used to regenerate chunks
+func half_tile_changed():
+    regenerate_terrain.emit()
+
+    generate_grass_transforms()
+    
+    regenerate_grass.emit()
 
 signal unlocked_changed(new_unlocked: bool)
 var unlocked: bool = false:
@@ -19,28 +28,42 @@ var unlocked: bool = false:
             unlocked = val
             unlocked_changed.emit(val)
 
-func generate_grass_position_cache():
-    var extent = MapSingleton.CHUNK_SIZE * MapSingleton.TILE_SIZE / float(2)
-
-    var scatter_count = 250 * MapSingleton.CHUNK_SIZE * MapSingleton.CHUNK_SIZE
+static var grass_position_candidates: PackedFloat32Array = []
+static var grass_scale_cache: PackedFloat32Array = []
+static var scatter_count = 250 * MapSingleton.CHUNK_SIZE * MapSingleton.CHUNK_SIZE
+static var scatter_extent = MapSingleton.CHUNK_SIZE * MapSingleton.TILE_SIZE / float(2)
+static func generate_grass_position_candidates():
     var base_scale = 0.6
 
     for i in scatter_count:
-        var x = randf() * extent * 2 - extent
-        var y = float(i) / scatter_count * extent * 2 - extent
+        var x = randf() * scatter_extent * 2
+        grass_position_candidates.append(x)
+        grass_scale_cache.append(randf() * base_scale + base_scale)
 
-        if not check_grass_at_position(Vector2(
-            x + extent,
-            y + extent
-        )):
+
+func generate_grass_transforms():
+    if grass_position_candidates.size() == 0:
+        generate_grass_position_candidates()
+    
+    grass_transforms = []
+
+    var start_time = Time.get_ticks_msec()
+
+    for i in scatter_count:
+        var x = grass_position_candidates[i]
+        var y = float(i) / scatter_count * scatter_extent * 2
+
+        if not check_grass_at_position(Vector2(x, y)):
             continue
         
-        var instance_scale = randf() * base_scale + base_scale
         var instance_transform = Transform2D()\
-            .scaled(Vector2.ONE * instance_scale)\
+            .scaled(Vector2.ONE * grass_scale_cache[i])\
             .translated(Vector2(x, y))
 
         grass_transforms.append(instance_transform)
+
+    print_rich("[color=green]Generated grass positions for chunk %s in %d ms, %d instances[/color]" %
+        [chunk_position, Time.get_ticks_msec() - start_time, grass_transforms.size()])
 
 func check_grass_at_position(local_pos: Vector2) -> bool:
     var grid_x = floori(local_pos.x / MapSingleton.TILE_SIZE)

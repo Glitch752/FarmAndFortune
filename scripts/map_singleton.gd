@@ -57,19 +57,19 @@ func set_terrain_at(tile_pos: Vector2i, terrain: TerrainType) -> void:
         return
     if chunk.set_terrain_at(local_pos, terrain):
         # The tile changed; update all required chunks
-        chunk.half_tile_changed.emit()
+        chunk.half_tile_changed()
         if local_pos.x == 0:
             var left_chunk = get_chunk_at(chunk_pos + Vector2i(-1, 0))
             if left_chunk != null:
-                left_chunk.half_tile_changed.emit()
+                left_chunk.half_tile_changed()
         if local_pos.y == 0:
             var up_chunk = get_chunk_at(chunk_pos + Vector2i(0, -1))
             if up_chunk != null:
-                up_chunk.half_tile_changed.emit()
+                up_chunk.half_tile_changed()
         if local_pos.x == 0 and local_pos.y == 0:
             var up_left_chunk = get_chunk_at(chunk_pos + Vector2i(-1, -1))
             if up_left_chunk != null:
-                up_left_chunk.half_tile_changed.emit()
+                up_left_chunk.half_tile_changed()
 
 func tile_to_world_position(tile_pos: Vector2i) -> Vector2:
     return Vector2(

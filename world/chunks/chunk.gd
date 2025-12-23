@@ -19,7 +19,7 @@ func generate() -> void:
     for ground_mesh in $%Ground.get_children():
         ground_mesh.init(chunk_data, chunk_position)
 
-    chunk_data.generate_grass_position_cache()
+    chunk_data.generate_grass_transforms()
 
 func _ready():
     camera_visibility_changed.connect(_on_camera_visibility_changed)
@@ -33,7 +33,6 @@ func _on_camera_visibility_changed(new_visibility: bool) -> void:
 
     if new_visibility:
         var grass = preload("./grass/grass.tscn").instantiate()
-        grass.position = Vector2.ONE * (MapSingleton.TILE_SIZE * MapSingleton.CHUNK_SIZE / 2.)
         grass.name = "Grass"
         grass.z_index = 10
         $%Ground.add_child(grass)

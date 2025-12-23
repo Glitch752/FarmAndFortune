@@ -18,6 +18,9 @@ func _ready():
             )
             chunk.generate()
 
+            if x == floor(MapSingleton.MAP_SIZE / 2.) and y == floor(MapSingleton.MAP_SIZE / 2.):
+                chunk.name = "Origin"
+
             chunks.append(chunk)
     
     for chunk in chunks:

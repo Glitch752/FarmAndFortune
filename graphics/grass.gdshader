@@ -27,7 +27,7 @@ float fbm(float x, float time, float offset, float position_sum, int octaves, fl
     return value;
 }
 
-uniform vec2 chunk_pos;
+uniform vec2 origin_pos;
 uniform float clip_x;
 
 varying flat vec3 model_pos;
@@ -52,38 +52,36 @@ void vertex() {
     instance_id = INSTANCE_ID;
 
     // local position within the chunk for clipping
-    local_pos = VERTEX.xy - chunk_pos;
+    local_pos = VERTEX.xy - origin_pos;
 }
 
 void fragment() {
     // local model position is used to clip pixels outside of the chunk
-    COLOR = vec4(0.0, local_pos.y, 0.0, 1.0);
-    if(local_pos.x < 0.0 || local_pos.x > clip_x) {
-        // discard;
-        COLOR.r = 1.0;
+    if(local_pos.x < 0. || local_pos.x > clip_x) {
+        discard;
     }
 
-    // vec3 color = TOP_COLOR;
+    vec3 color = TOP_COLOR;
 
-    // // Add small variation based on position and per-blade randomness
-    // float blade_rand = hashNormalized(instance_id);
-    // float pos_var = texture(NOISE_TEXTURE, model_pos.xy * 0.0005).r;
+    // Add small variation based on position and per-blade randomness
+    float blade_rand = hashNormalized(instance_id);
+    float pos_var = texture(NOISE_TEXTURE, model_pos.xy * 0.0005).r;
 
-    // float variation = (pos_var * 0.4 - 0.2) + (blade_rand * 0.1 - 0.05);
-    // color += variation;
+    float variation = (pos_var * 0.4 - 0.2) + (blade_rand * 0.1 - 0.05);
+    color += variation;
 
-    // float height_ratio = UV.y;
+    float height_ratio = UV.y;
 
-    // // Stylized white shading stripe on the right side of the blade
-    // float triangle_x = 0.5 + (UV.x - 0.5) / UV.y;
-    // float stripe = smoothstep(0.6, 0.95, triangle_x);
-    // color += stripe * 0.3;
+    // Stylized white shading stripe on the right side of the blade
+    float triangle_x = 0.5 + (UV.x - 0.5) / UV.y;
+    float stripe = smoothstep(0.6, 0.95, triangle_x);
+    color += stripe * 0.3;
 
-    // color = mix(color, BOTTOM_COLOR, height_ratio);
+    color = mix(color, BOTTOM_COLOR, height_ratio);
 
-    // // Toon shading
-    // // int toon_levels = 16;
-    // // color = floor(color * float(color)) / float(toon_levels);
+    // Toon shading
+    // int toon_levels = 16;
+    // color = floor(color * float(color)) / float(toon_levels);
 
-    // COLOR = vec4(color, 1.0);
+    COLOR = vec4(color, 1.0);
 }
