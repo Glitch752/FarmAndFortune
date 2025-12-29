@@ -14,6 +14,32 @@ static func debounce(debouncee: Callable, delay_seconds: float) -> Callable:
             last_call_time.time = current_time
             debouncee.callv(args)
 
+class _AsyncDebounceState:
+    var is_running: bool = false
+    var pending_call: bool = false
+
+## Ensures the given async function can only be running once at a time. If multiple calls are made while it's running, only the last one will run again after it finishes.
+static func async_debounce(debouncee: Callable) -> Callable:
+    var state: _AsyncDebounceState = _AsyncDebounceState.new()
+
+    return func(args: Array) -> void:
+        if state.is_running:
+            state.pending_call = true
+            return
+
+        state.is_running = true
+        await debouncee.callv(args)
+        state.is_running = false
+
+        print("First call finished, pending_call =", state.pending_call)
+
+        while state.pending_call:
+            state.pending_call = false
+            
+            state.is_running = true
+            await debouncee.callv(args)
+            state.is_running = false
+
 static func async_lock(mutex: Mutex, timeout_ms: int = 1000) -> bool:
     while true:
         var locked = mutex.try_lock()

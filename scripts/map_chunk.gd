@@ -1,6 +1,8 @@
 
 class_name MapChunk
 
+var async_debounce = preload("res://scripts/utils.gd").async_debounce
+
 var chunk_position: Vector2i = Vector2i.ZERO
 
 var terrain_types: PackedByteArray
@@ -15,12 +17,20 @@ signal terrain_regenerated()
 
 signal regenerate_grass()
 
+var _half_tile_changed_debounce = async_debounce.call(_half_tile_changed)
+func half_tile_changed():
+    _half_tile_changed_debounce.call([])
+
 # Called when the half-tile offset chunk around this one is changed
 # (meaning either this chunk or an up/left neighbor).
 # Used to regenerate chunks
-func half_tile_changed():
-    regenerate_terrain.emit()
+func _half_tile_changed():
+    print("half-tile changed for chunk %s, regenerating terrain and grass" % chunk_position)
+
+    regenerate_terrain.emit.call_deferred()
     await terrain_regenerated
+    
+    print("regenerated signal")
 
     await ThreadPool.get_instance().submit(self.generate_grass_transforms)
     
