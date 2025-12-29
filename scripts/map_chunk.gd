@@ -6,9 +6,13 @@ var chunk_position: Vector2i = Vector2i.ZERO
 var terrain_types: PackedByteArray
 
 var _cell_geometry_cache: Dictionary[Vector2i, Array] = {}
+# Thread safety: We only sequentially access this after generating it in a thread.
 var grass_transforms: Array[Transform2D] = []
+var transforms_mutex: Mutex = Mutex.new()
 
 signal regenerate_terrain()
+signal terrain_regenerated()
+
 signal regenerate_grass()
 
 # Called when the half-tile offset chunk around this one is changed
@@ -16,8 +20,9 @@ signal regenerate_grass()
 # Used to regenerate chunks
 func half_tile_changed():
     regenerate_terrain.emit()
+    await terrain_regenerated
 
-    generate_grass_transforms()
+    await ThreadPool.get_instance().submit(self.generate_grass_transforms)
     
     regenerate_grass.emit()
 
@@ -44,11 +49,14 @@ static func generate_grass_position_candidates():
 func generate_grass_transforms():
     if grass_position_candidates.size() == 0:
         generate_grass_position_candidates()
-    
-    grass_transforms = []
 
     var start_time = Time.get_ticks_msec()
 
+    transforms_mutex.lock()
+
+    grass_transforms.clear()
+    grass_transforms.resize(scatter_count)
+    var idx = 0
     for i in scatter_count:
         var x = grass_position_candidates[i]
         var y = float(i) / scatter_count * scatter_extent * 2
@@ -60,7 +68,11 @@ func generate_grass_transforms():
             .scaled(Vector2.ONE * grass_scale_cache[i])\
             .translated(Vector2(x, y))
 
-        grass_transforms.append(instance_transform)
+        grass_transforms[idx] = instance_transform
+        idx += 1
+    grass_transforms.resize(idx)
+
+    transforms_mutex.unlock()
 
     print_rich("[color=green]Generated grass positions for chunk %s in %d ms, %d instances[/color]" %
         [chunk_position, Time.get_ticks_msec() - start_time, grass_transforms.size()])

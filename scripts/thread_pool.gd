@@ -5,6 +5,8 @@ class_name ThreadPool
 # Singleton
 static var _instance: ThreadPool = ThreadPool.new()
 static func get_instance() -> ThreadPool:
+    if not _instance.is_running():
+        _instance.start()
     return _instance
 
 class ThreadPoolJob:
@@ -17,10 +19,14 @@ class ThreadPoolJob:
         callable = _callable
         args = _args
 
+class JobResult:
+    signal completed(result: Variant)
+
 var _threads: Array = []
 var _semaphore: Semaphore = Semaphore.new()
 var _mutex: Mutex = Mutex.new()
 var _job_queue: Array[ThreadPoolJob] = []
+var _job_results: Dictionary[int, JobResult] = {}
 var _quit: bool = false
 var _next_job_id: int = 1
 
@@ -38,20 +44,28 @@ func start(count: int = 4) -> void:
 
 # Submit a job: a Callable and optional Array of args.
 # Returns an integer job id.
-func submit(callable: Callable, args: Array = []) -> int:
+func submit(callable: Callable, args: Array = []) -> Variant:
     if not callable:
         push_error("ThreadPool.submit: callable is null")
         return -1
     _mutex.lock()
+
     var job_id = _next_job_id
     _next_job_id += 1
     _job_queue.append(ThreadPoolJob.new(job_id, callable, args))
+    _job_results[job_id] = JobResult.new()
+    
     _mutex.unlock()
 
     # wake one worker
     _semaphore.post()
-    
-    return job_id
+
+    return await _job_results[job_id].completed
+
+func return_result(id: int, result: Variant) -> void:
+    if _job_results.has(id):
+        var res: JobResult = _job_results[id]
+        res.completed.emit(result)
 
 # worker entrypoint; runs in thread
 func _worker() -> void:
@@ -70,12 +84,10 @@ func _worker() -> void:
         _mutex.unlock()
         
         # execute the callable
-        var c: Callable = job.callable
-        var a: Array = job.get("args", [])
-        var result = c.callv(a)
+        var result: Variant = job.callable.callv(job.args)
         
-        # TODO: emit results (with a signal?)
-        print(result)
+        # Call on the main thread
+        return_result.call_deferred(job.id, result)
 
 # shut down the pool. if wait is true, joins threads before returning.
 func shutdown(wait: bool = true) -> void:

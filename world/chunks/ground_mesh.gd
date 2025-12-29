@@ -1,5 +1,7 @@
 extends Node2D
 
+const async_lock = preload("res://scripts/utils.gd").async_lock
+
 const JAGGED_STRENGTH: float = 0.1 # how much the edges stick out
 const JAGGED_DETAIL: int = 3 # how many extra points per edge
 
@@ -44,11 +46,17 @@ func init(data: MapChunk, pos: Vector2i):
     generate_ground_polygon()
 
 func _on_terrain_changed():
-    generate_ground_polygon()
+    await generate_ground_polygon()
+    chunk_data.terrain_regenerated.emit()
 
 ## uses marching squares to generate a ground polygon based on the terrain types of the map
 func generate_ground_polygon():
     if cache_geometry:        
+        if not await async_lock.call(chunk_data.transforms_mutex):
+            print("could not lock transforms mutex for chunk %s when generating ground mesh. Avoided blocking." %
+                chunk_position)
+            return
+        
         chunk_data._cell_geometry_cache.clear()
 
     var is_filled = func(pos: Vector2i):
@@ -107,6 +115,9 @@ func generate_ground_polygon():
 
             if cache_geometry:
                 chunk_data._cell_geometry_cache[grid_pos] = final_polys
+
+    if cache_geometry:
+        chunk_data.transforms_mutex.unlock()
 
     # 3. finalize
     st.index() # Optimize vertices (this is super inefficient anyway though oops)
