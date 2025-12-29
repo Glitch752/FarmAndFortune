@@ -25,6 +25,8 @@ func _ready():
         var mesh_instance = MeshInstance2D.new()
         mesh_instance.modulate = layer.color
         mesh_instance.position = Vector2(0, layer.y_offset)
+        if layer.material != null:
+            mesh_instance.material = layer.material
         
         i -= 1
         mesh_instance.z_index = i
@@ -58,6 +60,8 @@ func generate_ground_polygon():
             return
         
         chunk_data._cell_geometry_cache.clear()
+    
+    var start_time = Time.get_ticks_msec()
 
     var is_filled = func(pos: Vector2i):
         return terrain_types.has(MapSingleton.get_terrain_at(
@@ -126,6 +130,9 @@ func generate_ground_polygon():
     if is_node_ready():
         for child in get_children():
             child.mesh = ground_mesh
+    
+    print_rich("[color=green]Generated ground mesh for chunk %s in %d ms[/color]" %
+        [chunk_position, Time.get_ticks_msec() - start_time])
 
 
 func _triangulate_poly_fan(st: SurfaceTool, poly: PackedVector2Array):
@@ -136,6 +143,7 @@ func _triangulate_poly_fan(st: SurfaceTool, poly: PackedVector2Array):
     center /= poly.size()
 
     var add_vertex = func(v: Vector2):
+        st.set_uv(v / (MapSingleton.TILE_SIZE * MapSingleton.CHUNK_SIZE) + Vector2(chunk_position))
         st.add_vertex(Vector3(v.x, v.y, 0))
     
     for i in range(poly.size()):

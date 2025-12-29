@@ -29,8 +29,6 @@ func _half_tile_changed():
 
     regenerate_terrain.emit.call_deferred()
     await terrain_regenerated
-    
-    print("regenerated signal")
 
     await ThreadPool.get_instance().submit(self.generate_grass_transforms)
     

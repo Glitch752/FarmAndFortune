@@ -1,0 +1,21 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://dsb8nd84nytol"]
+
+[ext_resource type="Shader" uid="uid://b3jhr7wa36wjs" path="res://graphics/dirt.gdshader" id="1_p6cxl"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gbv6n"]
+frequency = 0.0293
+fractal_octaves = 6
+domain_warp_type = 2
+domain_warp_amplitude = 9.255
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xtyve"]
+width = 256
+height = 256
+noise = SubResource("FastNoiseLite_gbv6n")
+seamless = true
+seamless_blend_skirt = 0.356
+
+[resource]
+shader = ExtResource("1_p6cxl")
+shader_parameter/scale = 0.19
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_xtyve")

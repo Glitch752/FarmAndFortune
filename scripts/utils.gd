@@ -31,8 +31,6 @@ static func async_debounce(debouncee: Callable) -> Callable:
         await debouncee.callv(args)
         state.is_running = false
 
-        print("First call finished, pending_call =", state.pending_call)
-
         while state.pending_call:
             state.pending_call = false
             

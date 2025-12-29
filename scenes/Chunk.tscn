@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://brwdoqe1trhyn"]
+[gd_scene load_steps=20 format=3 uid="uid://brwdoqe1trhyn"]
 
 [ext_resource type="Script" uid="uid://qelv7y1ox7hi" path="res://world/chunks/chunk.gd" id="1_hq0pm"]
 [ext_resource type="Shader" uid="uid://b5yvihuuu18ex" path="res://graphics/water.gdshader" id="2_o3c2t"]
@@ -6,8 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://6ef38i4nu0r2" path="res://world/chunks/GroundMesh.tscn" id="4_hq0pm"]
 [ext_resource type="PackedScene" uid="uid://big08vlywlkf0" path="res://world/chunks/outline/outline.tscn" id="4_unaa7"]
 [ext_resource type="Script" uid="uid://5ac4txrji5f3" path="res://world/chunks/ground_layer.gd" id="5_o3c2t"]
+[ext_resource type="Shader" uid="uid://b3jhr7wa36wjs" path="res://graphics/dirt.gdshader" id="6_gbv6n"]
+[ext_resource type="Script" uid="uid://bscdxsq5206ly" path="res://scripts/hot_reload_shader.gd" id="6_xtyve"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_o3c2t"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dbknb"]
 shader = ExtResource("2_o3c2t")
 shader_parameter/WATER_BASE_COLOR = Color(0.2132, 0.2899, 0.52, 1)
 shader_parameter/UV_OFFSET = Vector2(0, 0)
@@ -15,9 +17,30 @@ shader_parameter/FOAM_TEXTURE_MARGIN = 1
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_xtyve"]
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_gbv6n"]
+frequency = 0.0293
+fractal_octaves = 6
+domain_warp_type = 2
+domain_warp_amplitude = 9.255
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xtyve"]
+width = 256
+height = 256
+noise = SubResource("FastNoiseLite_gbv6n")
+seamless = true
+seamless_blend_skirt = 0.356
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s1c3b"]
+shader = ExtResource("6_gbv6n")
+shader_parameter/scale = 0.19
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_xtyve")
+script = ExtResource("6_xtyve")
+metadata/_custom_type_script = "uid://bscdxsq5206ly"
+
 [sub_resource type="Resource" id="Resource_o3c2t"]
 script = ExtResource("5_o3c2t")
-color = Color(0.36078432, 0.2901961, 0.23529412, 1)
+material = SubResource("ShaderMaterial_s1c3b")
+color = Color(0.43, 0.34471667, 0.2795, 1)
 y_offset = 0.5
 metadata/_custom_type_script = "uid://5ac4txrji5f3"
 
@@ -58,7 +81,7 @@ script = ExtResource("1_hq0pm")
 
 [node name="Water" type="Polygon2D" parent="."]
 z_index = -100
-material = SubResource("ShaderMaterial_o3c2t")
+material = SubResource("ShaderMaterial_dbknb")
 position = Vector2(80, 80)
 texture = SubResource("PlaceholderTexture2D_xtyve")
 polygon = PackedVector2Array(-80, -80, 80, -80, 80, 80, -80, 80)
