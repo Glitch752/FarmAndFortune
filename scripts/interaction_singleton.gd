@@ -54,16 +54,19 @@ func _unhandled_input(event: InputEvent) -> void:
 var _debounced_scroll = preload("res://scripts/utils.gd").debounce(_scroll_input, 0.2)
 
 func _scroll_input(event: InputEventMouseButton):
-    if event.button_index == MouseButton.MOUSE_BUTTON_WHEEL_UP:
+    if event.button_index == MouseButton.MOUSE_BUTTON_WHEEL_DOWN:
         cycle(1)
         get_viewport().set_input_as_handled()
         return
-    elif event.button_index == MouseButton.MOUSE_BUTTON_WHEEL_DOWN:
+    elif event.button_index == MouseButton.MOUSE_BUTTON_WHEEL_UP:
         cycle(-1)
         get_viewport().set_input_as_handled()
         return
 
 func interact():
+    if not MapSingleton.get_chunk_at_tile(highlighted_tile).unlocked:
+        return
+
     match current_interaction:
         InteractionType.Dig:
             dig_at_tile(highlighted_tile)

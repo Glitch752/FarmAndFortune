@@ -16,6 +16,12 @@ var chunks: Dictionary[Vector2i, MapChunk] = {}
 
 func get_chunk_at(chunk_pos: Vector2i) -> MapChunk:
     return chunks.get(chunk_pos, null)
+func get_chunk_at_tile(tile_pos: Vector2i) -> MapChunk:
+    var chunk_pos = Vector2i(
+        floor(tile_pos.x / float(CHUNK_SIZE)),
+        floor(tile_pos.y / float(CHUNK_SIZE))
+    )
+    return get_chunk_at(chunk_pos)
 func get_chunk_at_world(world_pos: Vector2) -> MapChunk:
     var chunk_pos = Vector2i(
         floor(world_pos.x / float(CHUNK_SIZE * TILE_SIZE)),

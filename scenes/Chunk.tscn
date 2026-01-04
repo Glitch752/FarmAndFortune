@@ -6,10 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://6ef38i4nu0r2" path="res://world/chunks/GroundMesh.tscn" id="4_hq0pm"]
 [ext_resource type="PackedScene" uid="uid://big08vlywlkf0" path="res://world/chunks/outline/outline.tscn" id="4_unaa7"]
 [ext_resource type="Script" uid="uid://5ac4txrji5f3" path="res://world/chunks/ground_layer.gd" id="5_o3c2t"]
-[ext_resource type="Shader" uid="uid://b3jhr7wa36wjs" path="res://graphics/dirt.gdshader" id="6_gbv6n"]
-[ext_resource type="Script" uid="uid://bscdxsq5206ly" path="res://scripts/hot_reload_shader.gd" id="6_xtyve"]
+[ext_resource type="Shader" path="res://graphics/dirt.gdshader" id="6_gbv6n"]
+[ext_resource type="Script" path="res://scripts/hot_reload_shader.gd" id="6_xtyve"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dbknb"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xtyve"]
 shader = ExtResource("2_o3c2t")
 shader_parameter/WATER_BASE_COLOR = Color(0.2132, 0.2899, 0.52, 1)
 shader_parameter/UV_OFFSET = Vector2(0, 0)
@@ -81,7 +81,7 @@ script = ExtResource("1_hq0pm")
 
 [node name="Water" type="Polygon2D" parent="."]
 z_index = -100
-material = SubResource("ShaderMaterial_dbknb")
+material = SubResource("ShaderMaterial_xtyve")
 position = Vector2(80, 80)
 texture = SubResource("PlaceholderTexture2D_xtyve")
 polygon = PackedVector2Array(-80, -80, 80, -80, 80, 80, -80, 80)
