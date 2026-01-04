@@ -517,6 +517,7 @@
                 const messageSpan = document.createElement('span');
                 messageSpan.className = 'commit-message';
                 messageSpan.innerText = commit.commit.message.split('\n')[0];
+                messageSpan.title = commit.commit.message;
                 commitElement.appendChild(messageSpan);
 
                 const timeSpan = document.createElement('span');

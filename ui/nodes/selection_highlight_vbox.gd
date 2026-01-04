@@ -7,13 +7,21 @@ extends Container
 
 class_name SelectionHighlightVBox
 
+signal selected_index_changed(new_index: int)
+
 @export_range(0, 100, 1, "or_greater")
 var selected_index: int = 0:
     set(value):
         selected_index = value
+        selected_index_changed.emit(selected_index)
         
         var tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
         tween.tween_property(self, "_selected_index", selected_index, 0.2)
+
+func cycle(slots: int) -> void:
+    selected_index = (
+        (selected_index + slots + get_child_count()) % get_child_count()
+    )
 
 @export_range(0, 100, 0.1, "or_greater")
 var x_offset: float = 10.0:

@@ -17,6 +17,8 @@ extends SizedButton
         color = new_color
         _update_color()
 
+@export var interaction: InteractionSingleton.InteractionType = null
+
 func _ready():
     _update()
     _update_color()

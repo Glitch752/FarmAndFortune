@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c7m6n2cj5286m"]
+[gd_scene load_steps=15 format=3 uid="uid://c7m6n2cj5286m"]
 
 [ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="1_xdkid"]
 [ext_resource type="Material" uid="uid://4p2g18w6yasx" path="res://ui/panelBlur.tres" id="2_5idoe"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cysal3jjxlduu" path="res://ui/icons/tools/shovel.png" id="7_fcdxv"]
 [ext_resource type="Texture2D" uid="uid://c0ngbrq5klc0r" path="res://ui/icons/tools/plant.png" id="8_wh1fv"]
 [ext_resource type="Texture2D" uid="uid://cigrreghgq3r7" path="res://ui/icons/tools/hand.png" id="9_ldihh"]
+[ext_resource type="Script" uid="uid://cs7ejnwk2xh01" path="res://scripts/debug_info.gd" id="11_0yjpr"]
 [ext_resource type="Script" uid="uid://ciau4abk50jne" path="res://scripts/highlighted_tile.gd" id="11_kn7d3"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_xdkid"]
@@ -77,8 +78,14 @@ selected_index = 1
 
 [node name="DigButton" parent="Tools" instance=ExtResource("4_x080e")]
 layout_mode = 2
-tool_name = "Dig"
+tool_name = "Shovel"
 tool_icon = ExtResource("7_fcdxv")
+color = Color(0.54545456, 0.54545456, 0.54545456, 1)
+
+[node name="HarvestButton" parent="Tools" instance=ExtResource("4_x080e")]
+layout_mode = 2
+tool_name = "Hand"
+tool_icon = ExtResource("9_ldihh")
 color = Color(0.54545456, 0.54545456, 0.54545456, 1)
 
 [node name="PlantButton" parent="Tools" instance=ExtResource("4_x080e")]
@@ -86,25 +93,24 @@ layout_mode = 2
 tool_name = "Plant"
 tool_icon = ExtResource("8_wh1fv")
 
-[node name="HarvestButton" parent="Tools" instance=ExtResource("4_x080e")]
-layout_mode = 2
-tool_name = "Harvest"
-tool_icon = ExtResource("9_ldihh")
-color = Color(0.54545456, 0.54545456, 0.54545456, 1)
-
-[node name="HighlightedTile" type="Label" parent="."]
+[node name="DebugInfo" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -56.0
-offset_top = -35.0
+offset_left = -61.0
+offset_top = -56.0
 offset_right = -16.0
 offset_bottom = -16.0
 grow_horizontal = 0
 grow_vertical = 0
+alignment = 2
+script = ExtResource("11_0yjpr")
+
+[node name="HighlightedTile" type="Label" parent="DebugInfo"]
+layout_mode = 2
 text = "whag"
 label_settings = SubResource("LabelSettings_kn7d3")
 script = ExtResource("11_kn7d3")

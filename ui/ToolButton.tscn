@@ -3,7 +3,7 @@
 [ext_resource type="Material" uid="uid://4p2g18w6yasx" path="res://ui/panelBlur.tres" id="1_c3fve"]
 [ext_resource type="Texture2D" uid="uid://cysal3jjxlduu" path="res://ui/icons/tools/shovel.png" id="2_c3fve"]
 [ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="2_vgv5g"]
-[ext_resource type="Script" uid="uid://ct6slv7ptkvep" path="res://scripts/tool_button.gd" id="3_l6iv4"]
+[ext_resource type="Script" uid="uid://ct6slv7ptkvep" path="res://ui/tool_button.gd" id="3_l6iv4"]
 [ext_resource type="Script" uid="uid://dtiyyefskk5op" path="res://ui/nodes/stack_container.gd" id="4_o0ldk"]
 [ext_resource type="Script" uid="uid://d0ucdkwax7bqx" path="res://ui/nodes/transform_container.gd" id="5_l6iv4"]
 

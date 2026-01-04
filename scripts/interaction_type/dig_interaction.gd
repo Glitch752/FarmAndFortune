@@ -1,0 +1,1 @@
+class_name DigInteraction extends InteractionType
