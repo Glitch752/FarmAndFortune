@@ -140,3 +140,49 @@ func set_crop_at(local_pos: Vector2i, crop: WorldCrop) -> void:
     else:
         plants[local_pos] = crop
         crop_node_added.emit(local_pos, crop)
+    should_process = plants.size() > 0
+
+
+signal should_process_changed(should_process: bool)
+var should_process: bool = false:
+    set(value):
+        if should_process != value:
+            should_process = value
+            should_process_changed.emit(value)
+
+## A timer from 0-1 to track the crop we're currently processing
+var crop_process_timer: float = 0.0
+const CROP_PROCESS_INTERVAL = preload("res://scripts/map/world_crop.gd").CROP_PROCESS_INTERVAL
+
+func get_pos_at_index(index: int) -> Vector2i:
+    var x = index % MapSingleton.CHUNK_SIZE
+    @warning_ignore("integer_division")
+    var y = index / MapSingleton.CHUNK_SIZE
+    return Vector2i(x, y)
+
+const TOTAL_CROPS = MapSingleton.CHUNK_SIZE * MapSingleton.CHUNK_SIZE
+
+func _process_range(start_index: int, end_index: int) -> void:
+    for i in range(start_index, end_index):
+        var tile_pos = get_pos_at_index(i)
+        if plants.has(tile_pos):
+            var crop = plants[tile_pos]
+            crop.process()
+
+func _process(delta: float) -> void:
+    var previous_process_timer = crop_process_timer
+
+    crop_process_timer += delta / CROP_PROCESS_INTERVAL
+
+    var start_index = int(floor(previous_process_timer * TOTAL_CROPS))
+
+    if crop_process_timer >= 1.0:
+        crop_process_timer -= 1.0
+
+    var end_index = int(floor(crop_process_timer * TOTAL_CROPS))
+
+    if end_index > start_index:
+        _process_range(start_index, end_index)
+    elif end_index < start_index:
+        _process_range(start_index, TOTAL_CROPS)
+        _process_range(0, end_index)

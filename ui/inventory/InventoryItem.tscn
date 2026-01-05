@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bflsh4uo45lc3"]
+[gd_scene load_steps=10 format=3 uid="uid://bflsh4uo45lc3"]
 
 [ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="1_851h1"]
 [ext_resource type="Script" uid="uid://c40jye54qfqj7" path="res://ui/inventory/inventory_item.gd" id="1_x17gx"]
 [ext_resource type="PackedScene" uid="uid://bfttmmdwpwctf" path="res://ui/BlurButton.tscn" id="3_hj6dx"]
+[ext_resource type="Script" uid="uid://6vv6bubj3rc2" path="res://ui/inventory_item_button.gd" id="4_0kt6g"]
 [ext_resource type="Texture2D" uid="uid://bm6lwxhnqqvf1" path="res://art/seeds_generated/carrot_icon.png" id="4_hj6dx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hj6dx"]
@@ -85,6 +86,7 @@ layout_mode = 0
 offset_right = 52.0
 offset_bottom = 52.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_hj6dx")
+script = ExtResource("4_0kt6g")
 icon = ExtResource("4_hj6dx")
 padding = 4
 offset = Vector2(-3, 3)

@@ -28,6 +28,23 @@ func _ready():
 
     $%Ground.position = Vector2.ONE * MapSingleton.TILE_SIZE / 2.
 
+    chunk_data.crop_node_added.connect(_on_crop_node_added)
+    chunk_data.crop_node_removed.connect(_on_crop_node_removed)
+
+func _on_crop_node_added(local_pos: Vector2i, crop: WorldCrop) -> void:
+    var crop_node = crop.node
+    crop_node.position = Vector2(
+        local_pos.x * MapSingleton.TILE_SIZE,
+        local_pos.y * MapSingleton.TILE_SIZE
+    )
+    crop_node.name = "Crop_%d_%d" % [local_pos.x, local_pos.y]
+    $%Crops.add_child(crop_node)
+
+func _on_crop_node_removed(local_pos: Vector2i) -> void:
+    var crop_node = $%Crops.get_node_or_null("Crop_%d_%d" % [local_pos.x, local_pos.y])
+    if crop_node:
+        crop_node.queue_free()
+
 func _on_camera_visibility_changed(new_visibility: bool) -> void:
     visible_to_camera = new_visibility
 

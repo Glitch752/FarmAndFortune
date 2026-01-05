@@ -2,6 +2,9 @@ extends Node
 
 signal inventory_changed
 
+@warning_ignore("unused_signal")
+signal item_selected(item: ItemData)
+
 var items: Dictionary[StringName, int] = {
     &"carrot_seeds": 10
 }

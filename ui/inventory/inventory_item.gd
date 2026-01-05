@@ -15,3 +15,8 @@ func _ready() -> void:
     $%Button.icon = item.icon
     tooltip_text = "%s x%d\n\n%s" % [item.name, quantity, item.description]
     $%Quantity.text = str(quantity)
+    
+    $%Button.disabled = item.crop == null
+
+func select() -> void:
+    InventorySingleton.item_selected.emit(item)

@@ -14,4 +14,4 @@ func _init(_crop: CropData) -> void:
 ## Crop processing is spread out over time to avoid performance spikes,
 ## so adjacent crops aren't necessarily processed in the same frame.
 func process():
-    pass
+    print("Processing crop: %s" % crop.name)

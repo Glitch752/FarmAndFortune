@@ -106,3 +106,7 @@ cache_geometry = true
 [node name="Outline" parent="." instance=ExtResource("4_unaa7")]
 z_index = 20
 position = Vector2(80, 80)
+
+[node name="Crops" type="Node2D" parent="."]
+unique_name_in_owner = true
+z_index = 5

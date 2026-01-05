@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bk651my811qyo"]
+
+[node name="BaseCrop" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 6.0
+offset_bottom = 6.0
+color = Color(1, 0.52516663, 0.23000002, 1)

@@ -36,7 +36,7 @@ func _ready():
     camera.limit_bottom = world_size - MapSingleton.TILE_SIZE / 2.0
 
 # Find what chunks are visible and update them if they are
-func _process(_delta):
+func _process(_delta: float) -> void:
     var viewport_rect = Rect2(
         camera.position - (get_viewport_rect().size / 2.0) / camera.zoom,
         get_viewport_rect().size / camera.zoom

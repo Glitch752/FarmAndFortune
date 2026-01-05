@@ -1,7 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://c0qm7ovj3aec4"]
+[gd_scene load_steps=12 format=3 uid="uid://c0qm7ovj3aec4"]
 
 [ext_resource type="Material" uid="uid://4p2g18w6yasx" path="res://ui/panelBlur.tres" id="1_c3fve"]
-[ext_resource type="Texture2D" uid="uid://cysal3jjxlduu" path="res://ui/icons/tools/shovel.png" id="2_c3fve"]
 [ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="2_vgv5g"]
 [ext_resource type="Script" uid="uid://ct6slv7ptkvep" path="res://ui/tool_button.gd" id="3_l6iv4"]
 [ext_resource type="Script" uid="uid://dtiyyefskk5op" path="res://ui/nodes/stack_container.gd" id="4_o0ldk"]
@@ -9,6 +8,10 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c3fve"]
 bg_color = Color(0, 0, 0, 0.003921569)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vgv5g"]
 
@@ -18,7 +21,7 @@ bg_color = Color(0, 0, 0, 0.003921569)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tkqn5"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_c3fve"]
+[sub_resource type="LabelSettings" id="LabelSettings_o0ldk"]
 font_size = 18
 shadow_size = 0
 shadow_color = Color(0, 0, 0, 0.39215687)
@@ -63,7 +66,6 @@ unique_name_in_owner = true
 modulate = Color(0, 0, 0, 0.39215687)
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
-texture = ExtResource("2_c3fve")
 expand_mode = 5
 stretch_mode = 5
 
@@ -71,12 +73,10 @@ stretch_mode = 5
 unique_name_in_owner = true
 custom_minimum_size = Vector2(36, 36)
 layout_mode = 2
-texture = ExtResource("2_c3fve")
 expand_mode = 5
 stretch_mode = 5
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Shovel"
-label_settings = SubResource("LabelSettings_c3fve")
+label_settings = SubResource("LabelSettings_o0ldk")

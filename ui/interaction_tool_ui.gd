@@ -14,6 +14,15 @@ func _ready() -> void:
     InventorySingleton.inventory_changed.connect(update_seed_buttons)
     update_seed_buttons()
 
+    InventorySingleton.item_selected.connect(func(item: ItemData) -> void:
+        # Select the button for this item if it exists
+        for i in range(get_child_count(true)):
+            var button = get_child(i, true)
+            if button.get("item") == item:
+                selected_index = i
+                return
+    )
+
 func update_seed_buttons() -> void:
     # Remove all existing seed buttons
     for child in get_children():

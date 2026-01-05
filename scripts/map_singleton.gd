@@ -168,3 +168,25 @@ func _generate_map():
                     TerrainType.GRASS if noise_val > 0.0 else TerrainType.WATER
                 )
             chunks[chunk_pos] = chunk
+
+const MAX_PROCESS_TIME_MS = 50
+const WARN_PROCESS_TIME_MS = 5
+var warning_cooldown: float = 0.0
+
+func _process(delta: float) -> void:
+    var start_time = Time.get_ticks_msec()
+
+    for chunk in chunks.values():
+        if chunk.should_process:
+            chunk._process(delta)
+        
+        var current_time = Time.get_ticks_msec()
+        var elapsed = current_time - start_time
+        if elapsed >= MAX_PROCESS_TIME_MS:
+            break
+    
+    var total_elapsed = Time.get_ticks_msec() - start_time
+    if total_elapsed >= WARN_PROCESS_TIME_MS and warning_cooldown <= 0.0:
+        push_warning("Map processing took %d ms" % total_elapsed)
+        warning_cooldown = 5.0
+    warning_cooldown = max(0.0, warning_cooldown - delta)
