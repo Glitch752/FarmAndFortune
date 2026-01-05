@@ -2,7 +2,9 @@ extends Node
 
 signal inventory_changed
 
-var items: Dictionary[StringName, int] = {}
+var items: Dictionary[StringName, int] = {
+    &"carrot_seeds": 10
+}
 
 func add_item(item_id: StringName, quantity: int = 1) -> void:
     if items.has(item_id):

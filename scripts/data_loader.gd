@@ -1,8 +1,8 @@
 extends Node
 
 ## Loads data. wow.
-var seeds: Dictionary[String, CropData] = {}
-var items: Dictionary[String, ItemData] = {}
+var seeds: Dictionary[StringName, CropData] = {}
+var items: Dictionary[StringName, ItemData] = {}
 
 ## Recursively loads all resources under data/[data_type]/**/*.tres
 func recursively_load_resources(data_type: String, _type_hint: String = "") -> Array[Resource]:
@@ -41,12 +41,12 @@ func recursively_load_resources(data_type: String, _type_hint: String = "") -> A
     return resources
 
 func _ready():
-    var loaded_seeds = recursively_load_resources("crops", "CropData")
-    for seed_res in loaded_seeds:
-        if seed_res is CropData:
-            seeds[seed_res.id] = seed_res
+    var loaded_crops = recursively_load_resources("crops", "CropData")
+    for crop_res in loaded_crops:
+        if crop_res is CropData:
+            seeds[crop_res.id] = crop_res
         else:
-            push_error("Loaded resource is not of type CropData: %s" % seed_res)
+            push_error("Loaded resource is not of type CropData: %s" % crop_res)
     print("Loaded %d crops" % seeds.size())
 
     var loaded_items = recursively_load_resources("items", "ItemData")

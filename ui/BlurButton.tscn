@@ -22,7 +22,7 @@
 [node name="BlurButton" type="PanelContainer"]
 editor_description = "needed because shaders on buttons don't work reliably or consistently - sometimes even accross Godot versions... Instead, we wrap the button in a panel container with the background and handle updating the used panel manually."
 material = ExtResource("1_7i3ss")
-theme_override_styles/panel = ExtResource("5_bbolg")
+theme_override_styles/panel = ExtResource("2_1f8kp")
 script = ExtResource("3_1f8kp")
 icon = ExtResource("3_mhnvl")
 normal_style = ExtResource("2_1f8kp")

@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://bflsh4uo45lc3"]
+
+[ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="1_851h1"]
+[ext_resource type="Script" uid="uid://c40jye54qfqj7" path="res://ui/inventory/inventory_item.gd" id="1_x17gx"]
+[ext_resource type="PackedScene" uid="uid://bfttmmdwpwctf" path="res://ui/BlurButton.tscn" id="3_hj6dx"]
+[ext_resource type="Texture2D" uid="uid://bm6lwxhnqqvf1" path="res://art/seeds_generated/carrot_icon.png" id="4_hj6dx"]
+
+[node name="InventoryItem" type="Control"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 64.0
+offset_bottom = 64.0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme = ExtResource("1_851h1")
+script = ExtResource("1_x17gx")
+
+[node name="Button" parent="." instance=ExtResource("3_hj6dx")]
+layout_mode = 0
+icon = ExtResource("4_hj6dx")
