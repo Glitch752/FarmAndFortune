@@ -1,6 +1,9 @@
-class_name SeedData extends Resource
+class_name CropData extends Resource
 
 @export var id: StringName
+@export var name: String
+@export var icon: Texture2D
+
 @export var harvest_items: Array[SeedData_HarvestItem] = []
 
 @export var grow_time_seconds: float

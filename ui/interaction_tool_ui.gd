@@ -6,8 +6,15 @@ func _ready() -> void:
     selected_index = 0
     selected_index_changed.connect(_on_selected_index_changed)
 
+    # Make all existing children internal so we only modify added ones
+    for child in get_children():
+        remove_child(child)
+        add_child(child, true, INTERNAL_MODE_FRONT)
+    
+    
+
 func _on_selected_index_changed(new_index: int) -> void:
-    InteractionSingleton.current_interaction = get_child(new_index).get_interaction_type()
+    InteractionSingleton.current_interaction = get_child(new_index, true).get_interaction_type()
 
 func _unhandled_input(event: InputEvent) -> void:
     if event.is_action_pressed("cycle_active_forward"):

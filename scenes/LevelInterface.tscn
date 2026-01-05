@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c7m6n2cj5286m"]
+[gd_scene load_steps=18 format=3 uid="uid://c7m6n2cj5286m"]
 
 [ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="1_xdkid"]
 [ext_resource type="Material" uid="uid://4p2g18w6yasx" path="res://ui/panelBlur.tres" id="2_5idoe"]
@@ -8,15 +8,24 @@
 [ext_resource type="PackedScene" uid="uid://c0qm7ovj3aec4" path="res://ui/ToolButton.tscn" id="4_x080e"]
 [ext_resource type="Script" uid="uid://c8dhtfiqxnb" path="res://ui/interaction_tool_ui.gd" id="6_ldihh"]
 [ext_resource type="Texture2D" uid="uid://cysal3jjxlduu" path="res://ui/icons/tools/shovel.png" id="7_fcdxv"]
-[ext_resource type="Texture2D" uid="uid://c0ngbrq5klc0r" path="res://ui/icons/tools/plant.png" id="8_wh1fv"]
+[ext_resource type="Script" uid="uid://ei3ago7dda2u" path="res://scripts/interaction_type/dig_interaction.gd" id="9_b0joa"]
 [ext_resource type="Texture2D" uid="uid://cigrreghgq3r7" path="res://ui/icons/tools/hand.png" id="9_ldihh"]
 [ext_resource type="Script" uid="uid://cs7ejnwk2xh01" path="res://scripts/debug_info.gd" id="11_0yjpr"]
 [ext_resource type="Script" uid="uid://ciau4abk50jne" path="res://scripts/highlighted_tile.gd" id="11_kn7d3"]
+[ext_resource type="Script" uid="uid://c5p428qel5vsk" path="res://scripts/interaction_type/harvest_interaction.gd" id="11_pudrt"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_xdkid"]
 font_color = Color(0.5, 1, 0.60833335, 1)
 shadow_size = 0
 shadow_color = Color(0, 0, 0, 0.39215687)
+
+[sub_resource type="Resource" id="Resource_pudrt"]
+script = ExtResource("9_b0joa")
+metadata/_custom_type_script = "uid://ei3ago7dda2u"
+
+[sub_resource type="Resource" id="Resource_2n88a"]
+script = ExtResource("11_pudrt")
+metadata/_custom_type_script = "uid://c5p428qel5vsk"
 
 [sub_resource type="LabelSettings" id="LabelSettings_kn7d3"]
 font_size = 18
@@ -81,17 +90,14 @@ layout_mode = 2
 tool_name = "Shovel"
 tool_icon = ExtResource("7_fcdxv")
 color = Color(0.54545456, 0.54545456, 0.54545456, 1)
+interaction = SubResource("Resource_pudrt")
 
 [node name="HarvestButton" parent="Tools" instance=ExtResource("4_x080e")]
 layout_mode = 2
 tool_name = "Hand"
 tool_icon = ExtResource("9_ldihh")
 color = Color(0.54545456, 0.54545456, 0.54545456, 1)
-
-[node name="PlantButton" parent="Tools" instance=ExtResource("4_x080e")]
-layout_mode = 2
-tool_name = "Plant"
-tool_icon = ExtResource("8_wh1fv")
+interaction = SubResource("Resource_2n88a")
 
 [node name="DebugInfo" type="VBoxContainer" parent="."]
 layout_mode = 1

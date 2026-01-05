@@ -20,8 +20,13 @@ var selected_index: int = 0:
 
 func cycle(slots: int) -> void:
     selected_index = (
-        (selected_index + slots + get_child_count()) % get_child_count()
+        (selected_index + slots + get_child_count(true)) % get_child_count(true)
     )
+
+func select(node: Control) -> void:
+    var index = get_children(true).find(node)
+    if index != -1:
+        selected_index = index
 
 @export_range(0, 100, 0.1, "or_greater")
 var x_offset: float = 10.0:
@@ -58,8 +63,8 @@ func _sort_children():
     var selected_index_prev_y = 0.0
     var selected_index_next_y = 0.0
 
-    for i in range(get_child_count()):
-        var c = get_child(i)
+    for i in range(get_child_count(true)):
+        var c = get_child(i, true)
         if c is Control:
             if not c.visible:
                 continue
@@ -86,8 +91,8 @@ func _sort_children():
     # Center selected child
     var container_center_y = size.y / 2.0
     var offset = container_center_y - selected_child_y
-    for i in range(get_child_count()):
-        var c = get_child(i)
+    for i in range(get_child_count(true)):
+        var c = get_child(i, true)
         if c is Control:
             c.position.y += offset
 

@@ -17,7 +17,9 @@ extends SizedButton
         color = new_color
         _update_color()
 
-@export var interaction: InteractionSingleton.InteractionType = null
+@export var interaction: InteractionType = null
+func get_interaction_type():
+    return interaction
 
 func _ready():
     _update()
@@ -32,4 +34,3 @@ func _update():
 func _update_color():
     $%Label.label_settings.font_color = color
     $%TextureTop.modulate = color
-    
