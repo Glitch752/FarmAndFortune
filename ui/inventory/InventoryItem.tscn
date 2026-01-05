@@ -6,10 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://bm6lwxhnqqvf1" path="res://art/seeds_generated/carrot_icon.png" id="4_hj6dx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hj6dx"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
+content_margin_left = 1.0
+content_margin_top = 7.0
+content_margin_right = 7.0
+content_margin_bottom = 1.0
 bg_color = Color(0.39215687, 0.4509804, 0.47843137, 0.39215687)
 border_width_left = 2
 border_width_top = 2
@@ -25,10 +25,10 @@ shadow_size = 1
 shadow_offset = Vector2(2, 2)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0kt6g"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
+content_margin_left = 1.0
+content_margin_top = 7.0
+content_margin_right = 7.0
+content_margin_bottom = 1.0
 bg_color = Color(0.47559997, 0.54519993, 0.58, 0.39215687)
 border_width_left = 2
 border_width_top = 2
@@ -44,10 +44,10 @@ shadow_size = 1
 shadow_offset = Vector2(2, 2)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vak7a"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
+content_margin_left = 1.0
+content_margin_top = 7.0
+content_margin_right = 7.0
+content_margin_bottom = 1.0
 bg_color = Color(0.5576, 0.6392, 0.68, 0.7058824)
 border_width_left = 2
 border_width_top = 2
@@ -87,6 +87,8 @@ offset_bottom = 52.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_hj6dx")
 icon = ExtResource("4_hj6dx")
 padding = 4
+offset = Vector2(-3, 3)
+disabled = false
 normal_style = SubResource("StyleBoxFlat_hj6dx")
 hover_style = SubResource("StyleBoxFlat_0kt6g")
 press_style = SubResource("StyleBoxFlat_vak7a")

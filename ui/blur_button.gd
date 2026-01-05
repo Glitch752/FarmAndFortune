@@ -14,11 +14,21 @@ signal released()
     set(value):
         padding = value
         _update_padding()
+@export var offset: Vector2 = Vector2.ZERO:
+    set(value):
+        offset = value
+        _update_padding()
 
 @export var button_size: int = 52:
     set(value):
         button_size = value
         _update_padding()
+
+@export var disabled: bool = false:
+    set(value):
+        disabled = value
+        if button:
+            button.disabled = disabled
 
 @export_group("Theme overrides")
 @export var normal_style: StyleBox
@@ -34,6 +44,9 @@ var hovered: bool = false
 func _ready():
     if icon:
         button.icon = icon
+    
+    if abs(offset.x) > padding or abs(offset.y) > padding:
+        push_error("offset should not be larger than padding")
 
     if padding > 0 or button_size != 52:
         _update_padding()
@@ -66,15 +79,28 @@ func _update_padding():
         hover_style = hover_style.duplicate()
         normal_style = normal_style.duplicate()
     
-    press_style.set_content_margin_all(padding)
-    hover_style.set_content_margin_all(padding)
-    normal_style.set_content_margin_all(padding)
+    var top_margin = padding + offset.y
+    var bottom_margin = padding - offset.y
+    var left_margin = padding + offset.x
+    var right_margin = padding - offset.x
+
+    var set_margins = func(style: StyleBox):
+        style.content_margin_bottom = bottom_margin
+        style.content_margin_top = top_margin
+        style.content_margin_left = left_margin
+        style.content_margin_right = right_margin
+    
+    set_margins.call(press_style)
+    set_margins.call(hover_style)
+    set_margins.call(normal_style)
 
     _update_style()
 
 func _update_style():
     var style: StyleBox
-    if button.button_pressed:
+    if disabled:
+        style = normal_style
+    elif button.button_pressed:
         style = press_style
     elif hovered:
         style = hover_style

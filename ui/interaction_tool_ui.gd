@@ -22,13 +22,14 @@ func update_seed_buttons() -> void:
     # Add a button for each seed in the inventory
     for item_id in InventorySingleton.items.keys():
         var item_data = DataLoader.items[item_id]
-        
-        if item_data.crop != null:
+        var crop = item_data.crop
+
+        if crop != null:
             var button = preload("res://ui/CropButton.tscn").instantiate()
-            button.tool_name = item_data.name
-            button.tool_icon = item_data.icon
-            button.color = Color.WHITE
-            button.interaction = PlantInteraction.new(item_data.crop.id)
+            button.tool_name = crop.name
+            button.tool_icon = crop.icon
+            button.crop = crop
+            button.item = item_data
             add_child(button)
 
 func _on_selected_index_changed(new_index: int) -> void:
