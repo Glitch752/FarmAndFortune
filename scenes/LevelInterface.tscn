@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c7m6n2cj5286m"]
+[gd_scene load_steps=19 format=3 uid="uid://c7m6n2cj5286m"]
 
 [ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="1_xdkid"]
 [ext_resource type="Material" uid="uid://4p2g18w6yasx" path="res://ui/panelBlur.tres" id="2_5idoe"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://cs7ejnwk2xh01" path="res://scripts/debug_info.gd" id="11_0yjpr"]
 [ext_resource type="Script" uid="uid://ciau4abk50jne" path="res://scripts/highlighted_tile.gd" id="11_kn7d3"]
 [ext_resource type="Script" uid="uid://c5p428qel5vsk" path="res://scripts/interaction_type/harvest_interaction.gd" id="11_pudrt"]
+[ext_resource type="PackedScene" uid="uid://cf72ihm5tthdq" path="res://ui/inventory/Inventory.tscn" id="14_pudrt"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_xdkid"]
 font_color = Color(0.5, 1, 0.60833335, 1)
@@ -120,3 +121,14 @@ layout_mode = 2
 text = "whag"
 label_settings = SubResource("LabelSettings_kn7d3")
 script = ExtResource("11_kn7d3")
+
+[node name="Inventory" parent="." instance=ExtResource("14_pudrt")]
+layout_mode = 0
+anchors_preset = 0
+anchor_top = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 40.0
+offset_bottom = 40.0
+grow_vertical = 1

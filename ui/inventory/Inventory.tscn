@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cf72ihm5tthdq"]
+
+[node name="Inventory" type="VBoxContainer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -56.0
+offset_right = 56.0
+offset_bottom = -16.0
+grow_vertical = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2

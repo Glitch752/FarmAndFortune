@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://wxpxh33oavud"]
+
+[ext_resource type="Texture2D" uid="uid://da6fv8yfhb0j0" path="res://art/seeds_generated/corn_icon.png" id="1_vdpfq"]
+[ext_resource type="Script" uid="uid://bcbq2ty83ram" path="res://data/item_data.gd" id="2_b0s2s"]
+
+[resource]
+script = ExtResource("2_b0s2s")
+id = &"corn_seeds"
+name = "Corn Seeds"
+icon = ExtResource("1_vdpfq")
+description = "Corn seeds. Used to plant maize."
+metadata/_custom_type_script = "uid://bcbq2ty83ram"

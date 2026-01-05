@@ -11,7 +11,25 @@ func _ready() -> void:
         remove_child(child)
         add_child(child, true, INTERNAL_MODE_FRONT)
     
-    
+    InventorySingleton.inventory_changed.connect(update_seed_buttons)
+    update_seed_buttons()
+
+func update_seed_buttons() -> void:
+    # Remove all existing seed buttons
+    for child in get_children():
+        child.queue_free()
+
+    # Add a button for each seed in the inventory
+    for item_id in InventorySingleton.items.keys():
+        var item_data = DataLoader.items[item_id]
+        
+        if item_data.crop != null:
+            var button = preload("res://ui/CropButton.tscn").instantiate()
+            button.tool_name = item_data.name
+            button.tool_icon = item_data.icon
+            button.color = Color.WHITE
+            button.interaction = PlantInteraction.new(item_data.crop.id)
+            add_child(button)
 
 func _on_selected_index_changed(new_index: int) -> void:
     InteractionSingleton.current_interaction = get_child(new_index, true).get_interaction_type()
@@ -30,7 +48,7 @@ func _unhandled_input(event: InputEvent) -> void:
         var key_event = event as InputEventKey
         var key = key_event.keycode
         if key >= Key.KEY_1 and key <= Key.KEY_9:
-            selected_index = (key - Key.KEY_1) % get_child_count()
+            selected_index = (key - Key.KEY_1) % get_child_count(true)
             get_viewport().set_input_as_handled()
             return
 

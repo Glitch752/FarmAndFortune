@@ -18,8 +18,10 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+DataLoader="*res://scripts/data_loader.gd"
 MapSingleton="*res://scripts/map_singleton.gd"
 InteractionSingleton="*res://scripts/interaction_singleton.gd"
+InventorySingleton="*res://scripts/inventory_singleton.gd"
 
 [display]
 
