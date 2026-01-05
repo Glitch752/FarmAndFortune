@@ -10,6 +10,16 @@ signal released()
         if button:
             button.icon = icon
 
+@export var padding: int = 0:
+    set(value):
+        padding = value
+        _update_padding()
+
+@export var button_size: int = 52:
+    set(value):
+        button_size = value
+        _update_padding()
+
 @export_group("Theme overrides")
 @export var normal_style: StyleBox
 @export var hover_style: StyleBox
@@ -25,6 +35,9 @@ func _ready():
     if icon:
         button.icon = icon
 
+    if padding > 0 or button_size != 52:
+        _update_padding()
+
     button.connect("mouse_entered", func():
         hovered = true
         _update_style()
@@ -39,6 +52,25 @@ func _ready():
 
     button.connect("button_down", pressed.emit)
     button.connect("button_up", released.emit)
+
+var duplicated: bool = false
+
+func _update_padding():
+    if not button:
+        return
+    
+    button.custom_minimum_size = Vector2.ONE * (button_size - padding * 2)
+
+    if not duplicated:
+        press_style = press_style.duplicate()
+        hover_style = hover_style.duplicate()
+        normal_style = normal_style.duplicate()
+    
+    press_style.set_content_margin_all(padding)
+    hover_style.set_content_margin_all(padding)
+    normal_style.set_content_margin_all(padding)
+
+    _update_style()
 
 func _update_style():
     var style: StyleBox

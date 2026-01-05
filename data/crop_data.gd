@@ -4,7 +4,7 @@ class_name CropData extends Resource
 @export var name: String
 @export var icon: Texture2D
 
-@export var harvest_items: Array[SeedData_HarvestItem] = []
+@export var harvest_items: Array[CropData_HarvestItem] = []
 
 @export var grow_time_seconds: float
 @export var wither_time_seconds: float

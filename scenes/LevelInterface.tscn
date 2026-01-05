@@ -1,10 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://c7m6n2cj5286m"]
+[gd_scene load_steps=19 format=3 uid="uid://c7m6n2cj5286m"]
 
 [ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="1_xdkid"]
 [ext_resource type="Material" uid="uid://4p2g18w6yasx" path="res://ui/panelBlur.tres" id="2_5idoe"]
 [ext_resource type="StyleBox" uid="uid://dwmkl21pqn0ad" path="res://ui/primaryPanel.tres" id="2_msvpg"]
 [ext_resource type="PackedScene" uid="uid://bfttmmdwpwctf" path="res://ui/BlurButton.tscn" id="4_5idoe"]
 [ext_resource type="PackedScene" uid="uid://c0qm7ovj3aec4" path="res://ui/ToolButton.tscn" id="4_x080e"]
+[ext_resource type="StyleBox" uid="uid://bdd81p0708w5t" path="res://ui/buttonPanelNormal.tres" id="5_pudrt"]
 [ext_resource type="Script" uid="uid://c8dhtfiqxnb" path="res://ui/interaction_tool_ui.gd" id="6_ldihh"]
 [ext_resource type="Texture2D" uid="uid://cysal3jjxlduu" path="res://ui/icons/tools/shovel.png" id="7_fcdxv"]
 [ext_resource type="Script" uid="uid://ei3ago7dda2u" path="res://scripts/interaction_type/dig_interaction.gd" id="9_b0joa"]
@@ -70,6 +71,7 @@ offset_bottom = 68.0
 
 [node name="BlurButton" parent="Buttons" instance=ExtResource("4_5idoe")]
 layout_mode = 2
+theme_override_styles/panel = ExtResource("5_pudrt")
 
 [node name="Tools" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -122,3 +124,11 @@ script = ExtResource("11_kn7d3")
 
 [node name="Inventory" parent="." instance=ExtResource("14_pudrt")]
 layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -56.0
+offset_right = 56.0
+offset_bottom = -16.0
+grow_vertical = 0

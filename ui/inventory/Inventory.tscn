@@ -4,13 +4,5 @@
 [ext_resource type="Script" uid="uid://bnm5dtwceshwc" path="res://ui/inventory/inventory.gd" id="2_2k1b4"]
 
 [node name="Inventory" type="VBoxContainer"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = -56.0
-offset_right = 56.0
-offset_bottom = -16.0
-grow_vertical = 0
 theme = ExtResource("1_5hckf")
 script = ExtResource("2_2k1b4")

@@ -1,21 +1,107 @@
-[gd_scene load_steps=5 format=3 uid="uid://bflsh4uo45lc3"]
+[gd_scene load_steps=9 format=3 uid="uid://bflsh4uo45lc3"]
 
 [ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="1_851h1"]
 [ext_resource type="Script" uid="uid://c40jye54qfqj7" path="res://ui/inventory/inventory_item.gd" id="1_x17gx"]
 [ext_resource type="PackedScene" uid="uid://bfttmmdwpwctf" path="res://ui/BlurButton.tscn" id="3_hj6dx"]
 [ext_resource type="Texture2D" uid="uid://bm6lwxhnqqvf1" path="res://art/seeds_generated/carrot_icon.png" id="4_hj6dx"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hj6dx"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.39215687, 0.4509804, 0.47843137, 0.39215687)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.47843137)
+shadow_size = 1
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0kt6g"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.47559997, 0.54519993, 0.58, 0.39215687)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.47843137)
+shadow_size = 1
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vak7a"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.5576, 0.6392, 0.68, 0.7058824)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_blend = true
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 0.47843137)
+shadow_size = 1
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_hj6dx"]
+outline_size = 14
+outline_color = Color(0, 0, 0, 0.5686275)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.39215687)
+
 [node name="InventoryItem" type="Control"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(52, 52)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 64.0
-offset_bottom = 64.0
+offset_right = 52.0
+offset_bottom = 52.0
 size_flags_horizontal = 0
-size_flags_vertical = 8
+size_flags_vertical = 0
 theme = ExtResource("1_851h1")
 script = ExtResource("1_x17gx")
 
 [node name="Button" parent="." instance=ExtResource("3_hj6dx")]
+unique_name_in_owner = true
 layout_mode = 0
+offset_right = 52.0
+offset_bottom = 52.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hj6dx")
 icon = ExtResource("4_hj6dx")
+padding = 4
+normal_style = SubResource("StyleBoxFlat_hj6dx")
+hover_style = SubResource("StyleBoxFlat_0kt6g")
+press_style = SubResource("StyleBoxFlat_vak7a")
+
+[node name="Quantity" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -43.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = 22.0
+grow_horizontal = 0
+text = "1"
+label_settings = SubResource("LabelSettings_hj6dx")
+horizontal_alignment = 2

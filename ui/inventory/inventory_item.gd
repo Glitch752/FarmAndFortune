@@ -8,6 +8,10 @@ extends Control
 @export var quantity: int = 1
 
 func _ready() -> void:
-    if item != null:
-        $Button.icon = item.icon
-        tooltip_text = "%s x%d\n\n%s" % [item.name, quantity, item.description]
+    if item == null:
+        push_error("InventoryItemUI instantiated with null item data")
+        return
+    
+    $%Button.icon = item.icon
+    tooltip_text = "%s x%d\n\n%s" % [item.name, quantity, item.description]
+    $%Quantity.text = str(quantity)
