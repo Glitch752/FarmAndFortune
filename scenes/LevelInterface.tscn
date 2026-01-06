@@ -87,6 +87,7 @@ offset_bottom = 20.0
 grow_vertical = 2
 script = ExtResource("6_ldihh")
 selected_index = 1
+inactive_color = Color(0.68, 0.68, 0.68, 1)
 
 [node name="DigButton" parent="Tools" instance=ExtResource("4_x080e")]
 layout_mode = 2

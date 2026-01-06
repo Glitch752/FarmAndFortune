@@ -66,6 +66,14 @@ func _ready():
     button.connect("button_down", pressed.emit)
     button.connect("button_up", released.emit)
 
+## hack but whatever
+var tooltip_override: String:
+    set(value):
+        tooltip_override = value
+        tooltip_text = tooltip_override
+        if button:
+            button.tooltip_text = tooltip_override
+
 var duplicated: bool = false
 
 func _update_padding():

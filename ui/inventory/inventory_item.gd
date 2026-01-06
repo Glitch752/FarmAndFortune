@@ -12,8 +12,9 @@ func _ready() -> void:
         push_error("InventoryItemUI instantiated with null item data")
         return
     
-    $%Button.icon = item.icon
     tooltip_text = "%s x%d\n\n%s" % [item.name, quantity, item.description]
+    $%Button.icon = item.icon
+    $%Button.tooltip_override = tooltip_text
     $%Quantity.text = str(quantity)
     
     $%Button.disabled = item.crop == null

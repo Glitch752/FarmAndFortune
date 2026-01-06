@@ -6,6 +6,8 @@ extends "res://ui/tool_button.gd"
 @export var item: ItemData
 
 func _ready():
+    super._ready()
+    
     if not crop:
         return
     

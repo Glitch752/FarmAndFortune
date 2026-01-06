@@ -31,11 +31,16 @@ func _ready():
     chunk_data.crop_node_added.connect(_on_crop_node_added)
     chunk_data.crop_node_removed.connect(_on_crop_node_removed)
 
+    var grass = preload("./grass/grass.tscn").instantiate()
+    grass.name = "Grass"
+    grass.z_index = 10
+    $%Ground.add_child(grass)
+
 func _on_crop_node_added(local_pos: Vector2i, crop: WorldCrop) -> void:
     var crop_node = crop.node
     crop_node.position = Vector2(
-        local_pos.x * MapSingleton.TILE_SIZE,
-        local_pos.y * MapSingleton.TILE_SIZE
+        local_pos.x * MapSingleton.TILE_SIZE + MapSingleton.TILE_SIZE / 2.0,
+        local_pos.y * MapSingleton.TILE_SIZE + MapSingleton.TILE_SIZE / 2.0
     )
     crop_node.name = "Crop_%d_%d" % [local_pos.x, local_pos.y]
     $%Crops.add_child(crop_node)
@@ -48,12 +53,14 @@ func _on_crop_node_removed(local_pos: Vector2i) -> void:
 func _on_camera_visibility_changed(new_visibility: bool) -> void:
     visible_to_camera = new_visibility
 
-    if new_visibility:
-        var grass = preload("./grass/grass.tscn").instantiate()
-        grass.name = "Grass"
-        grass.z_index = 10
-        $%Ground.add_child(grass)
-    else:
-        var grass = $%Ground.get_node_or_null("Grass")
-        if grass:
-            grass.queue_free()
+    visible = new_visibility
+
+    # if new_visibility:
+    #     var grass = preload("./grass/grass.tscn").instantiate()
+    #     grass.name = "Grass"
+    #     grass.z_index = 10
+    #     $%Ground.add_child(grass)
+    # else:
+    #     var grass = $%Ground.get_node_or_null("Grass")
+    #     if grass:
+    #         grass.queue_free()

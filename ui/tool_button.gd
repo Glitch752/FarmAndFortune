@@ -24,6 +24,10 @@ func get_interaction_type():
 func _ready():
     _update()
     _update_color()
+    
+    pressed.connect(func():
+        get_parent().select(self)
+    )
 
 func _update():
     $%Label.label_settings = $%Label.label_settings.duplicate()

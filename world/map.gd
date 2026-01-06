@@ -38,10 +38,10 @@ func _ready():
 # Find what chunks are visible and update them if they are
 func _process(_delta: float) -> void:
     var viewport_rect = Rect2(
-        camera.position - (get_viewport_rect().size / 2.0) / camera.zoom,
+        camera.get_screen_center_position() - (get_viewport_rect().size / 2.0) / camera.zoom,
         get_viewport_rect().size / camera.zoom
     )
-    var rect_margin = 10.0
+    var rect_margin = 5.0
     viewport_rect.position -= Vector2.ONE * rect_margin
     viewport_rect.size += Vector2.ONE * rect_margin * 2.0
 

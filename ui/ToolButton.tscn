@@ -26,7 +26,7 @@ font_size = 18
 shadow_size = 0
 shadow_color = Color(0, 0, 0, 0.39215687)
 
-[node name="Button" type="Button"]
+[node name="ToolButton" type="Button"]
 material = ExtResource("1_c3fve")
 custom_minimum_size = Vector2(110, 36)
 theme = ExtResource("2_vgv5g")

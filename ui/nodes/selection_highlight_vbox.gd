@@ -99,11 +99,11 @@ func _sort_children():
 func _get_minimum_size() -> Vector2:
     var total_height = 0.0
     var max_width = 0.0
-    for c in get_children():
+    for c in get_children(true):
         if c is Control:
             var child_size = c.get_combined_minimum_size()
             total_height += child_size.y + get_theme_constant("separation")
             max_width = max(max_width, child_size.x)
-    if get_child_count() > 0:
+    if get_child_count(true) > 0:
         total_height -= get_theme_constant("separation") # Remove last separation
     return Vector2(max_width, total_height)

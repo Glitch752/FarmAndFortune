@@ -6,7 +6,7 @@ var async_debounce = preload("res://scripts/utils.gd").async_debounce
 var chunk_position: Vector2i = Vector2i.ZERO
 
 var terrain_types: PackedByteArray
-var plants: Dictionary[Vector2i, WorldCrop] = {}
+var crops: Dictionary[Vector2i, WorldCrop] = {}
 
 var _cell_geometry_cache: Dictionary[Vector2i, Array] = {}
 # Thread safety: We only sequentially access this after generating it in a thread.
@@ -129,18 +129,26 @@ func set_terrain_at(local_pos: Vector2i, terrain: MapSingleton.TerrainType) -> b
 signal crop_node_added(local_pos: Vector2i, crop: WorldCrop)
 signal crop_node_removed(local_pos: Vector2i)
 
+## Get the crop at the given local position
+func get_crop_at(local_pos: Vector2i) -> WorldCrop:
+    if not is_tile_in_chunk(local_pos):
+        return null
+    if crops.has(local_pos):
+        return crops[local_pos]
+    return null
+
 ## Set the crop at the given local position
 func set_crop_at(local_pos: Vector2i, crop: WorldCrop) -> void:
     if not is_tile_in_chunk(local_pos):
         return
     
     if crop == null:
-        plants.erase(local_pos)
+        crops.erase(local_pos)
         crop_node_removed.emit(local_pos)
     else:
-        plants[local_pos] = crop
+        crops[local_pos] = crop
         crop_node_added.emit(local_pos, crop)
-    should_process = plants.size() > 0
+    should_process = crops.size() > 0
 
 
 signal should_process_changed(should_process: bool)
@@ -165,8 +173,8 @@ const TOTAL_CROPS = MapSingleton.CHUNK_SIZE * MapSingleton.CHUNK_SIZE
 func _process_range(start_index: int, end_index: int) -> void:
     for i in range(start_index, end_index):
         var tile_pos = get_pos_at_index(i)
-        if plants.has(tile_pos):
-            var crop = plants[tile_pos]
+        if crops.has(tile_pos):
+            var crop = crops[tile_pos]
             crop.process()
 
 func _process(delta: float) -> void:

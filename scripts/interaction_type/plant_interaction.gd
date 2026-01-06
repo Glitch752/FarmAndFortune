@@ -13,5 +13,12 @@ func interact(tile: Vector2i) -> void:
     if MapSingleton.get_terrain_at(tile) != MapSingleton.TerrainType.SOIL:
         # TODO: juice - feedback for invalid planting
         return
+    if MapSingleton.get_crop_at(tile) != null:
+        # TODO: juice - feedback for invalid planting
+        return
     
+    if not InventorySingleton.remove_item(item_id, 1):
+        # TODO: juice - feedback for not enough items
+        return
+
     MapSingleton.set_crop_at(tile, WorldCrop.new(DataLoader.crops[crop_id]))

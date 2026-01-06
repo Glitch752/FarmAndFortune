@@ -29,7 +29,7 @@ func update_seed_buttons() -> void:
         child.queue_free()
 
     # Add a button for each seed in the inventory
-    for item_id in InventorySingleton.items.keys():
+    for item_id in InventorySingleton.get_all_items():
         var item_data = DataLoader.items[item_id]
         var crop = item_data.crop
 
@@ -40,6 +40,8 @@ func update_seed_buttons() -> void:
             button.crop = crop
             button.item = item_data
             add_child(button)
+    
+    cycle(0)
 
 func _on_selected_index_changed(new_index: int) -> void:
     InteractionSingleton.current_interaction = get_child(new_index, true).get_interaction_type()

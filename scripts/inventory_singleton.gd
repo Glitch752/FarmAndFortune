@@ -1,6 +1,6 @@
 extends Node
 
-signal inventory_changed
+signal inventory_changed()
 
 @warning_ignore("unused_signal")
 signal item_selected(item: ItemData)
@@ -14,14 +14,14 @@ func add_item(item_id: StringName, quantity: int = 1) -> void:
         items[item_id] += quantity
     else:
         items[item_id] = quantity
-    emit_signal("inventory_changed")
+    inventory_changed.emit()
 
 func remove_item(item_id: StringName, quantity: int = 1) -> bool:
     if items.has(item_id):
         var current_quantity = items[item_id]
         if current_quantity >= quantity:
             items[item_id] = max(0, items[item_id] - quantity)
-            emit_signal("inventory_changed")
+            inventory_changed.emit()
             return true
         return false
     return false
@@ -31,3 +31,11 @@ func get_item_quantity(item_id: StringName) -> int:
 
 func has_item(item_id: StringName, quantity: int = 1) -> bool:
     return get_item_quantity(item_id) >= quantity
+
+## Returns all items with quantity > 0
+func get_all_items() -> Array[StringName]:
+    var result: Array[StringName] = []
+    for item_id in items.keys():
+        if items[item_id] > 0:
+            result.append(item_id)
+    return result

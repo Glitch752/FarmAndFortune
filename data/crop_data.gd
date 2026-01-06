@@ -12,5 +12,3 @@ class_name CropData extends Resource
 @export var wither_time_seconds: float
 
 @export var water_per_minute: float
-
-@export var material: Material

@@ -99,6 +99,19 @@ func check_grass_at_position(pos: Vector2):
     )
     return chunk.check_grass_at_position(local_pos)
 
+func get_crop_at(tile_pos: Vector2i) -> WorldCrop:
+    var chunk_pos = Vector2i(
+        floor(tile_pos.x / float(CHUNK_SIZE)),
+        floor(tile_pos.y / float(CHUNK_SIZE))
+    )
+    var local_pos = Vector2i(
+        tile_pos.x % CHUNK_SIZE,
+        tile_pos.y % CHUNK_SIZE
+    )
+    var chunk = get_chunk_at(chunk_pos)
+    if chunk == null:
+        return null
+    return chunk.get_crop_at(local_pos)
 func set_crop_at(tile_pos: Vector2i, crop: WorldCrop) -> void:
     var chunk_pos = Vector2i(
         floor(tile_pos.x / float(CHUNK_SIZE)),

@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://b70htm1f5xsu1"]
+[gd_scene load_steps=5 format=3 uid="uid://b70htm1f5xsu1"]
 
 [ext_resource type="Script" uid="uid://lfn28q261rn8" path="res://ui/interaction.gd" id="1_ato7f"]
 [ext_resource type="PackedScene" uid="uid://dubicjcr4ojb8" path="res://ui/InteractionHighlight.tscn" id="2_hkuyk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hkuyk"]
+bg_color = Color(0.14, 0.14, 0.14, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2e2e4"]
+bg_color = Color(0.96862745, 0.9529412, 0.6313726, 1)
 
 [node name="Interaction" type="Node2D"]
 z_index = 10
@@ -10,3 +16,15 @@ script = ExtResource("1_ato7f")
 [node name="InteractionHighlight" parent="." instance=ExtResource("2_hkuyk")]
 unique_name_in_owner = true
 z_index = 10
+
+[node name="ProgressBar" type="ProgressBar" parent="InteractionHighlight"]
+unique_name_in_owner = true
+offset_left = -8.0
+offset_top = -11.0
+offset_right = 8.0
+offset_bottom = -9.0
+theme_override_styles/background = SubResource("StyleBoxFlat_hkuyk")
+theme_override_styles/fill = SubResource("StyleBoxFlat_2e2e4")
+max_value = 1.0
+value = 0.5
+show_percentage = false
