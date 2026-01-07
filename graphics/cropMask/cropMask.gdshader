@@ -3,6 +3,8 @@ shader_type canvas_item;
 // The seed is a random integer to vary the pattern between masks
 uniform int seed = 0;
 
+const vec2 ASPECT = vec2(1.0, 2.0);
+
 float rand(float offset, float min_val, float max_val) {
     return fract(sin(offset + float(seed)) * 43758.5453) * (max_val - min_val) + min_val;
 }
@@ -36,7 +38,10 @@ float fbm(float x) {
 
 void fragment() {
     // Slight graininess
-    vec2 uv = UV;
+    vec2 scaled_uv = UV;
+    scaled_uv.y = scaled_uv.y * 2.0 - 1.0;
+
+    vec2 uv = scaled_uv;
     uv.x += (rand(uv.x * 10.0 + uv.y * 5.0, -1.0, 1.0) * 0.05);
     uv.y += (rand(uv.y * 10.0 + uv.x * 5.0, -1.0, 1.0) * 0.05);
 
@@ -54,19 +59,19 @@ void fragment() {
     float y = 0.8 - 0.15 * wave * scale - fbm(uv.x * 10.0) * 0.03 * scale;
     float fade = 0.05;
 
-    if(UV.y > y) {
+    if(scaled_uv.y > y) {
         COLOR.a = 0.0;
-    } else if(UV.y > y - fade) {
-        COLOR.a = 1.0 - smoothstep(y - fade, y, UV.y);
+    } else if(scaled_uv.y > y - fade) {
+        COLOR.a = 1.0 - smoothstep(y - fade, y, scaled_uv.y);
     } else {
         COLOR.a = 1.0;
     }
 
     // Spots of transparency
     if(COLOR.a > 0.0) {
-        float spot_chance = rand(UV.x * 0.10873789 + UV.y * 34709.3, 0.0, 1.0);
+        float spot_chance = rand(scaled_uv.x * 0.10873789 + scaled_uv.y * 34709.3, 0.0, 1.0);
         
-        float spot_threshold = UV.y * 0.3; // More likely to be transparent lower down
+        float spot_threshold = scaled_uv.y * 0.3; // More likely to be transparent lower down
         spot_threshold *= spot_threshold;
         spot_threshold *= scale;
 
@@ -76,9 +81,13 @@ void fragment() {
         }
     }
 
+    if(UV.y < 0.5) {
+        COLOR.a = 1.0;
+    }
+
     // Slight fade on the remaining edges
-    float edge_fade = 0.05;
-    COLOR.a *= 1.0 - smoothstep(edge_fade, 0.0, UV.x);
-    COLOR.a *= 1.0 - smoothstep(1.0 - edge_fade, 1.0, UV.x);
-    COLOR.a *= 1.0 - smoothstep(edge_fade, 0.0, UV.y);
+    vec2 edge_fade = 0.08 / ASPECT;
+    COLOR.a *= 1.0 - smoothstep(edge_fade.x, 0.0, UV.x);
+    COLOR.a *= 1.0 - smoothstep(1.0 - edge_fade.x, 1.0, UV.x);
+    COLOR.a *= 1.0 - smoothstep(edge_fade.y, 0.0, UV.y);
 }

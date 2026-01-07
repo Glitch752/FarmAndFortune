@@ -11,7 +11,8 @@ growth_percentage = 1.0
 [node name="Carrot" type="Sprite2D" parent="Mask" index="0"]
 unique_name_in_owner = true
 modulate = Color(0.9, 0.81119996, 0.756, 1)
-position = Vector2(7, 9)
-rotation = -0.7853982
+self_modulate = Color(0.8778613, 0.8778613, 0.8778613, 1)
+position = Vector2(7, 23)
+rotation = -0.83775806
 scale = Vector2(0.03, 0.03)
 texture = ExtResource("2_qm1cn")

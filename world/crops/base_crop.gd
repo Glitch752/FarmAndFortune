@@ -2,6 +2,9 @@
 
 extends Node2D
 
+@export_tool_button("Recreate")
+var recreate = _created
+
 @export_range(0.0, 1.0, 0.01)
 var growth_percentage = 0.0:
     set(value):
@@ -49,6 +52,14 @@ func get_stage_progress(stage: int) -> float:
         return 1.0
     else:
         return (growth_percentage - stage_start) / (stage_end - stage_start)
+
+func _ready() -> void:
+    _update_current_stage()
+    _render()
+    _created()
+
+func _created() -> void:
+    pass
 
 func _render() -> void:
     push_error("Base crop does not implement _render()")

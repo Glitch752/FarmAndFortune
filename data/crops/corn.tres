@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="CropData" load_steps=6 format=3 uid="uid://b6fov2fthxpkn"]
+
+[ext_resource type="Script" uid="uid://b4rdeos5mg0go" path="res://data/crop_data_harvest_item.gd" id="1_kljb7"]
+[ext_resource type="Texture2D" uid="uid://ca5nofs2b1v87" path="res://art/crops/corn_icon.png" id="2_kljb7"]
+[ext_resource type="PackedScene" uid="uid://csuouts4tpbln" path="res://world/crops/CornCrop.tscn" id="3_kljb7"]
+[ext_resource type="Script" uid="uid://b3oaxoo7ody31" path="res://data/crop_data.gd" id="4_ni0fs"]
+
+[sub_resource type="Resource" id="Resource_u6mle"]
+script = ExtResource("1_kljb7")
+item_id = &"corn_seeds"
+quantity = 2
+metadata/_custom_type_script = "uid://b4rdeos5mg0go"
+
+[resource]
+script = ExtResource("4_ni0fs")
+id = &"corn"
+name = "Corn"
+icon = ExtResource("2_kljb7")
+scene = ExtResource("3_kljb7")
+harvest_items = Array[ExtResource("1_kljb7")]([SubResource("Resource_u6mle")])
+grow_time_seconds = 120.0
+wither_time_seconds = 80.0
+water_per_minute = 0.75

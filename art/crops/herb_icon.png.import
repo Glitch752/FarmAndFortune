@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bkgdumtlj6eqn"
-path="res://.godot/imported/mask_3.png-9ed90ce28d667583172c18bf5f5ce9b9.ctex"
+uid="uid://bmyukymguk76"
+path="res://.godot/imported/herb_icon.png-59c1f473f037c393baa3adf6ae5d2556.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphics/cropMask/masks/mask_3.png"
-dest_files=["res://.godot/imported/mask_3.png-9ed90ce28d667583172c18bf5f5ce9b9.ctex"]
+source_file="res://art/crops/herb_icon.png"
+dest_files=["res://.godot/imported/herb_icon.png-59c1f473f037c393baa3adf6ae5d2556.ctex"]
 
 [params]
 

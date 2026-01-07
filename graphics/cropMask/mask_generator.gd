@@ -2,7 +2,15 @@
 
 extends Node
 
-@export var mask_size: Vector2i = Vector2i(64, 64)
+@export var mask_size: Vector2i = Vector2i(64, 64):
+    set(value):
+        print("Setting mask size to: %s" % value)
+        mask_size = value
+        $SubViewport.size = mask_size
+        $ViewportPreview.size = mask_size
+        $%Material.custom_minimum_size = mask_size
+        $%Material.size = mask_size
+
 @export var masks: int = 8
 
 @export var cycle_random: bool = true
@@ -37,6 +45,7 @@ func _generate_mask() -> void:
 
     # Reset sizes
     $SubViewport.size = mask_size
+    $ViewportPreview.size = mask_size
     $%Material.custom_minimum_size = mask_size
     $%Material.size = mask_size
 

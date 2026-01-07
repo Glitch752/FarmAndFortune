@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://csuouts4tpbln"]
+
+[ext_resource type="PackedScene" uid="uid://bk651my811qyo" path="res://world/crops/BaseCrop.tscn" id="1_xfxgt"]
+[ext_resource type="Script" uid="uid://csp50wa3vhg2f" path="res://world/crops/corn_crop.gd" id="2_xfxgt"]
+[ext_resource type="Texture2D" uid="uid://bmyukymguk76" path="res://art/crops/herb_icon.png" id="3_xfxgt"]
+[ext_resource type="Texture2D" uid="uid://ca5nofs2b1v87" path="res://art/crops/corn_icon.png" id="4_r8lrs"]
+
+[node name="BaseCrop" instance=ExtResource("1_xfxgt")]
+script = ExtResource("2_xfxgt")
+growth_percentage = 1.0
+
+[node name="Stem" type="Sprite2D" parent="Mask" index="0"]
+unique_name_in_owner = true
+modulate = Color(0.9, 0.81119996, 0.756, 1)
+position = Vector2(7, 16)
+rotation = -0.6457718
+scale = Vector2(0.03, 0.03)
+texture = ExtResource("3_xfxgt")
+
+[node name="Corn1" type="Sprite2D" parent="Mask" index="1"]
+unique_name_in_owner = true
+self_modulate = Color(0.8856533, 0.92, 0.4048, 1)
+position = Vector2(7.835476, 16.483257)
+rotation = -0.09599311
+scale = Vector2(0.012, 0.012)
+texture = ExtResource("4_r8lrs")
+offset = Vector2(184.62038, -199.76862)
+
+[node name="Corn2" type="Sprite2D" parent="Mask" index="2"]
+unique_name_in_owner = true
+self_modulate = Color(0.8856533, 0.92, 0.4048, 1)
+position = Vector2(5.8782024, 20.91913)
+rotation = 0.143117
+scale = Vector2(0.013, 0.013)
+texture = ExtResource("4_r8lrs")
+offset = Vector2(-190.3342, -199.91057)
+flip_h = true
