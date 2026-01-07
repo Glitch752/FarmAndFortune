@@ -1,26 +1,37 @@
 [gd_scene load_steps=4 format=3 uid="uid://bk651my811qyo"]
 
-[ext_resource type="Script" path="res://scripts/hot_reload_shader.gd" id="1_vedt5"]
-[ext_resource type="Shader" uid="uid://dqea2iw3ywb3u" path="res://graphics/cropMask/cropMask.gdshader" id="2_6owm5"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6owm5"]
-shader = ExtResource("2_6owm5")
-script = ExtResource("1_vedt5")
-metadata/_custom_type_script = "uid://bscdxsq5206ly"
+[ext_resource type="Texture2D" uid="uid://dh6td6s20uw3l" path="res://art/crops/carrot_icon.png" id="2_6owm5"]
+[ext_resource type="Script" uid="uid://1nniivumi88" path="res://world/crops/crop_mask.gd" id="2_vn8xe"]
+[ext_resource type="Texture2D" uid="uid://buiddvbmgwhc1" path="res://graphics/cropMask/masks/mask_0.png" id="3_vn8xe"]
 
 [node name="BaseCrop" type="Node2D"]
 
 [node name="Mask" type="TextureRect" parent="."]
-material = SubResource("ShaderMaterial_6owm5")
+clip_children = 1
+texture_filter = 2
 offset_left = -7.0
 offset_top = -7.0
 offset_right = 7.0
 offset_bottom = 7.0
+texture = ExtResource("3_vn8xe")
+expand_mode = 2
+script = ExtResource("2_vn8xe")
 
 [node name="ColorRect2" type="ColorRect" parent="Mask"]
+visible = false
 layout_mode = 0
 offset_left = 1.0
 offset_top = 1.0
 offset_right = 13.0
 offset_bottom = 13.0
 color = Color(1, 0.53533334, 0.32, 1)
+
+[node name="TextureRect" type="TextureRect" parent="Mask"]
+layout_mode = 0
+offset_left = -5.999998
+offset_top = 9.0
+offset_right = 11.804983
+offset_bottom = 26.804981
+rotation = -0.7853982
+texture = ExtResource("2_6owm5")
+expand_mode = 2

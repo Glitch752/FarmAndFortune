@@ -19,7 +19,7 @@ func _process(delta: float) -> void:
         _time_accumulator += delta
         if _time_accumulator >= cycle_time:
             _time_accumulator = 0.0
-            $%Material.material.set_shader_parameter("seed", randi() % 100000)
+            $%Material.material.set_shader_parameter("seed", randi() % 10000)
 
 func _generate_mask() -> void:
     # Delete masks
@@ -45,15 +45,16 @@ func _generate_mask() -> void:
 
     # Generate new masks
     for i in masks:
-        $%Material.material.set_shader_parameter("seed", randi() % 100000)
+        $%Material.material.set_shader_parameter("seed", randi() % 10000)
         await get_tree().process_frame  # Wait a frame for shader to update
         var image = ($ViewportPreview.texture as ViewportTexture).get_image()
         var path = "%smask_%d.png" % [MASKS_PATH, i]
         image.save_png(path)
 
     # Wait for asset reimport
-    while ResourceLoader.exists("%smask_0.png" % MASKS_PATH) == false:
-        await get_tree().process_frame
+    for i in masks:
+        while ResourceLoader.exists("%smask_%d.png" % [MASKS_PATH, i]) == false:
+            await get_tree().process_frame
 
     for i in masks:
         var path = "%smask_%d.png" % [MASKS_PATH, i]

@@ -35,16 +35,24 @@ float fbm(float x) {
 }
 
 void fragment() {
-    float scale = abs(0.5 - UV.x) * 2.0;
+    // Slight graininess
+    vec2 uv = UV;
+    uv.x += (rand(uv.x * 10.0 + uv.y * 5.0, -1.0, 1.0) * 0.05);
+    uv.y += (rand(uv.y * 10.0 + uv.x * 5.0, -1.0, 1.0) * 0.05);
+
+    float scale = abs(0.5 - uv.x) * 2.0;
     scale = 1.0 - pow(scale, 2.0);
     // scale = 1.0;
 
-    float wave = sin(UV.x * PI * 2.0 + rand(0.0, -1.0, 1.0) - PI / 2.0);
+    float widthScale = rand(0.0, 0.4, 1.2);
+    float x = (uv.x - 0.5) * widthScale + 0.5;
+
+    float wave = sin(x * PI * 2.0 + rand(0.0, -1.0, 1.0) - PI / 2.0);
     wave += 1.0;
     wave *= 0.5;
 
-    float y = 1.0 - 0.15 * wave * scale - fbm(UV.x * 10.0) * 0.03 * scale;
-    float fade = 0.02;
+    float y = 0.8 - 0.15 * wave * scale - fbm(uv.x * 10.0) * 0.03 * scale;
+    float fade = 0.05;
 
     if(UV.y > y) {
         COLOR.a = 0.0;
@@ -53,4 +61,24 @@ void fragment() {
     } else {
         COLOR.a = 1.0;
     }
+
+    // Spots of transparency
+    if(COLOR.a > 0.0) {
+        float spot_chance = rand(UV.x * 0.10873789 + UV.y * 34709.3, 0.0, 1.0);
+        
+        float spot_threshold = UV.y * 0.3; // More likely to be transparent lower down
+        spot_threshold *= spot_threshold;
+        spot_threshold *= scale;
+
+        if(spot_chance < spot_threshold) {
+            float spot_fade = 0.1;
+            COLOR.a *= 1.0 - (spot_threshold - spot_chance) / spot_threshold;
+        }
+    }
+
+    // Slight fade on the remaining edges
+    float edge_fade = 0.05;
+    COLOR.a *= 1.0 - smoothstep(edge_fade, 0.0, UV.x);
+    COLOR.a *= 1.0 - smoothstep(1.0 - edge_fade, 1.0, UV.x);
+    COLOR.a *= 1.0 - smoothstep(edge_fade, 0.0, UV.y);
 }
