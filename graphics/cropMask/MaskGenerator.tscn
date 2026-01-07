@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://d08uonn5hihxr"]
+
+[ext_resource type="Script" uid="uid://db5apego6r41x" path="res://graphics/cropMask/maskGenerator.gd" id="1_m06wb"]
+[ext_resource type="Script" uid="uid://bscdxsq5206ly" path="res://scripts/hot_reload_shader.gd" id="2_3wkga"]
+[ext_resource type="Shader" uid="uid://dqea2iw3ywb3u" path="res://graphics/cropMask/cropMask.gdshader" id="3_kh12q"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_m06wb"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7hyaq"]
+shader = ExtResource("3_kh12q")
+shader_parameter/seed = 80424
+script = ExtResource("2_3wkga")
+metadata/_custom_type_script = "uid://bscdxsq5206ly"
+
+[node name="MaskGenerator" type="Node2D"]
+script = ExtResource("1_m06wb")
+cycle_time = 0.5
+
+[node name="ViewportPreview" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(64, 64)
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("ViewportTexture_m06wb")
+
+[node name="TexturePreviews" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(64, 64)
+offset_left = 68.0
+offset_right = 132.0
+offset_bottom = 64.0
+theme_override_constants/separation = 4
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(64, 64)
+
+[node name="Material" type="ColorRect" parent="SubViewport"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_7hyaq")
+custom_minimum_size = Vector2(64, 64)
+offset_right = 64.0
+offset_bottom = 64.0

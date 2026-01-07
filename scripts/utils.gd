@@ -1,3 +1,6 @@
+static func slight_ease(t: float) -> float:
+    return t * t * (3.0 - 2.0 * t)
+
 class _CallTime:
     var time: int
     func _init(initial_time: int):

@@ -1,5 +1,7 @@
 extends Node2D
 
+const slight_ease = preload("res://scripts/utils.gd").slight_ease;
+
 @onready var highlight = $%InteractionHighlight
 @onready var progress_bar = $%ProgressBar
 
@@ -56,7 +58,7 @@ func _process(delta: float) -> void:
 
     if interacting:
         interact_progress += delta
-        progress_bar.value = 1.0 - interact_progress / required_time
+        progress_bar.value = slight_ease.call(interact_progress / required_time)
         if interact_progress >= required_time:
             InteractionSingleton.interact()
             interacting = false
@@ -64,3 +66,4 @@ func _process(delta: float) -> void:
         interact_progress = 0.0
     
     progress_bar.visible = interacting
+    progress_bar.get_theme_stylebox("fill").bg_color = InteractionSingleton.current_interaction.color

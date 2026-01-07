@@ -24,4 +24,4 @@ func _init():
         
         # This is a resource, so we can't directly add the watcher as a child. This is kind of hacky, but we get the root scene and add it there.
         var root = Engine.get_main_loop().get_root()
-        root.add_child(watcher)
+        root.add_child.call_deferred(watcher)

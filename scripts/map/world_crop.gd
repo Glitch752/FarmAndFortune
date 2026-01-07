@@ -16,3 +16,6 @@ func _init(_crop: CropData) -> void:
 func process():
     # print("Processing crop: %s" % crop.name)
     pass
+
+func is_fully_grown() -> bool:
+    return false

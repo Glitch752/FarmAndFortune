@@ -4,7 +4,7 @@ var color: Color = Color.WHITE
 
 var duration: float = 0.5
 
-## Only should be called on unlocked tiles.
+## Only should be called on unlocked tiles and after can_interact() returns true.
 func interact(_tile: Vector2i) -> void:
     push_error("interact() not implemented for this InteractionType")
 
