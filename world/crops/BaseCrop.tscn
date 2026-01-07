@@ -1,10 +1,11 @@
 [gd_scene load_steps=4 format=3 uid="uid://bk651my811qyo"]
 
-[ext_resource type="Texture2D" uid="uid://dh6td6s20uw3l" path="res://art/crops/carrot_icon.png" id="2_6owm5"]
+[ext_resource type="Script" uid="uid://cql8fd1druf3f" path="res://world/crops/base_crop.gd" id="1_vn8xe"]
 [ext_resource type="Script" uid="uid://1nniivumi88" path="res://world/crops/crop_mask.gd" id="2_vn8xe"]
 [ext_resource type="Texture2D" uid="uid://buiddvbmgwhc1" path="res://graphics/cropMask/masks/mask_0.png" id="3_vn8xe"]
 
 [node name="BaseCrop" type="Node2D"]
+script = ExtResource("1_vn8xe")
 
 [node name="Mask" type="TextureRect" parent="."]
 clip_children = 1
@@ -16,22 +17,3 @@ offset_bottom = 7.0
 texture = ExtResource("3_vn8xe")
 expand_mode = 2
 script = ExtResource("2_vn8xe")
-
-[node name="ColorRect2" type="ColorRect" parent="Mask"]
-visible = false
-layout_mode = 0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 13.0
-offset_bottom = 13.0
-color = Color(1, 0.53533334, 0.32, 1)
-
-[node name="TextureRect" type="TextureRect" parent="Mask"]
-layout_mode = 0
-offset_left = -5.999998
-offset_top = 9.0
-offset_right = 11.804983
-offset_bottom = 26.804981
-rotation = -0.7853982
-texture = ExtResource("2_6owm5")
-expand_mode = 2

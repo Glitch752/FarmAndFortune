@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b4rdeos5mg0go" path="res://data/crop_data_harvest_item.gd" id="1_h6mc8"]
 [ext_resource type="Texture2D" uid="uid://dh6td6s20uw3l" path="res://art/crops/carrot_icon.png" id="2_bvyjo"]
 [ext_resource type="Script" uid="uid://b3oaxoo7ody31" path="res://data/crop_data.gd" id="2_yyetx"]
-[ext_resource type="PackedScene" uid="uid://bk651my811qyo" path="res://world/crops/BaseCrop.tscn" id="3_0jfij"]
+[ext_resource type="PackedScene" uid="uid://lkreh14dbhdv" path="res://world/crops/CarrotCrop.tscn" id="3_0jfij"]
 
 [sub_resource type="Resource" id="Resource_u6mle"]
 script = ExtResource("1_h6mc8")

@@ -9,7 +9,7 @@ viewport_path = NodePath("SubViewport")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7hyaq"]
 shader = ExtResource("3_kh12q")
-shader_parameter/seed = 5099
+shader_parameter/seed = 4898
 script = ExtResource("2_3wkga")
 metadata/_custom_type_script = "uid://bscdxsq5206ly"
 
