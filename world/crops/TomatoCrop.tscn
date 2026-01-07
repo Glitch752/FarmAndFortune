@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://yydqx4l8im1u"]
+
+[ext_resource type="PackedScene" uid="uid://bk651my811qyo" path="res://world/crops/BaseCrop.tscn" id="1_572n0"]
+[ext_resource type="Script" uid="uid://c752g2vg4otjx" path="res://world/crops/tomato_crop.gd" id="2_572n0"]
+[ext_resource type="Texture2D" uid="uid://b8m4hshooh6so" path="res://art/crops/deciduous_tree_icon.png" id="3_572n0"]
+[ext_resource type="Texture2D" uid="uid://b5ny7o1hnq36s" path="res://art/crops/tomato_icon.png" id="4_bl0dj"]
+
+[node name="BaseCrop" instance=ExtResource("1_572n0")]
+script = ExtResource("2_572n0")
+growth_percentage = 1.0
+
+[node name="Plant" type="Sprite2D" parent="Mask" index="0"]
+unique_name_in_owner = true
+modulate = Color(0.9, 0.81119996, 0.756, 1)
+position = Vector2(7, 20)
+scale = Vector2(0.03, 0.03)
+texture = ExtResource("3_572n0")
+
+[node name="Tomato1" type="Sprite2D" parent="Mask" index="1"]
+unique_name_in_owner = true
+position = Vector2(10.095367, 18.276001)
+rotation = -0.09599311
+scale = Vector2(0.012, 0.012)
+texture = ExtResource("4_bl0dj")
+offset = Vector2(-2.9845734, 169.42987)
+
+[node name="Tomato2" type="Sprite2D" parent="Mask" index="2"]
+unique_name_in_owner = true
+position = Vector2(5.348938, 14.49292)
+rotation = 0.143117
+scale = Vector2(0.013, 0.013)
+texture = ExtResource("4_bl0dj")
+offset = Vector2(-0.48059082, 170.68275)
+flip_h = true

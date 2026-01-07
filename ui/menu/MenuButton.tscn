@@ -1,0 +1,71 @@
+[gd_scene load_steps=7 format=3 uid="uid://e1wj20hwh8ty"]
+
+[ext_resource type="Material" uid="uid://4p2g18w6yasx" path="res://ui/panelBlur.tres" id="1_2mkpp"]
+[ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="1_beid2"]
+[ext_resource type="Script" uid="uid://d0ucdkwax7bqx" path="res://ui/nodes/transform_container.gd" id="1_ggmdk"]
+[ext_resource type="Script" uid="uid://ceui766bco0qv" path="res://ui/menu/menu_button.gd" id="3_kqj1p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_beid2"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 12.0
+content_margin_bottom = 0.0
+bg_color = Color(0.39215687, 0.4509804, 0.47843137, 0.39215687)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_blend = true
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+shadow_color = Color(0, 0, 0, 0.47843137)
+shadow_size = 1
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="LabelSettings" id="LabelSettings_beid2"]
+font_size = 22
+outline_size = 4
+outline_color = Color(1, 1, 1, 0.44705883)
+shadow_color = Color(0, 0, 0, 0.1882353)
+shadow_offset = Vector2(2, 2)
+
+[node name="StackContainer" type="Container"]
+offset_top = 9.0
+offset_right = 280.0
+offset_bottom = 49.0
+script = ExtResource("3_kqj1p")
+metadata/_custom_type_script = "uid://dtiyyefskk5op"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+flat = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 9
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 9
+
+[node name="TransformContainer" type="Container" parent="MarginContainer"]
+layout_mode = 2
+script = ExtResource("1_ggmdk")
+visual_size = Vector2(30, 0)
+visual_position = Vector2(-30, 0)
+metadata/_custom_type_script = "uid://d0ucdkwax7bqx"
+
+[node name="Panel" type="PanelContainer" parent="MarginContainer/TransformContainer"]
+material = ExtResource("1_2mkpp")
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 2
+theme = ExtResource("1_beid2")
+theme_type_variation = &"Menu_button"
+theme_override_styles/panel = SubResource("StyleBoxFlat_beid2")
+
+[node name="Label" type="Label" parent="MarginContainer/TransformContainer/Panel"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Menu button label"
+label_settings = SubResource("LabelSettings_beid2")
+vertical_alignment = 1

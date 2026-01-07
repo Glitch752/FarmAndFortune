@@ -14,5 +14,5 @@ func _created():
     carrot.self_modulate = Color(brightness, brightness, brightness)
 
 func _render():
-    carrot.position.y = get_stage_progress(0) * -2 + 25
+    carrot.position.y = get_stage_progress(0) * -5 + 22
     carrot.scale = Vector2.ONE * (0.5 + get_stage_progress(0) * 0.5) * 0.03

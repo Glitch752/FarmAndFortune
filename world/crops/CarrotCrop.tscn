@@ -6,13 +6,13 @@
 
 [node name="BaseCrop" instance=ExtResource("1_1bs16")]
 script = ExtResource("2_sm3ym")
-growth_percentage = 1.0
 
 [node name="Carrot" type="Sprite2D" parent="Mask" index="0"]
 unique_name_in_owner = true
 modulate = Color(0.9, 0.81119996, 0.756, 1)
 self_modulate = Color(0.8778613, 0.8778613, 0.8778613, 1)
-position = Vector2(7, 23)
+position = Vector2(6.8352585, 22)
 rotation = -0.83775806
-scale = Vector2(0.03, 0.03)
+scale = Vector2(0.015, 0.015)
 texture = ExtResource("2_qm1cn")
+offset = Vector2(-151.39708, 143.70792)

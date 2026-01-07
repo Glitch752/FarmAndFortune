@@ -1,0 +1,56 @@
+[gd_scene load_steps=5 format=3 uid="uid://cy7q8851vwtnj"]
+
+[ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="1_eya86"]
+[ext_resource type="FontFile" uid="uid://3px4eopsekhv" path="res://ui/Ubuntu/Ubuntu-Bold.ttf" id="2_flbq7"]
+[ext_resource type="PackedScene" uid="uid://e1wj20hwh8ty" path="res://ui/menu/MenuButton.tscn" id="3_pttcu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_flbq7"]
+font = ExtResource("2_flbq7")
+font_size = 80
+outline_size = 10
+outline_color = Color(1, 1, 1, 0.37254903)
+shadow_size = 12
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(4, 3)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_eya86")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+offset_left = 56.0
+offset_top = 112.00005
+offset_right = 646.0
+offset_bottom = 203.66675
+rotation = -0.12217305
+text = "Farm & Fortune"
+label_settings = SubResource("LabelSettings_flbq7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+offset_top = 272.0
+offset_right = 167.0
+offset_bottom = 437.0
+theme_override_constants/separation = 0
+
+[node name="New" parent="VBoxContainer" instance=ExtResource("3_pttcu")]
+layout_mode = 2
+text = "New Save"
+
+[node name="Load" parent="VBoxContainer" instance=ExtResource("3_pttcu")]
+layout_mode = 2
+text = "Load Save"
+
+[node name="Settings" parent="VBoxContainer" instance=ExtResource("3_pttcu")]
+layout_mode = 2
+text = "Settings"
+
+[node name="Exit" parent="VBoxContainer" instance=ExtResource("3_pttcu")]
+layout_mode = 2
+text = "Exit"

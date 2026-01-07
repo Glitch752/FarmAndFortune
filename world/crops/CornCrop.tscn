@@ -7,14 +7,13 @@
 
 [node name="BaseCrop" instance=ExtResource("1_xfxgt")]
 script = ExtResource("2_xfxgt")
-growth_percentage = 1.0
 
 [node name="Stem" type="Sprite2D" parent="Mask" index="0"]
 unique_name_in_owner = true
 modulate = Color(0.9, 0.81119996, 0.756, 1)
-position = Vector2(7, 16)
+position = Vector2(7, 25)
 rotation = -0.6457718
-scale = Vector2(0.03, 0.03)
+scale = Vector2(0.015, 0.015)
 texture = ExtResource("3_xfxgt")
 
 [node name="Corn1" type="Sprite2D" parent="Mask" index="1"]
@@ -22,7 +21,7 @@ unique_name_in_owner = true
 self_modulate = Color(0.8856533, 0.92, 0.4048, 1)
 position = Vector2(7.835476, 16.483257)
 rotation = -0.09599311
-scale = Vector2(0.012, 0.012)
+scale = Vector2(1e-05, 1e-05)
 texture = ExtResource("4_r8lrs")
 offset = Vector2(184.62038, -199.76862)
 
@@ -31,7 +30,7 @@ unique_name_in_owner = true
 self_modulate = Color(0.8856533, 0.92, 0.4048, 1)
 position = Vector2(5.8782024, 20.91913)
 rotation = 0.143117
-scale = Vector2(0.013, 0.013)
+scale = Vector2(1e-05, 1e-05)
 texture = ExtResource("4_r8lrs")
 offset = Vector2(-190.3342, -199.91057)
 flip_h = true
