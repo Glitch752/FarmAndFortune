@@ -1,17 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://cy7q8851vwtnj"]
+[gd_scene load_steps=6 format=3 uid="uid://cy7q8851vwtnj"]
 
 [ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="1_eya86"]
 [ext_resource type="FontFile" uid="uid://3px4eopsekhv" path="res://ui/Ubuntu/Ubuntu-Bold.ttf" id="2_flbq7"]
+[ext_resource type="PackedScene" uid="uid://ck08c0nrtr7t5" path="res://ui/menu/MenuBackground.tscn" id="2_nsqqj"]
 [ext_resource type="PackedScene" uid="uid://e1wj20hwh8ty" path="res://ui/menu/MenuButton.tscn" id="3_pttcu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_flbq7"]
 font = ExtResource("2_flbq7")
 font_size = 80
-outline_size = 10
-outline_color = Color(1, 1, 1, 0.37254903)
-shadow_size = 12
-shadow_color = Color(0, 0, 0, 1)
-shadow_offset = Vector2(4, 3)
+font_color = Color(0.94, 0.94, 0.94, 1)
+shadow_color = Color(0, 0, 0, 0.48235294)
+shadow_offset = Vector2(3, 3)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -21,6 +20,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_eya86")
+
+[node name="MenuBackground" parent="." instance=ExtResource("2_nsqqj")]
+layout_mode = 1
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1

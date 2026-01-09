@@ -24,19 +24,17 @@ shadow_offset = Vector2(2, 2)
 
 [sub_resource type="LabelSettings" id="LabelSettings_beid2"]
 font_size = 22
-outline_size = 4
-outline_color = Color(1, 1, 1, 0.44705883)
-shadow_color = Color(0, 0, 0, 0.1882353)
-shadow_offset = Vector2(2, 2)
 
 [node name="StackContainer" type="Container"]
-offset_top = 9.0
+offset_left = -30.0
 offset_right = 280.0
-offset_bottom = 49.0
+offset_bottom = 40.0
 script = ExtResource("3_kqj1p")
+inactive_label_color = Color(1, 1, 1, 0.5)
 metadata/_custom_type_script = "uid://dtiyyefskk5op"
 
 [node name="Button" type="Button" parent="."]
+unique_name_in_owner = true
 layout_mode = 2
 flat = true
 
@@ -44,10 +42,11 @@ flat = true
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 9
-theme_override_constants/margin_right = 100
+theme_override_constants/margin_right = 250
 theme_override_constants/margin_bottom = 9
 
 [node name="TransformContainer" type="Container" parent="MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 script = ExtResource("1_ggmdk")
 visual_size = Vector2(30, 0)
@@ -56,7 +55,7 @@ metadata/_custom_type_script = "uid://d0ucdkwax7bqx"
 
 [node name="Panel" type="PanelContainer" parent="MarginContainer/TransformContainer"]
 material = ExtResource("1_2mkpp")
-custom_minimum_size = Vector2(280, 40)
+custom_minimum_size = Vector2(200, 40)
 layout_mode = 2
 theme = ExtResource("1_beid2")
 theme_type_variation = &"Menu_button"
@@ -64,8 +63,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_beid2")
 
 [node name="Label" type="Label" parent="MarginContainer/TransformContainer/Panel"]
 unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.5)
 layout_mode = 2
 size_flags_horizontal = 8
-text = "Menu button label"
 label_settings = SubResource("LabelSettings_beid2")
 vertical_alignment = 1

@@ -1,0 +1,46 @@
+[gd_scene load_steps=11 format=3 uid="uid://ck08c0nrtr7t5"]
+
+[ext_resource type="Texture2D" uid="uid://dh6td6s20uw3l" path="res://art/crops/carrot_icon.png" id="1_17j2x"]
+[ext_resource type="Script" uid="uid://bscdxsq5206ly" path="res://scripts/hot_reload_shader.gd" id="1_dtmsx"]
+[ext_resource type="Texture2D" uid="uid://ca5nofs2b1v87" path="res://art/crops/corn_icon.png" id="2_dtmsx"]
+[ext_resource type="Shader" uid="uid://dhoadj3kxdrpp" path="res://ui/menu/background.gdshader" id="2_yk857"]
+[ext_resource type="Texture2DArray" uid="uid://6pp81y5d214p" path="res://ui/menu/backgroundTextureArray.tres" id="3_1utr4"]
+[ext_resource type="Script" uid="uid://c65oigxvtkbnc" path="res://ui/menu/background.gd" id="3_yk857"]
+[ext_resource type="Texture2D" uid="uid://bmyukymguk76" path="res://art/crops/herb_icon.png" id="4_3ac1k"]
+[ext_resource type="Texture2D" uid="uid://b8m4hshooh6so" path="res://art/crops/deciduous_tree_icon.png" id="5_3k8ow"]
+[ext_resource type="Texture2D" uid="uid://b5ny7o1hnq36s" path="res://art/crops/tomato_icon.png" id="8_cee7m"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5eksf"]
+shader = ExtResource("2_yk857")
+shader_parameter/icon_tex = ExtResource("3_1utr4")
+shader_parameter/grid_spacing = 150.0
+shader_parameter/grid_angle = -0.5
+shader_parameter/scroll_speed = Vector2(-12.5, -30)
+shader_parameter/icon_scale = 0.4
+shader_parameter/icon_opacity = 0.5
+shader_parameter/zoom_amplitude = 0.05
+shader_parameter/zoom_period = 20.0
+shader_parameter/max_rotation = 1.0
+shader_parameter/max_offset = 0.2
+script = ExtResource("1_dtmsx")
+metadata/_custom_type_script = "uid://bscdxsq5206ly"
+
+[node name="MenuBackground" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_5eksf")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.7, 0.6757333, 0.60899997, 1)
+script = ExtResource("3_yk857")
+textures = Array[Texture2D]([ExtResource("1_17j2x"), ExtResource("2_dtmsx"), ExtResource("4_3ac1k"), ExtResource("5_3k8ow"), ExtResource("8_cee7m")])
