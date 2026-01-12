@@ -41,10 +41,10 @@ signal pressed
 func _ready():
     button.pressed.connect(pressed.emit)
 
-    mouse_entered.connect(func():
+    button.mouse_entered.connect(func():
         button.grab_focus()
     )
-    mouse_exited.connect(func():
+    button.mouse_exited.connect(func():
         button.release_focus()
     )
 

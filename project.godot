@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+SaveData="*res://scripts/save_data.gd"
 DataLoader="*res://scripts/data_loader.gd"
 MapSingleton="*res://scripts/map_singleton.gd"
 InteractionSingleton="*res://scripts/interaction_singleton.gd"

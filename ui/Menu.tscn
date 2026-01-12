@@ -1,9 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://cy7q8851vwtnj"]
+[gd_scene load_steps=11 format=3 uid="uid://cy7q8851vwtnj"]
 
 [ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="1_eya86"]
 [ext_resource type="FontFile" uid="uid://3px4eopsekhv" path="res://ui/Ubuntu/Ubuntu-Bold.ttf" id="2_flbq7"]
 [ext_resource type="PackedScene" uid="uid://ck08c0nrtr7t5" path="res://ui/menu/MenuBackground.tscn" id="2_nsqqj"]
+[ext_resource type="Script" uid="uid://dc3jnhg1ekirs" path="res://ui/menu/menu.gd" id="2_sjgy2"]
 [ext_resource type="PackedScene" uid="uid://e1wj20hwh8ty" path="res://ui/menu/MenuButton.tscn" id="3_pttcu"]
+[ext_resource type="Shader" uid="uid://coof3kxlypjxl" path="res://graphics/glassblur.gdshader" id="6_cavdx"]
+[ext_resource type="StyleBox" uid="uid://dwmkl21pqn0ad" path="res://ui/primaryPanel.tres" id="7_bjurq"]
+[ext_resource type="PackedScene" uid="uid://c6ove0fq3pgrm" path="res://ui/settings/SettingsMenu.tscn" id="8_jj6v1"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_flbq7"]
 font = ExtResource("2_flbq7")
@@ -11,6 +15,10 @@ font_size = 80
 font_color = Color(0.94, 0.94, 0.94, 1)
 shadow_color = Color(0, 0, 0, 0.48235294)
 shadow_offset = Vector2(3, 3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bjurq"]
+shader = ExtResource("6_cavdx")
+shader_parameter/blur = 2.0
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -20,6 +28,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_eya86")
+script = ExtResource("2_sjgy2")
 
 [node name="MenuBackground" parent="." instance=ExtResource("2_nsqqj")]
 layout_mode = 1
@@ -41,18 +50,72 @@ offset_right = 167.0
 offset_bottom = 437.0
 theme_override_constants/separation = 0
 
-[node name="New" parent="VBoxContainer" instance=ExtResource("3_pttcu")]
+[node name="NewButton" parent="VBoxContainer" instance=ExtResource("3_pttcu")]
+unique_name_in_owner = true
 layout_mode = 2
 text = "New Save"
 
-[node name="Load" parent="VBoxContainer" instance=ExtResource("3_pttcu")]
+[node name="LoadButton" parent="VBoxContainer" instance=ExtResource("3_pttcu")]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Load Save"
 
-[node name="Settings" parent="VBoxContainer" instance=ExtResource("3_pttcu")]
+[node name="SettingsButton" parent="VBoxContainer" instance=ExtResource("3_pttcu")]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Settings"
 
-[node name="Exit" parent="VBoxContainer" instance=ExtResource("3_pttcu")]
+[node name="ExitButton" parent="VBoxContainer" instance=ExtResource("3_pttcu")]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Exit"
+
+[node name="SubmenuContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+offset_left = 232.0
+offset_top = 280.0
+offset_right = 272.0
+offset_bottom = 320.0
+theme_override_constants/separation = 8
+
+[node name="SettingsSubmenu" type="PanelContainer" parent="SubmenuContainer"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_bjurq")
+layout_mode = 2
+theme_override_styles/panel = ExtResource("7_bjurq")
+
+[node name="MarginContainer" type="MarginContainer" parent="SubmenuContainer/SettingsSubmenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="SettingsMenu" parent="SubmenuContainer/SettingsSubmenu/MarginContainer" instance=ExtResource("8_jj6v1")]
+layout_mode = 2
+
+[node name="LoadSaveSubmenu" type="PanelContainer" parent="SubmenuContainer"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_bjurq")
+layout_mode = 2
+theme_override_styles/panel = ExtResource("7_bjurq")
+
+[node name="MarginContainer" type="MarginContainer" parent="SubmenuContainer/LoadSaveSubmenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="NewSaveSubmenu" type="PanelContainer" parent="SubmenuContainer"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_bjurq")
+layout_mode = 2
+theme_override_styles/panel = ExtResource("7_bjurq")
+
+[node name="MarginContainer" type="MarginContainer" parent="SubmenuContainer/NewSaveSubmenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12

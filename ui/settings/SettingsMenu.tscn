@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://c6ove0fq3pgrm"]
+
+[node name="SettingsMenu" type="VBoxContainer"]

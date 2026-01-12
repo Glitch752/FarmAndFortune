@@ -33,13 +33,9 @@ script = ExtResource("3_kqj1p")
 inactive_label_color = Color(1, 1, 1, 0.5)
 metadata/_custom_type_script = "uid://dtiyyefskk5op"
 
-[node name="Button" type="Button" parent="."]
-unique_name_in_owner = true
-layout_mode = 2
-flat = true
-
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
+focus_behavior_recursive = 1
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 9
 theme_override_constants/margin_right = 250
@@ -68,3 +64,9 @@ layout_mode = 2
 size_flags_horizontal = 8
 label_settings = SubResource("LabelSettings_beid2")
 vertical_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+focus_behavior_recursive = 2
+flat = true

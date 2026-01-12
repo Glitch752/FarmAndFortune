@@ -62,4 +62,7 @@ func _created() -> void:
     pass
 
 func _render() -> void:
-    push_error("Base crop does not implement _render()")
+    # For some reason, this gets called even though overriding works as intended...
+    # whatever
+    # push_error("Base crop does not implement _render()")
+    pass
