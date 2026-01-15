@@ -1,3 +1,6 @@
 [gd_scene format=3 uid="uid://c6ove0fq3pgrm"]
 
 [node name="SettingsMenu" type="VBoxContainer"]
+
+[node name="VolumeSliders" type="VBoxContainer" parent="."]
+layout_mode = 2

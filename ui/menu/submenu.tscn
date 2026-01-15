@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbcs1kv0kenga"]
+
+[ext_resource type="Script" uid="uid://bvx6yfk3lmh4w" path="res://ui/menu/submenu.gd" id="1_dku1q"]
+[ext_resource type="Shader" uid="uid://coof3kxlypjxl" path="res://graphics/glassblur.gdshader" id="1_xjebt"]
+[ext_resource type="StyleBox" uid="uid://dwmkl21pqn0ad" path="res://ui/primaryPanel.tres" id="2_dku1q"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bjurq"]
+shader = ExtResource("1_xjebt")
+shader_parameter/blur = 2.0
+
+[node name="Submenu" type="Container"]
+offset_left = 6.0
+offset_top = 4.0
+offset_right = 30.0
+offset_bottom = 28.0
+script = ExtResource("1_dku1q")
+shown = true
+transition_offset = Vector2(5, 0)
+metadata/_custom_type_script = "uid://d0ucdkwax7bqx"
+
+[node name="Panel" type="PanelContainer" parent="."]
+material = SubResource("ShaderMaterial_bjurq")
+layout_mode = 2
+theme_override_styles/panel = ExtResource("2_dku1q")
+
+[node name="MenuContent" type="MarginContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
