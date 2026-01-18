@@ -1,6 +1,13 @@
-[gd_scene format=3 uid="uid://c6ove0fq3pgrm"]
+[gd_scene load_steps=3 format=3 uid="uid://c6ove0fq3pgrm"]
+
+[ext_resource type="Script" uid="uid://vjqt3dyuw6a3" path="res://ui/settings/volume_slider_list.gd" id="1_argmo"]
+[ext_resource type="PackedScene" uid="uid://c1673cg3fmkqy" path="res://ui/settings/VolumeSlider.tscn" id="2_np4jn"]
 
 [node name="SettingsMenu" type="VBoxContainer"]
 
 [node name="VolumeSliders" type="VBoxContainer" parent="."]
+layout_mode = 2
+script = ExtResource("1_argmo")
+
+[node name="VolumeSlider" parent="VolumeSliders" instance=ExtResource("2_np4jn")]
 layout_mode = 2

@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1673cg3fmkqy"]
+
+[ext_resource type="Script" uid="uid://dfr03ygmbcor8" path="res://ui/settings/volume_slider.gd" id="1_qciek"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_eie8p"]
+font_size = 24
+
+[node name="VolumeSlider" type="VBoxContainer"]
+custom_minimum_size = Vector2(512, 0)
+theme_override_constants/separation = 2
+script = ExtResource("1_qciek")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Master volume: 100%"
+label_settings = SubResource("LabelSettings_eie8p")
+
+[node name="Slider" type="HSlider" parent="."]
+layout_mode = 2
+theme_override_constants/center_grabber = 1
+max_value = 1.0
+step = 0.0
+value = 0.5

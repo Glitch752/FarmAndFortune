@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://dunije50dhb4k"]
+
+[ext_resource type="Script" uid="uid://ckt0ch5lu52vw" path="res://audio/sound_manager.gd" id="1_00ai2"]
+
+[node name="SoundManager" type="Node"]
+script = ExtResource("1_00ai2")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="SliderDebounce" type="Timer" parent="."]
+
+[node name="SaveVolumeDebounce" type="Timer" parent="."]
