@@ -27,17 +27,28 @@ func _ready() -> void:
         modulate.a = 0.0
         visible = false
 
+var current_tween: Tween = null
+func make_tween() -> Tween:
+    if current_tween:
+        current_tween.kill()
+    
+    current_tween = create_tween()
+    current_tween.connect("finished", func() -> void:
+        current_tween = null
+    )
+    return current_tween
+
 func _shown() -> void:
     visible = true
     
-    var tween = create_tween()
+    var tween = make_tween()
     tween.set_trans(Tween.TRANS_CUBIC)
     tween.set_ease(Tween.EASE_OUT)
     tween.tween_property(self, "visual_position", Vector2(0, 0), transition_duration)
     tween.parallel().tween_property(self, "modulate:a", 1.0, transition_duration)
 
 func _hidden() -> void:
-    var tween = create_tween()
+    var tween = make_tween()
     tween.set_trans(Tween.TRANS_CUBIC)
     tween.set_ease(Tween.EASE_OUT)
     tween.tween_property(self, "visual_position", transition_offset, transition_duration)

@@ -6,12 +6,23 @@ enum SubmenuState {
     LOAD_SAVE,
     NEW_SAVE
 }
-var current_submenu: SubmenuState = SubmenuState.NONE
+var current_submenu: SubmenuState = SubmenuState.NONE:
+    set(value):
+        current_submenu = value
+        update_visible_submenu()
 
-@onready var submenu_buttons: Dictionary[Button, SubmenuState] = {
+func update_visible_submenu() -> void:
+    for submenu in submenu_menus.keys():
+        if submenu == current_submenu:
+            submenu_menus[submenu].shown = true
+        else:
+            submenu_menus[submenu].shown = false
+
+@onready var submenu_buttons: Dictionary[Control, SubmenuState] = {
     $%SettingsButton: SubmenuState.SETTINGS,
-    $%LoadSaveButton: SubmenuState.LOAD_SAVE,
-    $%NewSaveButton: SubmenuState.NEW_SAVE
+    $%LoadButton: SubmenuState.LOAD_SAVE,
+    $%NewButton: SubmenuState.NEW_SAVE,
+    $%ExitButton: SubmenuState.NONE
 }
 
 @onready var submenu_menus: Dictionary[SubmenuState, Control] = {
@@ -27,19 +38,15 @@ func _ready() -> void:
 
     $%ExitButton.pressed.connect(_on_exit_pressed)
     
-    for _button in submenu_buttons.keys():
-        var button: Button = _button # for gdscript typing lol
-        button.focus_entered.connect(_update_submenu_focus)
-        button.focus_exited.connect(_update_submenu_focus)
+    for button in submenu_buttons.keys():
+        button.focus_changed.connect(_update_submenu_focus)
         button.pressed.connect(_on_submenu_button_pressed)
+    
+    update_visible_submenu()
 
-func _update_submenu_focus() -> void:
-    var focus_owner = get_viewport().gui_get_focus_owner()
-    if focus_owner == null:
-        current_submenu = SubmenuState.NONE
-        return
-    if submenu_buttons.has(focus_owner):
-        current_submenu = submenu_buttons[focus_owner as Button]
+func _update_submenu_focus(new_focus: Control) -> void:
+    if submenu_buttons.has(new_focus):
+        current_submenu = submenu_buttons[new_focus]
         return
     # Probably a submenu item; don't change anything
 

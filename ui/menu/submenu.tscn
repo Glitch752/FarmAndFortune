@@ -7,6 +7,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bjurq"]
 shader = ExtResource("1_xjebt")
 shader_parameter/blur = 2.0
+shader_parameter/alpha = 100.0
 
 [node name="Submenu" type="Container"]
 offset_left = 6.0

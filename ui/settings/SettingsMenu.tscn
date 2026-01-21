@@ -6,6 +6,7 @@
 [node name="SettingsMenu" type="VBoxContainer"]
 
 [node name="VolumeSliders" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 script = ExtResource("1_argmo")
 

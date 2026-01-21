@@ -38,6 +38,8 @@ var active: bool = false:
 
 signal pressed
 
+signal focus_changed(menu_button: Control)
+
 func _ready():
     button.pressed.connect(pressed.emit)
 
@@ -50,9 +52,11 @@ func _ready():
 
     button.focus_entered.connect(func():
         active = true
+        focus_changed.emit(self)
     )
     button.focus_exited.connect(func():
         active = false
+        focus_changed.emit(null)
     )
     
     label.text = text

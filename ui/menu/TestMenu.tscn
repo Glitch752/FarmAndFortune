@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://wm0q8fq427xt"]
+
+[ext_resource type="Shader" uid="uid://coof3kxlypjxl" path="res://graphics/glassblur.gdshader" id="1_hrpkr"]
+[ext_resource type="StyleBox" uid="uid://dwmkl21pqn0ad" path="res://ui/primaryPanel.tres" id="2_gn5xw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_orkmn"]
+shader = ExtResource("1_hrpkr")
+shader_parameter/blur = 2.0
+shader_parameter/alpha = 100.0
+
+[node name="Test" type="Node"]
+
+[node name="Panel" type="PanelContainer" parent="."]
+material = SubResource("ShaderMaterial_orkmn")
+custom_minimum_size = Vector2(200, 200)
+theme_override_styles/panel = ExtResource("2_gn5xw")
+
+[node name="Panel2" type="PanelContainer" parent="."]
+modulate = Color(1, 1, 1, 0.42352942)
+material = SubResource("ShaderMaterial_orkmn")
+custom_minimum_size = Vector2(200, 200)
+offset_left = 93.0
+offset_top = 74.0
+offset_right = 293.0
+offset_bottom = 274.0
+theme_override_styles/panel = ExtResource("2_gn5xw")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cy7q8851vwtnj"]
+[gd_scene load_steps=10 format=3 uid="uid://cy7q8851vwtnj"]
 
 [ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="1_eya86"]
 [ext_resource type="FontFile" uid="uid://3px4eopsekhv" path="res://ui/Ubuntu/Ubuntu-Bold.ttf" id="2_flbq7"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dc3jnhg1ekirs" path="res://ui/menu/menu.gd" id="2_sjgy2"]
 [ext_resource type="PackedScene" uid="uid://e1wj20hwh8ty" path="res://ui/menu/MenuButton.tscn" id="3_pttcu"]
 [ext_resource type="PackedScene" uid="uid://cbcs1kv0kenga" path="res://ui/menu/submenu.tscn" id="6_jj6v1"]
+[ext_resource type="Script" uid="uid://dtiyyefskk5op" path="res://ui/nodes/stack_container.gd" id="6_va2jl"]
 [ext_resource type="PackedScene" uid="uid://c6ove0fq3pgrm" path="res://ui/settings/SettingsMenu.tscn" id="8_jj6v1"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_flbq7"]
@@ -49,29 +50,35 @@ theme_override_constants/separation = 0
 unique_name_in_owner = true
 layout_mode = 2
 text = "New Save"
+editor_preview = null
 
 [node name="LoadButton" parent="VBoxContainer" instance=ExtResource("3_pttcu")]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Load Save"
+editor_preview = null
 
 [node name="SettingsButton" parent="VBoxContainer" instance=ExtResource("3_pttcu")]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Settings"
+editor_preview = null
 
 [node name="ExitButton" parent="VBoxContainer" instance=ExtResource("3_pttcu")]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Exit"
+editor_preview = null
 
-[node name="SubmenuContainer" type="VBoxContainer" parent="."]
+[node name="SubmenuContainer" type="Container" parent="."]
 layout_mode = 1
-offset_left = 232.0
+offset_left = 256.0
 offset_top = 280.0
-offset_right = 272.0
-offset_bottom = 320.0
-theme_override_constants/separation = 8
+offset_right = 804.0
+offset_bottom = 437.0
+script = ExtResource("6_va2jl")
+editor_preview = 1
+metadata/_custom_type_script = "uid://dtiyyefskk5op"
 
 [node name="SettingsSubmenu" parent="SubmenuContainer" instance=ExtResource("6_jj6v1")]
 unique_name_in_owner = true

@@ -8,15 +8,62 @@ extends Container
 
 class_name StackContainer
 
+enum EditorPreviewType {
+    STACK,
+    VERTICAL_BOX,
+    HORIZONTAL_BOX
+}
+
+@export var editor_preview: EditorPreviewType = EditorPreviewType.STACK:
+    set(value):
+        editor_preview = value
+        queue_sort()
+
 func _notification(what):
     match what: 
         NOTIFICATION_SORT_CHILDREN:
             _sort_children()
 
 func _sort_children():
-    for child in get_children():
-        if child is Control:
-            fit_child_in_rect(child, Rect2(Vector2.ZERO, size))
+    var preview = editor_preview if Engine.is_editor_hint() else EditorPreviewType.STACK
+    if preview == EditorPreviewType.VERTICAL_BOX:
+        var y_offset = 0.0
+        for child in get_children():
+            if child is Control:
+                var child_size = Vector2(size.x, child.get_combined_minimum_size().y)
+                fit_child_in_rect(child, Rect2(Vector2(0, y_offset), child_size))
+                y_offset += child_size.y + 5.0
+    elif preview == EditorPreviewType.HORIZONTAL_BOX:
+        var x_offset = 0.0
+        for child in get_children():
+            if child is Control:
+                var child_size = Vector2(child.get_combined_minimum_size().x, size.y)
+                fit_child_in_rect(child, Rect2(Vector2(x_offset, 0), child_size))
+                x_offset += child_size.x + 5.0
+    else:
+        for child in get_children():
+            if child is Control:
+                # fit_child_in_rect(child, Rect2(Vector2.ZERO, size))
+                # Fit child based on its size flags
+                var child_size = Vector2.ZERO
+                if child.size_flags_horizontal & Control.SIZE_EXPAND:
+                    child_size.x = size.x
+                else:
+                    child_size.x = child.get_combined_minimum_size().x
+                if child.size_flags_vertical & Control.SIZE_EXPAND:
+                    child_size.y = size.y
+                else:
+                    child_size.y = child.get_combined_minimum_size().y
+                var child_pos = Vector2.ZERO
+                if child.size_flags_horizontal & Control.SIZE_FILL:
+                    child_pos.x = 0.0
+                else:
+                    child_pos.x = (size.x - child_size.x) / 2.0
+                if child.size_flags_vertical & Control.SIZE_FILL:
+                    child_pos.y = 0.0
+                else:
+                    child_pos.y = (size.y - child_size.y) / 2.0
+                fit_child_in_rect(child, Rect2(child_pos, child_size))
 
 func _get_minimum_size():
     var max_size = Vector2.ZERO
