@@ -8,11 +8,12 @@ var recreate = _created
 @export_range(0.0, 1.0, 0.01)
 var growth_percentage = 0.0:
     set(value):
+        growth_percentage = clamp(value, 0.0, 1.0)
+        _update_current_stage()
+
         if not is_node_ready():
             return
         
-        growth_percentage = clamp(value, 0.0, 1.0)
-        _update_current_stage()
         _render()
 
 ## The length of each growth stage. Items should sum to 1.0

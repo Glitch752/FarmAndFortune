@@ -83,8 +83,8 @@ func generate_grass_transforms():
 
     transforms_mutex.unlock()
 
-    print_rich("[color=green]Generated grass positions for chunk %s in %d ms, %d instances[/color]" %
-        [chunk_position, Time.get_ticks_msec() - start_time, grass_transforms.size()])
+    # print_rich("[color=green]Generated grass positions for chunk %s in %d ms, %d instances[/color]" %
+    #     [chunk_position, Time.get_ticks_msec() - start_time, grass_transforms.size()])
 
 func check_grass_at_position(local_pos: Vector2) -> bool:
     var grid_x = floori(local_pos.x / MapSingleton.TILE_SIZE)
@@ -195,7 +195,12 @@ func _process(delta: float) -> void:
         _process_range(start_index, TOTAL_CROPS)
         _process_range(0, end_index)
 
+## Serialize the chunk to the latest data version
 func serialize(buffer: StreamPeerBuffer) -> void:
+    # Self data
+    buffer.put_u8(unlocked)
+    buffer.put_double(crop_process_timer)
+
     # Terrain types
     buffer.put_u32(terrain_types.size())
     for terrain in terrain_types:
@@ -204,13 +209,18 @@ func serialize(buffer: StreamPeerBuffer) -> void:
     # Crops
     buffer.put_u32(crops.size())
     for local_pos in crops.keys():
-        buffer.put_i32(local_pos.x)
-        buffer.put_i32(local_pos.y)
+        buffer.put_32(local_pos.x)
+        buffer.put_32(local_pos.y)
         var crop = crops[local_pos]
         crop.serialize(buffer)
 
+## Deserialize a chunk from the given data version
 static func deserialize(buffer: StreamPeerBuffer, version: Serialization.WorldDataVersion) -> MapChunk:
     var chunk = MapChunk.new()
+
+    # Self data
+    chunk.unlocked = buffer.get_u8() != 0
+    chunk.crop_process_timer = buffer.get_double()
     
     # Terrain types
     var terrain_count = buffer.get_u32()
@@ -222,8 +232,8 @@ static func deserialize(buffer: StreamPeerBuffer, version: Serialization.WorldDa
     # Crops
     var crop_count = buffer.get_u32()
     for i in crop_count:
-        var x = buffer.get_i32()
-        var y = buffer.get_i32()
+        var x = buffer.get_32()
+        var y = buffer.get_32()
         var local_pos = Vector2i(x, y)
         var crop = WorldCrop.deserialize(buffer, version)
         if crop != null:

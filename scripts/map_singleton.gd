@@ -4,6 +4,7 @@ const TILE_SIZE = 16
 const CHUNK_SIZE = 10
 # In chunks
 const MAP_SIZE = 9
+const TOTAL_WORLD_SIZE_PIXELS = MAP_SIZE * CHUNK_SIZE * TILE_SIZE
 
 enum TerrainType {
     NONE,
@@ -209,13 +210,17 @@ func _process(delta: float) -> void:
         warning_cooldown = 5.0
     warning_cooldown = max(0.0, warning_cooldown - delta)
 
+func unload() -> void:
+    chunks = {}
+    map_loaded = false
+
 # Serialize the map to the latest data version
 func serialize_world(buffer: StreamPeerBuffer) -> void:
     buffer.put_u32(chunks.size())
     for pos in chunks.keys():
         var chunk = chunks[pos]
-        buffer.put_i32(pos.x)
-        buffer.put_i32(pos.y)
+        buffer.put_32(pos.x)
+        buffer.put_32(pos.y)
         chunk.serialize(buffer)
 
 # Deserialize the map from the given data version
@@ -223,11 +228,12 @@ func deserialize_world(buffer: StreamPeerBuffer, version: Serialization.WorldDat
     chunks = {}
     var chunk_count = buffer.get_u32()
     for i in range(chunk_count):
-        var chunk_x = buffer.get_i32()
-        var chunk_y = buffer.get_i32()
+        var chunk_x = buffer.get_32()
+        var chunk_y = buffer.get_32()
         var chunk = MapChunk.deserialize(buffer, version)
         if chunk == null:
             push_error("Failed to deserialize MapChunk at index %d" % i)
             continue
         chunk.chunk_position = Vector2i(chunk_x, chunk_y)
         chunks[Vector2i(chunk_x, chunk_y)] = chunk
+    map_loaded = true

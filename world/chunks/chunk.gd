@@ -28,6 +28,11 @@ func _ready():
 
     $%Ground.position = Vector2.ONE * MapSingleton.TILE_SIZE / 2.
 
+    # Add existing crops
+    for local_pos in chunk_data.crops.keys():
+        var crop = chunk_data.crops[local_pos]
+        _on_crop_node_added(local_pos, crop)
+
     chunk_data.crop_node_added.connect(_on_crop_node_added)
     chunk_data.crop_node_removed.connect(_on_crop_node_removed)
 

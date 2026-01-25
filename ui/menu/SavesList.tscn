@@ -6,6 +6,7 @@
 
 [node name="SavesList" type="VBoxContainer"]
 theme = ExtResource("1_g13jc")
+theme_override_constants/separation = 8
 script = ExtResource("2_trekm")
 
 [node name="NoSaves" type="Label" parent="."]

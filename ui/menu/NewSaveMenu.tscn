@@ -19,15 +19,16 @@ script = ExtResource("2_aqpgx")
 
 [node name="NameLabel" type="Label" parent="."]
 layout_mode = 2
-text = "Save name"
+text = "Save file"
 label_settings = SubResource("LabelSettings_dra5d")
 
-[node name="NameInput" type="LineEdit" parent="."]
+[node name="SaveNameInput" type="LineEdit" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../CharacterSelector/VBoxContainer/Header/PreviousCategory")
 focus_next = NodePath("../CharacterSelector/VBoxContainer/Header/PreviousCategory")
 text = "My Farm"
+placeholder_text = "Save name..."
 max_length = 20
 caret_blink = true
 
@@ -41,20 +42,34 @@ layout_mode = 2
 text = "Character"
 label_settings = SubResource("LabelSettings_dra5d")
 
+[node name="CharacterNameInput" type="LineEdit" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../CharacterSelector/VBoxContainer/Header/PreviousCategory")
+focus_next = NodePath("../CharacterSelector/VBoxContainer/Header/PreviousCategory")
+text = "Dr. Farmsalot"
+placeholder_text = "Character name..."
+max_length = 20
+caret_blink = true
+
+[node name="Control" type="Control" parent="."]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
 [node name="CharacterSelector" parent="." instance=ExtResource("2_jd0eh")]
 unique_name_in_owner = true
 layout_mode = 2
-focus_neighbor_top = NodePath("../NameInput")
+focus_neighbor_top = NodePath("../SaveNameInput")
 focus_neighbor_bottom = NodePath("../CreateSave")
 focus_next = NodePath("../CreateSave")
-focus_previous = NodePath("../NameInput")
+focus_previous = NodePath("../SaveNameInput")
 
 [node name="PreviousCategory" parent="CharacterSelector/VBoxContainer/Header" index="0"]
-focus_neighbor_top = NodePath("../../../../NameInput")
-focus_previous = NodePath("../../../../NameInput")
+focus_neighbor_top = NodePath("../../../../SaveNameInput")
+focus_previous = NodePath("../../../../SaveNameInput")
 
 [node name="NextCategory" parent="CharacterSelector/VBoxContainer/Header" index="2"]
-focus_neighbor_top = NodePath("../../../../NameInput")
+focus_neighbor_top = NodePath("../../../../SaveNameInput")
 
 [node name="PreviousVariant" parent="CharacterSelector/VBoxContainer/Character" index="0"]
 focus_neighbor_bottom = NodePath("../../../../CreateSave")

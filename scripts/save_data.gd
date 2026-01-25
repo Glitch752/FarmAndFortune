@@ -2,13 +2,18 @@ extends Node
 
 # String | null
 var loaded_save_id: Variant = null
+var loaded_save_name: String = ""
 
-var inventory: Dictionary[StringName, int] = {
-    &"carrot_seeds": 10
-}
+var inventory: Dictionary[StringName, int] = {}
 
 var character: StringName = &"farmer_1"
 var play_time_seconds: float = 0
+
+var money: int = 0
+var gross_earnings: int = 0
+var total_crops_harvested: int = 0
+
+var camera_position: Vector2 = MapSingleton.TOTAL_WORLD_SIZE_PIXELS * Vector2.ONE / 2.0
 
 func _init() -> void:
     pass
@@ -19,13 +24,22 @@ func save() -> void:
         return
 
     var data = SaveFileData.new()
+    
     data.inventory = inventory
+    data.camera_position = camera_position
+
     data.world_data_version = Serialization.WorldDataVersion.VERSION_1
 
     data.metadata = SaveFileMetaData.new()
+    data.metadata.name = loaded_save_name
+
     data.metadata.play_time_seconds = play_time_seconds
     data.metadata.character = character
     data.metadata.last_modified = Time.get_unix_time_from_system()
+
+    data.metadata.money = money
+    data.metadata.gross_earnings = gross_earnings
+    data.metadata.total_crops_harvested = total_crops_harvested
 
     var buffer = StreamPeerBuffer.new()
     buffer.data_array = PackedByteArray()
@@ -43,9 +57,20 @@ func load_save(save_id: String) -> void:
         return
     
     loaded_save_id = save_id
+    loaded_save_name = data.metadata.name
+    if loaded_save_name == "":
+        loaded_save_name = "Unnamed Save"
+
+    inventory = {}
     inventory = data.inventory
+    camera_position = data.camera_position
+
     play_time_seconds = data.metadata.play_time_seconds
     character = data.metadata.character
+
+    money = data.metadata.money
+    gross_earnings = data.metadata.gross_earnings
+    total_crops_harvested = data.metadata.total_crops_harvested
 
     if data.serialized_world.size() > 0:
         # World has already been saved; otherwise, we'll generate it

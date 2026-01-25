@@ -58,3 +58,6 @@ func _ready():
     
     label.text = text
     label.modulate = inactive_label_color
+
+func focus():
+    button.grab_focus()

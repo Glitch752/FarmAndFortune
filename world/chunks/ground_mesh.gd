@@ -131,8 +131,8 @@ func generate_ground_polygon():
         for child in get_children():
             child.mesh = ground_mesh
     
-    print_rich("[color=green]Generated ground mesh for chunk %s in %d ms[/color]" %
-        [chunk_position, Time.get_ticks_msec() - start_time])
+    # print_rich("[color=green]Generated ground mesh for chunk %s in %d ms[/color]" %
+    #     [chunk_position, Time.get_ticks_msec() - start_time])
 
 
 func _triangulate_poly_fan(st: SurfaceTool, poly: PackedVector2Array):

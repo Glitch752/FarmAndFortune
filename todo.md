@@ -4,8 +4,8 @@ Initial minimum playable game
 - [X] New save creation
 - [X] Character selection
   - [X] Emoji selector (i guess?)
-- Pause menu
-  - Save/quit
+- [X] Pause menu
+  - [X] Save/quit
   - Settings
 - Simple intro dialogue
 - Shop

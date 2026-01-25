@@ -57,6 +57,10 @@ class ValContainer:
         val = v
 
 func _on_node_added(node: Node) -> void:
+    if node.has_meta("sfx_connected"):
+        return
+    node.set_meta("sfx_connected", true)
+    
     if node is Button:
         node.mouse_entered.connect(play_mouse_enter)
         #node.mouse_exited.connect(play_mouse_exit)

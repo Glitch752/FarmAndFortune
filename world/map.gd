@@ -28,8 +28,7 @@ func _ready():
 
     # Place the camera in the center of the world and set its
     # limits to the world size
-    var world_size = MapSingleton.MAP_SIZE * MapSingleton.CHUNK_SIZE * MapSingleton.TILE_SIZE
-    camera.position = Vector2(world_size, world_size) / 2.0
+    var world_size = MapSingleton.TOTAL_WORLD_SIZE_PIXELS
     camera.limit_left = MapSingleton.TILE_SIZE / 2.0
     camera.limit_top = MapSingleton.TILE_SIZE / 2.0
     camera.limit_right = world_size - MapSingleton.TILE_SIZE / 2.0

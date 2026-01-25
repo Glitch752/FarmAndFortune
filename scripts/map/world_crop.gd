@@ -10,7 +10,6 @@ var wither_percentage: float = 0.0
 
 func _init(_crop: CropData) -> void:
     crop = _crop
-
     node = crop.scene.instantiate() as Node2D
 
 ## Process this crop.

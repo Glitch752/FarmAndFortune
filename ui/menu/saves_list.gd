@@ -23,9 +23,21 @@ func _refresh_saves_list() -> void:
     
     for save_id in saves.keys():
         var save_metadata = saves[save_id]
-        var save_entry = SavesListEntry.instantiate()
+        var save_entry: Button = SavesListEntry.instantiate()
         save_entry.set_metadata(save_metadata)
         save_entry.pressed.connect(func():
             SaveData.load_save(save_id)
         )
         add_child(save_entry)
+
+    # Set focus neighbors
+    var previous_entry: Button = null
+    for child in get_children():
+        if child is Button:
+            var current_entry: Button = child as Button
+            if previous_entry != null:
+                previous_entry.focus_neighbor_bottom = previous_entry.get_path_to(current_entry)
+                current_entry.focus_neighbor_top = current_entry.get_path_to(previous_entry)
+                previous_entry.focus_next = previous_entry.get_path_to(current_entry)
+                current_entry.focus_previous = current_entry.get_path_to(previous_entry)
+            previous_entry = current_entry
