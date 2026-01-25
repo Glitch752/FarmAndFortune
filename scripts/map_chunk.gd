@@ -194,3 +194,40 @@ func _process(delta: float) -> void:
     elif end_index < start_index:
         _process_range(start_index, TOTAL_CROPS)
         _process_range(0, end_index)
+
+func serialize(buffer: StreamPeerBuffer) -> void:
+    # Terrain types
+    buffer.put_u32(terrain_types.size())
+    for terrain in terrain_types:
+        buffer.put_u8(terrain as int)
+
+    # Crops
+    buffer.put_u32(crops.size())
+    for local_pos in crops.keys():
+        buffer.put_i32(local_pos.x)
+        buffer.put_i32(local_pos.y)
+        var crop = crops[local_pos]
+        crop.serialize(buffer)
+
+static func deserialize(buffer: StreamPeerBuffer, version: Serialization.WorldDataVersion) -> MapChunk:
+    var chunk = MapChunk.new()
+    
+    # Terrain types
+    var terrain_count = buffer.get_u32()
+    chunk.terrain_types = PackedByteArray()
+    for i in terrain_count:
+        var terrain = buffer.get_u8()
+        chunk.terrain_types.append(terrain)
+    
+    # Crops
+    var crop_count = buffer.get_u32()
+    for i in crop_count:
+        var x = buffer.get_i32()
+        var y = buffer.get_i32()
+        var local_pos = Vector2i(x, y)
+        var crop = WorldCrop.deserialize(buffer, version)
+        if crop != null:
+            chunk.crops[local_pos] = crop
+    
+    chunk.should_process = chunk.crops.size() > 0
+    return chunk

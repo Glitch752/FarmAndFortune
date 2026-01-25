@@ -1,11 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://b2d1p2gey38o3"]
+[gd_scene load_steps=6 format=3 uid="uid://b2d1p2gey38o3"]
 
+[ext_resource type="Script" uid="uid://cm6chi6qipi8c" path="res://scenes/level.gd" id="1_qifjx"]
 [ext_resource type="Script" uid="uid://cwh0bxalewkly" path="res://world/map.gd" id="2_6vs76"]
 [ext_resource type="Script" uid="uid://cgva58gvhc5e0" path="res://scripts/camera_controller.gd" id="2_k5jlv"]
 [ext_resource type="PackedScene" uid="uid://c7m6n2cj5286m" path="res://scenes/LevelInterface.tscn" id="3_6vs76"]
 [ext_resource type="PackedScene" uid="uid://b70htm1f5xsu1" path="res://ui/Interaction.tscn" id="3_kl8ac"]
 
 [node name="Level" type="Node2D"]
+script = ExtResource("1_qifjx")
 
 [node name="Map" type="Node2D" parent="."]
 script = ExtResource("2_6vs76")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cy7q8851vwtnj"]
+[gd_scene load_steps=11 format=3 uid="uid://cy7q8851vwtnj"]
 
 [ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="1_eya86"]
 [ext_resource type="FontFile" uid="uid://3px4eopsekhv" path="res://ui/Ubuntu/Ubuntu-Bold.ttf" id="2_flbq7"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cbcs1kv0kenga" path="res://ui/menu/submenu.tscn" id="6_jj6v1"]
 [ext_resource type="Script" uid="uid://dtiyyefskk5op" path="res://ui/nodes/stack_container.gd" id="6_va2jl"]
 [ext_resource type="PackedScene" uid="uid://c6ove0fq3pgrm" path="res://ui/settings/SettingsMenu.tscn" id="8_jj6v1"]
+[ext_resource type="PackedScene" uid="uid://bjvy1gwg0jlrh" path="res://ui/menu/SavesList.tscn" id="9_va2jl"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_flbq7"]
 font = ExtResource("2_flbq7")
@@ -89,6 +90,9 @@ layout_mode = 2
 
 [node name="LoadSaveSubmenu" parent="SubmenuContainer" instance=ExtResource("6_jj6v1")]
 unique_name_in_owner = true
+layout_mode = 2
+
+[node name="SavesList" parent="SubmenuContainer/LoadSaveSubmenu/Panel/MenuContent" index="0" instance=ExtResource("9_va2jl")]
 layout_mode = 2
 
 [node name="NewSaveSubmenu" parent="SubmenuContainer" instance=ExtResource("6_jj6v1")]

@@ -13,6 +13,12 @@ enum TerrainType {
 }
 
 var chunks: Dictionary[Vector2i, MapChunk] = {}
+var map_loaded: bool = false
+
+## Primarily for development purposes; ensures the map is generated.
+func _ensure_map_loaded() -> void:
+    if not map_loaded:
+        _generate_map()
 
 func get_chunk_at(chunk_pos: Vector2i) -> MapChunk:
     return chunks.get(chunk_pos, null)
@@ -126,9 +132,6 @@ func set_crop_at(tile_pos: Vector2i, crop: WorldCrop) -> void:
         return
     chunk.set_crop_at(local_pos, crop)
 
-func _init():
-    _generate_map()
-
 func _generate_map():
     chunks = {}
 
@@ -182,6 +185,8 @@ func _generate_map():
                 )
             chunks[chunk_pos] = chunk
 
+    map_loaded = true
+
 const MAX_PROCESS_TIME_MS = 50
 const WARN_PROCESS_TIME_MS = 5
 var warning_cooldown: float = 0.0
@@ -203,3 +208,26 @@ func _process(delta: float) -> void:
         push_warning("Map processing took %d ms" % total_elapsed)
         warning_cooldown = 5.0
     warning_cooldown = max(0.0, warning_cooldown - delta)
+
+# Serialize the map to the latest data version
+func serialize_world(buffer: StreamPeerBuffer) -> void:
+    buffer.put_u32(chunks.size())
+    for pos in chunks.keys():
+        var chunk = chunks[pos]
+        buffer.put_i32(pos.x)
+        buffer.put_i32(pos.y)
+        chunk.serialize(buffer)
+
+# Deserialize the map from the given data version
+func deserialize_world(buffer: StreamPeerBuffer, version: Serialization.WorldDataVersion) -> void:
+    chunks = {}
+    var chunk_count = buffer.get_u32()
+    for i in range(chunk_count):
+        var chunk_x = buffer.get_i32()
+        var chunk_y = buffer.get_i32()
+        var chunk = MapChunk.deserialize(buffer, version)
+        if chunk == null:
+            push_error("Failed to deserialize MapChunk at index %d" % i)
+            continue
+        chunk.chunk_position = Vector2i(chunk_x, chunk_y)
+        chunks[Vector2i(chunk_x, chunk_y)] = chunk

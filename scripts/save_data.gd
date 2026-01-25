@@ -12,6 +12,8 @@ func _init() -> void:
 
 class SaveFileData:
     var inventory: Dictionary[StringName, int] = {}
+    var world_data_version: Serialization.WorldDataVersion = Serialization.WorldDataVersion.VERSION_1
+    var serialized_world: PackedByteArray = PackedByteArray()
 
 func save() -> void:
     if loaded_save_name == null:
@@ -20,6 +22,14 @@ func save() -> void:
 
     var data = SaveFileData.new()
     data.inventory = inventory
+    data.world_data_version = Serialization.WorldDataVersion.VERSION_1
+    
+    var buffer = StreamPeerBuffer.new()
+    buffer.data_array = PackedByteArray()
+    buffer.big_endian = true
+    MapSingleton.serialize_world(buffer)
+
+    data.serialized_world = buffer.data_array
 
     _save(loaded_save_name, data)
 
@@ -30,6 +40,11 @@ func load(save_name: String) -> void:
         return
     loaded_save_name = save_name
     inventory = data.inventory
+
+    var buffer = StreamPeerBuffer.new()
+    buffer.data_array = data.serialized_world
+    buffer.big_endian = true
+    MapSingleton.deserialize_world(buffer, data.world_data_version)
 
 func create_new_save(save_name: String) -> void:
     var data = SaveFileData.new()
