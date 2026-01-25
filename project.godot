@@ -24,6 +24,7 @@ MapSingleton="*res://scripts/map_singleton.gd"
 InteractionSingleton="*res://scripts/interaction_singleton.gd"
 InventorySingleton="*res://scripts/inventory_singleton.gd"
 SoundManager="*res://audio/SoundManager.tscn"
+CharacterSingleton="*res://scripts/character_singleton.gd"
 
 [display]
 

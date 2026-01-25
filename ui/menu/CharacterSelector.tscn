@@ -1,0 +1,90 @@
+[gd_scene load_steps=6 format=3 uid="uid://cscyke50as642"]
+
+[ext_resource type="StyleBox" uid="uid://cujbo0fpuf2e7" path="res://ui/secondaryPanel.tres" id="1_jv7ls"]
+[ext_resource type="Script" uid="uid://de08sdiim1bqj" path="res://ui/menu/character_selector.gd" id="2_cowcn"]
+[ext_resource type="StyleBox" uid="uid://c17xeqmr1r08n" path="res://ui/focusOutlinePanel.tres" id="2_yytot"]
+[ext_resource type="Texture2D" uid="uid://detl1d54iveov" path="res://art/characters/farmer_0.png" id="3_cowcn"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_aqpgx"]
+font_size = 18
+font_color = Color(0.85, 0.85, 0.85, 1)
+
+[node name="CharacterSelector" type="PanelContainer"]
+theme_override_styles/panel = ExtResource("1_jv7ls")
+script = ExtResource("2_cowcn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Header" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PreviousCategory" type="Button" parent="VBoxContainer/Header"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+focus_neighbor_right = NodePath("../NextCategory")
+focus_neighbor_bottom = NodePath("../../Character/PreviousVariant")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = ExtResource("2_yytot")
+text = "<"
+flat = true
+
+[node name="CategoryLabel" type="Label" parent="VBoxContainer/Header"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Farmer"
+label_settings = SubResource("LabelSettings_aqpgx")
+horizontal_alignment = 1
+
+[node name="NextCategory" type="Button" parent="VBoxContainer/Header"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../PreviousCategory")
+focus_neighbor_right = NodePath("../../Character/PreviousVariant")
+focus_neighbor_bottom = NodePath("../../Character/NextVariant")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = ExtResource("2_yytot")
+text = ">"
+flat = true
+
+[node name="Character" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="PreviousVariant" type="Button" parent="VBoxContainer/Character"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../../Header/NextCategory")
+focus_neighbor_top = NodePath("../../Header/PreviousCategory")
+focus_neighbor_right = NodePath("../NextVariant")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = ExtResource("2_yytot")
+text = "<"
+flat = true
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/Character"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CharacterTexture" type="TextureRect" parent="VBoxContainer/Character/CenterContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+texture = ExtResource("3_cowcn")
+expand_mode = 4
+
+[node name="NextVariant" type="Button" parent="VBoxContainer/Character"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+focus_neighbor_left = NodePath("../PreviousVariant")
+focus_neighbor_top = NodePath("../../Header/NextCategory")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/focus = ExtResource("2_yytot")
+text = ">"
+flat = true

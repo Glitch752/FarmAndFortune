@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbsdes37ut1f8"]
+
+[ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="1_dra5d"]
+[ext_resource type="PackedScene" uid="uid://cscyke50as642" path="res://ui/menu/CharacterSelector.tscn" id="2_jd0eh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dra5d"]
+font_size = 14
+font_color = Color(0.8, 0.8, 0.8, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_dra5d"]
+color = Color(0.5, 0.5, 0.5, 0.53333336)
+
+[node name="NewSaveMenu" type="VBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+theme = ExtResource("1_dra5d")
+theme_override_constants/separation = 0
+
+[node name="NameLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Save name"
+label_settings = SubResource("LabelSettings_dra5d")
+
+[node name="NameInput" type="LineEdit" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "My Farm"
+
+[node name="HSeparator" type="HSeparator" parent="."]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_dra5d")
+
+[node name="CharacterLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Character"
+label_settings = SubResource("LabelSettings_dra5d")
+
+[node name="CharacterSelector" parent="." instance=ExtResource("2_jd0eh")]
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="."]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_dra5d")
+
+[node name="CreateSave" type="Button" parent="."]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+text = "Create save"

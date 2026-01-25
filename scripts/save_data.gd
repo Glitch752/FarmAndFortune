@@ -53,6 +53,7 @@ func load(save_id: String) -> void:
     if data == null:
         push_error("Failed to load save: %s" % save_id)
         return
+    
     loaded_save_id = save_id
     inventory = data.inventory
     play_time_seconds = data.play_time_seconds
@@ -62,6 +63,9 @@ func load(save_id: String) -> void:
     buffer.data_array = data.serialized_world
     buffer.big_endian = true
     MapSingleton.deserialize_world(buffer, data.world_data_version)
+
+    # Load the level scene
+    get_tree().change_scene_to_packed(preload("res://scenes/Level.tscn"))
 
 func create_new_save(save_id: String) -> void:
     var data = SaveFileData.new()
@@ -108,7 +112,7 @@ func list_saves() -> Dictionary[String, SaveFileMetaData]:
     if dir == null:
         return saves
     dir.list_dir_begin()
-    
+
     var file_name = dir.get_next()
     while file_name != "":
         if file_name.ends_with(".save"):
