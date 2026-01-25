@@ -15,7 +15,7 @@ extends SizedButton
         last_modified = value
         _update()
 
-func set_metadata(metadata: SaveData.SaveFileMetaData) -> void:
+func set_metadata(metadata: SaveFileMetaData) -> void:
     save_name = metadata.name
     play_time_seconds = metadata.play_time_seconds
     last_modified = metadata.last_modified

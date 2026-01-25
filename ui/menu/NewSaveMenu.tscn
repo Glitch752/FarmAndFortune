@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cbsdes37ut1f8"]
+[gd_scene load_steps=6 format=3 uid="uid://cbsdes37ut1f8"]
 
 [ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="1_dra5d"]
+[ext_resource type="Script" uid="uid://dwoe57658sdt8" path="res://ui/menu/new_save_menu.gd" id="2_aqpgx"]
 [ext_resource type="PackedScene" uid="uid://cscyke50as642" path="res://ui/menu/CharacterSelector.tscn" id="2_jd0eh"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_dra5d"]
@@ -14,6 +15,7 @@ color = Color(0.5, 0.5, 0.5, 0.53333336)
 custom_minimum_size = Vector2(300, 0)
 theme = ExtResource("1_dra5d")
 theme_override_constants/separation = 0
+script = ExtResource("2_aqpgx")
 
 [node name="NameLabel" type="Label" parent="."]
 layout_mode = 2
@@ -23,7 +25,11 @@ label_settings = SubResource("LabelSettings_dra5d")
 [node name="NameInput" type="LineEdit" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../CharacterSelector/VBoxContainer/Header/PreviousCategory")
+focus_next = NodePath("../CharacterSelector/VBoxContainer/Header/PreviousCategory")
 text = "My Farm"
+max_length = 20
+caret_blink = true
 
 [node name="HSeparator" type="HSeparator" parent="."]
 custom_minimum_size = Vector2(0, 20)
@@ -36,7 +42,26 @@ text = "Character"
 label_settings = SubResource("LabelSettings_dra5d")
 
 [node name="CharacterSelector" parent="." instance=ExtResource("2_jd0eh")]
+unique_name_in_owner = true
 layout_mode = 2
+focus_neighbor_top = NodePath("../NameInput")
+focus_neighbor_bottom = NodePath("../CreateSave")
+focus_next = NodePath("../CreateSave")
+focus_previous = NodePath("../NameInput")
+
+[node name="PreviousCategory" parent="CharacterSelector/VBoxContainer/Header" index="0"]
+focus_neighbor_top = NodePath("../../../../NameInput")
+focus_previous = NodePath("../../../../NameInput")
+
+[node name="NextCategory" parent="CharacterSelector/VBoxContainer/Header" index="2"]
+focus_neighbor_top = NodePath("../../../../NameInput")
+
+[node name="PreviousVariant" parent="CharacterSelector/VBoxContainer/Character" index="0"]
+focus_neighbor_bottom = NodePath("../../../../CreateSave")
+
+[node name="NextVariant" parent="CharacterSelector/VBoxContainer/Character" index="2"]
+focus_neighbor_bottom = NodePath("../../../../CreateSave")
+focus_next = NodePath("../../../../CreateSave")
 
 [node name="HSeparator2" type="HSeparator" parent="."]
 custom_minimum_size = Vector2(0, 20)
@@ -44,6 +69,11 @@ layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_dra5d")
 
 [node name="CreateSave" type="Button" parent="."]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
+focus_neighbor_top = NodePath("../CharacterSelector/VBoxContainer/Character/PreviousVariant")
+focus_previous = NodePath("../CharacterSelector/VBoxContainer/Character/PreviousVariant")
 text = "Create save"
+
+[editable path="CharacterSelector"]

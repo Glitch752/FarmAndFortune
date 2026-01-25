@@ -43,32 +43,12 @@ func _sort_children():
     else:
         for child in get_children():
             if child is Control:
-                # fit_child_in_rect(child, Rect2(Vector2.ZERO, size))
-                # Fit child based on its size flags
-                var child_size = Vector2.ZERO
-                if child.size_flags_horizontal & Control.SIZE_EXPAND:
-                    child_size.x = size.x
-                else:
-                    child_size.x = child.get_combined_minimum_size().x
-                if child.size_flags_vertical & Control.SIZE_EXPAND:
-                    child_size.y = size.y
-                else:
-                    child_size.y = child.get_combined_minimum_size().y
-                var child_pos = Vector2.ZERO
-                if child.size_flags_horizontal & Control.SIZE_FILL:
-                    child_pos.x = 0.0
-                else:
-                    child_pos.x = (size.x - child_size.x) / 2.0
-                if child.size_flags_vertical & Control.SIZE_FILL:
-                    child_pos.y = 0.0
-                else:
-                    child_pos.y = (size.y - child_size.y) / 2.0
-                fit_child_in_rect(child, Rect2(child_pos, child_size))
+                fit_child_in_rect(child, Rect2(Vector2.ZERO, size))
 
 func _get_minimum_size():
     var max_size = Vector2.ZERO
     for child in get_children():
-        if child is Control and child.visible:
+        if child is Control:
             var child_min_size = child.get_combined_minimum_size()
             max_size.x = max(max_size.x, child_min_size.x)
             max_size.y = max(max_size.y, child_min_size.y)

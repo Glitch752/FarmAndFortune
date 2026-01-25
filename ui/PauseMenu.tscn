@@ -1,0 +1,58 @@
+[gd_scene load_steps=7 format=3 uid="uid://cypshkmphya6q"]
+
+[ext_resource type="Shader" uid="uid://coof3kxlypjxl" path="res://graphics/glassblur.gdshader" id="1_c7v6e"]
+[ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="2_4dg4t"]
+[ext_resource type="Script" uid="uid://dervpitvquwc6" path="res://ui/pause_menu.gd" id="2_8tehv"]
+[ext_resource type="PackedScene" uid="uid://e1wj20hwh8ty" path="res://ui/menu/MenuButton.tscn" id="3_1q10k"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4qegb"]
+shader = ExtResource("1_c7v6e")
+shader_parameter/blur = 2.0
+shader_parameter/alpha = 100.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_4dg4t"]
+font_size = 24
+font_color = Color(1, 1, 1, 0.9098039)
+
+[node name="PauseMenu" type="ColorRect"]
+material = SubResource("ShaderMaterial_4qegb")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_4dg4t")
+color = Color(0, 0, 0, 1)
+script = ExtResource("2_8tehv")
+
+[node name="Buttons" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(475, 0)
+layout_mode = 0
+offset_left = -8.0
+offset_top = 48.0
+offset_right = 442.0
+offset_bottom = 168.0
+
+[node name="ResumeButton" parent="Buttons" instance=ExtResource("3_1q10k")]
+layout_mode = 2
+inactive_label_color = Color(1, 1, 1, 0.78431374)
+text = "Resume"
+
+[node name="SaveButton" parent="Buttons" instance=ExtResource("3_1q10k")]
+layout_mode = 2
+inactive_label_color = Color(1, 1, 1, 0.78431374)
+text = "Save"
+
+[node name="SaveAndQuitButton" parent="Buttons" instance=ExtResource("3_1q10k")]
+layout_mode = 2
+inactive_label_color = Color(1, 1, 1, 0.78431374)
+text = "Save and Quit"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 264.0
+offset_right = 254.0
+offset_bottom = 291.5
+text = "Play time: 00:00:00"
+label_settings = SubResource("LabelSettings_4dg4t")

@@ -13,18 +13,6 @@ var play_time_seconds: float = 0
 func _init() -> void:
     pass
 
-class SaveFileMetaData:
-    var name: String = ""
-    var play_time_seconds: float = 0
-    var character: StringName = &"farmer_1"
-    var last_modified: float = 0
-
-class SaveFileData:
-    var metadata: SaveFileMetaData
-    var inventory: Dictionary[StringName, int] = {}
-    var world_data_version: Serialization.WorldDataVersion = Serialization.WorldDataVersion.VERSION_1
-    var serialized_world: PackedByteArray = PackedByteArray()
-
 func save() -> void:
     if loaded_save_id == null:
         push_error("No save loaded")
@@ -48,7 +36,7 @@ func save() -> void:
 
     _save(loaded_save_id, data)
 
-func load(save_id: String) -> void:
+func load_save(save_id: String) -> void:
     var data = _load(save_id)
     if data == null:
         push_error("Failed to load save: %s" % save_id)
@@ -56,34 +44,51 @@ func load(save_id: String) -> void:
     
     loaded_save_id = save_id
     inventory = data.inventory
-    play_time_seconds = data.play_time_seconds
-    character = data.character
+    play_time_seconds = data.metadata.play_time_seconds
+    character = data.metadata.character
 
-    var buffer = StreamPeerBuffer.new()
-    buffer.data_array = data.serialized_world
-    buffer.big_endian = true
-    MapSingleton.deserialize_world(buffer, data.world_data_version)
+    if data.serialized_world.size() > 0:
+        # World has already been saved; otherwise, we'll generate it
+        var buffer = StreamPeerBuffer.new()
+        buffer.data_array = data.serialized_world
+        buffer.big_endian = true
+        MapSingleton.deserialize_world(buffer, data.world_data_version)
 
     # Load the level scene
     get_tree().change_scene_to_packed(preload("res://scenes/Level.tscn"))
 
-func create_new_save(save_id: String) -> void:
+func create_new_save(save_name: String, character_id: String) -> void:
+    var metadata = SaveFileMetaData.new()
+    metadata.name = save_name
+    metadata.character = character_id
+    metadata.last_modified = Time.get_unix_time_from_system()
+
     var data = SaveFileData.new()
+    data.metadata = metadata
+
+    var save_id = "%s_%d" % [save_name.to_lower().replace(" ", "_"), Time.get_unix_time_from_system()]
+    
     _save(save_id, data)
-    loaded_save_id = save_id
-    inventory = {}
+    
+    load_save(save_id)
 
 func _save(save_id: String, data: SaveFileData) -> void:
-    var file = FileAccess.open("user://saves/%s.save" % save_id
-        , FileAccess.WRITE)
+    # Make sure the saves directory exists
+    var dir = DirAccess.open("user://saves")
+    if dir == null:
+        DirAccess.make_dir_recursive_absolute("user://saves")
+    
+    var file = FileAccess.open("user://saves/%s.save" % save_id, FileAccess.WRITE)
     if file == null:
         push_error("Failed to open save file for writing: %s" % save_id)
         return
     
-    file.store_var(data.metadata)
+    file.store_var(data.metadata, true)
     data.metadata = null # Clear metadata to avoid storing it twice
-    file.store_var(data)
+    file.store_var(data, true)
     file.close()
+
+    print("Saved game: %s" % save_id)
 
 func _load(save_id: String) -> SaveFileData:
     var file = FileAccess.open("user://saves/%s.save" % save_id
@@ -92,8 +97,8 @@ func _load(save_id: String) -> SaveFileData:
         push_error("Failed to open save file for reading: %s" % save_id)
         return null
     
-    var metadata = file.get_var() as SaveFileMetaData
-    var data = file.get_var()
+    var metadata = file.get_var(true) as SaveFileMetaData
+    var data = file.get_var(true)
     data.metadata = metadata
 
     file.close()
@@ -120,9 +125,15 @@ func list_saves() -> Dictionary[String, SaveFileMetaData]:
             var file = FileAccess.open("user://saves/%s" % file_name
                 , FileAccess.READ)
             if file != null:
-                var metadata = file.get_var() as SaveFileMetaData
-                saves.set(save_id, metadata)
-                file.close()
+                var metadata = file.get_var(true) as SaveFileMetaData
+                if metadata == null:
+                    push_error("Failed to read metadata for save: %s" % save_id)
+                    # Delete the corrupted save file
+                    file.close()
+                    delete_save(save_id)
+                else:
+                    saves.set(save_id, metadata)
+                    file.close()
         
         file_name = dir.get_next()
     

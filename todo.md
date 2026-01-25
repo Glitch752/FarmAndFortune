@@ -1,9 +1,9 @@
 Initial minimum playable game
-- Save loading
+- [X] Save loading
   - [X] List of saves
-- New save creation
-- Character selection
-  - Emoji selector (i guess?)
+- [X] New save creation
+- [X] Character selection
+  - [X] Emoji selector (i guess?)
 - Pause menu
   - Save/quit
   - Settings
@@ -19,6 +19,8 @@ Initial minimum playable game
   - Keep playing
 
 Added polish and gameplay
+- Save file deletion and renaming
+- Simple autosave and saving indicator
 - Particles on farming interactions and ready crops
 - Very basic day/night cycle
 - Trees
@@ -27,6 +29,7 @@ Added polish and gameplay
   - Light particles for leaves
 - Shop upgrades like gloves and a better shovel to make farming more efficient
 - "Check-in" dialogue
+- World loading screen/popup
 
 Stretch gameplay stuff
 - More crop types

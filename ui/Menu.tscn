@@ -82,6 +82,9 @@ metadata/_custom_type_script = "uid://dtiyyefskk5op"
 unique_name_in_owner = true
 layout_mode = 2
 
+[node name="MenuContent" parent="SubmenuContainer/SettingsSubmenu/Panel" index="0"]
+size_flags_horizontal = 0
+
 [node name="SettingsMenu" parent="SubmenuContainer/SettingsSubmenu/Panel/MenuContent" index="0" instance=ExtResource("8_jj6v1")]
 layout_mode = 2
 

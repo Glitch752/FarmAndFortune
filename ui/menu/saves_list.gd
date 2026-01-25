@@ -26,6 +26,6 @@ func _refresh_saves_list() -> void:
         var save_entry = SavesListEntry.instantiate()
         save_entry.set_metadata(save_metadata)
         save_entry.pressed.connect(func():
-            SaveData.load(save_id)
+            SaveData.load_save(save_id)
         )
         add_child(save_entry)

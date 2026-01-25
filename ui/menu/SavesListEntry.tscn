@@ -13,7 +13,6 @@ custom_minimum_size = Vector2(500, 34)
 theme_override_styles/focus = ExtResource("1_ers1h")
 flat = true
 script = ExtResource("2_ers1h")
-id = null
 play_time_seconds = 10000.5
 metadata/_custom_type_script = "uid://cg6lymgrsy06d"
 
@@ -25,6 +24,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 theme_override_styles/panel = ExtResource("3_ilofa")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]

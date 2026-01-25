@@ -15,7 +15,7 @@ func format_category_name(category: StringName) -> String:
     return category.capitalize()
 
 func get_character_id(category: StringName, variant: int) -> StringName:
-    return &"%s_%d" % [category, variant + 1]
+    return &"%s_%d" % [category, variant]
 
 func get_character_image() -> String:
     return "res://art/characters/%s.png" % SaveData.character
@@ -26,14 +26,14 @@ var character: StringName:
     set(value):
         var split = value.reverse().split("_", false, 1)
         var category = split[1].reverse() if split.size() == 2 else "farmer"
-        var variant_str = split[0].reverse() if split.size() == 2 else "1"
-        var variant = int(variant_str) - 1
+        var variant_str = split[0].reverse() if split.size() == 2 else "0"
+        var variant = int(variant_str)
         if not character_categories.has(category):
             push_error("Invalid character category: %s" % category)
-            value = "farmer_1"
+            value = "farmer_0"
         elif variant < 0 or variant >= character_categories[category]:
-            push_error("Invalid character variant: %d for category %s" % [variant + 1, category])
-            value = "farmer_1"
+            push_error("Invalid character variant: %d for category %s" % [variant, category])
+            value = "farmer_0"
         
         SaveData.character = value
 
