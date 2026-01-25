@@ -51,25 +51,21 @@ theme_override_constants/separation = 0
 unique_name_in_owner = true
 layout_mode = 2
 text = "New Save"
-editor_preview = null
 
 [node name="LoadButton" parent="VBoxContainer" instance=ExtResource("3_pttcu")]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Load Save"
-editor_preview = null
 
 [node name="SettingsButton" parent="VBoxContainer" instance=ExtResource("3_pttcu")]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Settings"
-editor_preview = null
 
 [node name="ExitButton" parent="VBoxContainer" instance=ExtResource("3_pttcu")]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Exit"
-editor_preview = null
 
 [node name="SubmenuContainer" type="Container" parent="."]
 layout_mode = 1

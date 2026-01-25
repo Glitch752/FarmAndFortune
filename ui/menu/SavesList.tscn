@@ -1,3 +1,18 @@
-[gd_scene format=3 uid="uid://bjvy1gwg0jlrh"]
+[gd_scene load_steps=4 format=3 uid="uid://bjvy1gwg0jlrh"]
+
+[ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="1_g13jc"]
+[ext_resource type="Script" uid="uid://q7g8ucf27ras" path="res://ui/menu/saves_list.gd" id="2_trekm"]
+[ext_resource type="PackedScene" uid="uid://b45446crcutxs" path="res://ui/menu/SavesListEntry.tscn" id="2_wvy2m"]
 
 [node name="SavesList" type="VBoxContainer"]
+theme = ExtResource("1_g13jc")
+script = ExtResource("2_trekm")
+
+[node name="NoSaves" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "No saved games! Create a new save above."
+horizontal_alignment = 1
+
+[node name="SaveEntry" parent="." instance=ExtResource("2_wvy2m")]
+layout_mode = 2

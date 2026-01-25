@@ -69,4 +69,5 @@ vertical_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 focus_behavior_recursive = 2
+mouse_filter = 1
 flat = true

@@ -5,3 +5,7 @@ func _init():
     # level scene, we want to make
     # sure we can load a level
     MapSingleton._ensure_map_loaded()
+
+func _process(delta: float) -> void:
+    # Update play time
+    SaveData.play_time_seconds += delta

@@ -16,7 +16,7 @@ func _ready():
         connected_children.append(child)
 
     # when children are added, reconnect
-    child_entered_tree.connect(func():
+    child_entered_tree.connect(func(_node):
         for child in connected_children:
             child.resized.disconnect(_resize)
         connected_children.clear()

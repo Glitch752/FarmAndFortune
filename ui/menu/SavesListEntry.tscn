@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://b45446crcutxs"]
+
+[ext_resource type="StyleBox" uid="uid://c17xeqmr1r08n" path="res://ui/focusOutlinePanel.tres" id="1_ers1h"]
+[ext_resource type="Script" uid="uid://cdc7lurxjr4fo" path="res://ui/menu/saves_list_entry.gd" id="2_ers1h"]
+[ext_resource type="StyleBox" uid="uid://cujbo0fpuf2e7" path="res://ui/secondaryPanel.tres" id="3_ilofa"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wvy2m"]
+font_size = 10
+font_color = Color(0.8, 0.8, 0.8, 1)
+
+[node name="SaveEntry" type="Button"]
+custom_minimum_size = Vector2(500, 34)
+theme_override_styles/focus = ExtResource("1_ers1h")
+flat = true
+script = ExtResource("2_ers1h")
+play_time_seconds = 10000.5
+metadata/_custom_type_script = "uid://cg6lymgrsy06d"
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("3_ilofa")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Name" type="Label" parent="PanelContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Save 1"
+
+[node name="LastModified" type="Label" parent="PanelContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1970-01-01T00:00:00"
+label_settings = SubResource("LabelSettings_wvy2m")
+vertical_alignment = 1
+
+[node name="Playtime" type="Label" parent="PanelContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "02:46:40"
+label_settings = SubResource("LabelSettings_wvy2m")
+vertical_alignment = 1

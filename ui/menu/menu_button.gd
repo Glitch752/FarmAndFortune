@@ -43,11 +43,8 @@ signal focus_changed(menu_button: Control)
 func _ready():
     button.pressed.connect(pressed.emit)
 
-    button.mouse_entered.connect(func():
+    mouse_entered.connect(func():
         button.grab_focus()
-    )
-    button.mouse_exited.connect(func():
-        button.release_focus()
     )
 
     button.focus_entered.connect(func():
