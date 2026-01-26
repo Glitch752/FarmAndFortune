@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://d0bsbmh18741c"]
+[gd_scene load_steps=4 format=3 uid="uid://d0bsbmh18741c"]
 
 [ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="1_jn1y7"]
 [ext_resource type="PackedScene" uid="uid://c6yn7hr6stq5x" path="res://ui/dialogue/DialogueEntryDisplay.tscn" id="2_240hk"]
+[ext_resource type="Script" uid="uid://dx32i03sejbmo" path="res://ui/dialogue/dialogue.gd" id="2_hni8c"]
 
 [node name="Dialogue" type="VBoxContainer"]
 anchors_preset = 7
@@ -16,7 +17,8 @@ offset_bottom = -41.0
 grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("1_jn1y7")
-theme_override_constants/separation = 8
+theme_override_constants/separation = 0
+script = ExtResource("2_hni8c")
 
 [node name="TransformContainer" parent="." instance=ExtResource("2_240hk")]
 layout_mode = 2

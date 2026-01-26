@@ -42,6 +42,15 @@ var visual_pivot_offset_perc = Vector2(0, 0):
         visual_pivot_offset_perc = value
         queue_sort()
 
+## A percentage by which the effective scale of this container is multiplied by.
+## Child positions and sizes aren't affected.
+@export
+var effective_scale: Vector2 = Vector2(1, 1):
+    set(value):
+        effective_scale = value
+        update_minimum_size()
+        queue_sort()
+
 func _notification(what: int):
     match what: 
         NOTIFICATION_SORT_CHILDREN:
@@ -60,12 +69,13 @@ func _sort_children():
                 c.pivot_offset = c.size * visual_pivot_offset_perc
 
 func _get_minimum_size() -> Vector2:
-    var highest_min : Vector2
+    var highest_min: Vector2 = Vector2.ZERO
     for c in get_children():
         if c is Control:
             if not c.top_level and c.visible:
-                var c_min_size : Vector2 = c.get_combined_minimum_size()
+                var c_min_size: Vector2 = c.get_combined_minimum_size()
                 highest_min.x = max(highest_min.x, c_min_size.x)
                 highest_min.y = max(highest_min.y, c_min_size.y)
-    
+
+    highest_min *= effective_scale
     return highest_min

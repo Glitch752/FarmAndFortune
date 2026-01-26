@@ -26,7 +26,7 @@ func half_tile_changed():
 # (meaning either this chunk or an up/left neighbor).
 # Used to regenerate chunks
 func _half_tile_changed():
-    print("half-tile changed for chunk %s, regenerating terrain and grass" % chunk_position)
+    # print("half-tile changed for chunk %s, regenerating terrain and grass" % chunk_position)
 
     regenerate_terrain.emit.call_deferred()
     await terrain_regenerated
@@ -59,7 +59,7 @@ func generate_grass_transforms():
     if grass_position_candidates.size() == 0:
         generate_grass_position_candidates()
 
-    var start_time = Time.get_ticks_msec()
+    # var start_time = Time.get_ticks_msec()
 
     transforms_mutex.lock()
 

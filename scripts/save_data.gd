@@ -64,6 +64,7 @@ func load_save(save_id: String) -> void:
     loaded_save_name = data.metadata.name
 
     dialogue_state = data.dialogue_state
+
     inventory = data.inventory
     camera_position = data.camera_position
 

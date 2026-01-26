@@ -66,8 +66,8 @@ Total crops harvested: [color=#88ee88]{total_crops_harvested}[/color]""".format(
         "save_name": SaveData.loaded_save_name,
         "character_name": SaveData.character_name,
         "play_time": _format_play_time(SaveData.play_time_seconds),
-        "gross_earnings": SaveData.gross_earnings,
-        "money": SaveData.money,
+        "gross_earnings": InventorySingleton.format_money(InventorySingleton.gross_earnings),
+        "money": InventorySingleton.format_money(InventorySingleton.money),
         "total_crops_harvested": SaveData.total_crops_harvested,
     })
 

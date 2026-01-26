@@ -17,9 +17,17 @@ var dialogue_queue: Array[DialogueEntry] = []
 
 ## Starts a dialogue sequence if it hasn't been seen before.
 func start_dialogue_sequence(sequence_id: String, dialogue_entries: Array[DialogueEntry]) -> void:
+    if current_dialogue_sequence == sequence_id:
+        return
+
+    if current_dialogue_sequence != "":
+        push_error("Dialogue sequence already in progress: %s" % current_dialogue_sequence)
+        return
+
     if has_seen_sequence(sequence_id):
         return
     
+    current_dialogue_sequence = sequence_id
     dialogue_queue = dialogue_entries.duplicate()
     _show_next_dialogue_entry()
 
@@ -36,7 +44,7 @@ func _show_next_dialogue_entry() -> void:
 
 func _end_dialogue_sequence() -> void:
     if current_dialogue_sequence != "":
-        dialogue_state.seen_dialogue_sequences.set(current_dialogue_sequence, 1)
+        dialogue_state.seen_dialogue_sequences.append(current_dialogue_sequence)
         current_dialogue_sequence = ""
     
     dialogue_sequence_ended.emit()

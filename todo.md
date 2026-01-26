@@ -7,14 +7,15 @@ Initial minimum playable game
 - [X] Pause menu
   - [X] Save/quit
   - [X] Settings
-- Simple intro dialogue
+- [X] Simple intro dialogue
 - Shop
   - Purchase seeds
   - Sell seeds
+- Info text for selected tile
 - Purchase new world areas
-- Playtime tracking
+- [X] Playtime tracking
 - End game (once player makes it to $1M)
-  - Outro dialogue
+  - [X] Outro dialogue
   - Popup showing total playtime
   - Keep playing
 
