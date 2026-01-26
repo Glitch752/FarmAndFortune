@@ -45,15 +45,6 @@ func _ready() -> void:
         get_tree().change_scene_to_packed(preload("res://ui/Menu.tscn"))
     )
 
-func _format_play_time(total_seconds: float) -> String:
-    var seconds = int(total_seconds) % 60
-    @warning_ignore("integer_division")
-    var total_minutes = int(total_seconds) / 60
-    var minutes = total_minutes % 60
-    @warning_ignore("integer_division")
-    var hours = total_minutes / 60
-    return "%02d:%02d:%02d" % [hours, minutes, seconds]
-
 func _format_stats() -> String:
     return """Current Save: [color=#88ee88]{save_name}[/color]
 Character Name: [color=#88ee88]{character_name}[/color]
@@ -65,7 +56,7 @@ Money: [color=#88ee88]${money}[/color]
 Total crops harvested: [color=#88ee88]{total_crops_harvested}[/color]""".format({
         "save_name": SaveData.loaded_save_name,
         "character_name": SaveData.character_name,
-        "play_time": _format_play_time(SaveData.play_time_seconds),
+        "play_time": SaveData.format_play_time(),
         "gross_earnings": InventorySingleton.format_money(InventorySingleton.gross_earnings),
         "money": InventorySingleton.format_money(InventorySingleton.money),
         "total_crops_harvested": SaveData.total_crops_harvested,

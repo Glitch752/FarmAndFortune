@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends HBoxContainer
 
 func _ready() -> void:
     update_items()

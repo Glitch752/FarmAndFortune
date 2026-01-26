@@ -8,7 +8,16 @@ func _ready() -> void:
     
     DialogueSingleton.dialogue_event_triggered.connect(func(event):
         if event == "win_game":
-            _close()
+            _open()
+    )
+
+    $%KeepPlayingButton.pressed.connect(func():
+        _close()
+    )
+    $%ExitButton.pressed.connect(func():
+        SaveData.save()
+        MapSingleton.unload()
+        get_tree().change_scene_to_packed(preload("res://ui/Menu.tscn"))
     )
 
 func _init() -> void:
@@ -19,33 +28,20 @@ func _init() -> void:
     modulate.a = 0.0
     visual_position = Vector2(0, -10)
 
-func _input(event: InputEvent) -> void:
-    if Engine.is_editor_hint():
-        return
-    
-    if not visible:
-        return
-    
-    if event.is_action_pressed("ui_cancel"):
-        _close()
-        get_viewport().set_input_as_handled()
-        return
-
-    # If we're open and this is a click outside of us, close
-    if event is InputEventMouseButton:
-        var mb_event: InputEventMouseButton = event
-        if mb_event.pressed:
-            if not get_global_rect().has_point(mb_event.position):
-                _close()
-                return
-
-func toggle_open() -> void:
-    if visible:
-        _close()
-    else:
-        _open()
+func _format_stats() -> String:
+    return """Final time: [color=#88ee88]{play_time}[/color]
+Gross earnings: [color=#88ee88]${gross_earnings}[/color]
+Final balance: [color=#88ee88]${money}[/color]
+Total crops harvested: [color=#88ee88]{total_crops_harvested}[/color]""".format({
+        "play_time": SaveData.format_play_time(),
+        "gross_earnings": InventorySingleton.format_money(InventorySingleton.gross_earnings),
+        "money": InventorySingleton.format_money(InventorySingleton.money),
+        "total_crops_harvested": SaveData.total_crops_harvested,
+    })
 
 func _open() -> void:
+    $%FinalStats.text = _format_stats()
+
     visible = true
     
     var tween: Tween = create_tween()

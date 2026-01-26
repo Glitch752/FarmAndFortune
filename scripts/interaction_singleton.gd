@@ -12,13 +12,15 @@ var current_interaction: InteractionType = DigInteraction.new():
         current_interaction = value
         interaction_changed.emit(current_interaction)
 
-func can_interact() -> bool:
+func is_locked() -> bool:
     var chunk = MapSingleton.get_chunk_at_tile(highlighted_tile)
     if chunk == null:
+        return true
+    return not chunk.unlocked
+
+func can_interact() -> bool:
+    if is_locked():
         return false
-    if not chunk.unlocked:
-        return false
-    
     return current_interaction.can_interact(highlighted_tile)
 
 func interact():

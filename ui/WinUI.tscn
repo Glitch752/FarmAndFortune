@@ -1,0 +1,68 @@
+[gd_scene load_steps=7 format=3 uid="uid://dm44oy76iwsws"]
+
+[ext_resource type="Script" uid="uid://ia6jes8ta5ds" path="res://ui/win_ui.gd" id="1_2em7s"]
+[ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="1_02hka"]
+[ext_resource type="Shader" uid="uid://coof3kxlypjxl" path="res://graphics/glassblur.gdshader" id="3_nx1en"]
+[ext_resource type="StyleBox" uid="uid://dwmkl21pqn0ad" path="res://ui/primaryPanel.tres" id="4_nx1en"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s3v0f"]
+shader = ExtResource("3_nx1en")
+shader_parameter/blur = 2.0
+shader_parameter/alpha = 200.0
+shader_parameter/use_alpha_channel = true
+
+[sub_resource type="LabelSettings" id="LabelSettings_nx1en"]
+font_size = 28
+
+[node name="WinUI" type="Container"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("1_02hka")
+script = ExtResource("1_2em7s")
+metadata/_custom_type_script = "uid://d0ucdkwax7bqx"
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+material = SubResource("ShaderMaterial_s3v0f")
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("4_nx1en")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "You win!"
+label_settings = SubResource("LabelSettings_nx1en")
+horizontal_alignment = 1
+
+[node name="FinalStats" type="RichTextLabel" parent="PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "Final time: [color=#88ee88]00:00:00[/color]
+Gross earnings: [color=#88ee88]$1,000[/color]
+Final balance: [color=#88ee88]$1,000[/color]
+Total crops harvested: [color=#88ee88]1,000[/color]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="KeepPlayingButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+text = "Continue playing"
+
+[node name="ExitButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+text = "Exit to menu"

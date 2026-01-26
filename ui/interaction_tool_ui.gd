@@ -11,8 +11,8 @@ func _ready() -> void:
         remove_child(child)
         add_child(child, true, INTERNAL_MODE_FRONT)
     
-    InventorySingleton.inventory_changed.connect(update_seed_buttons)
-    update_seed_buttons()
+    InventorySingleton.inventory_changed.connect(update_tool_buttons)
+    update_tool_buttons()
 
     InventorySingleton.item_selected.connect(func(item: ItemData) -> void:
         # Select the button for this item if it exists
@@ -23,7 +23,7 @@ func _ready() -> void:
                 return
     )
 
-func update_seed_buttons() -> void:
+func update_tool_buttons() -> void:
     # Remove all existing seed buttons
     for child in get_children():
         child.queue_free()

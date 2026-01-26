@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b805vfj5yr7f6"]
+[gd_scene load_steps=16 format=3 uid="uid://b805vfj5yr7f6"]
 
 [ext_resource type="Script" uid="uid://df772lefl4pnx" path="res://ui/shop/shop_ui.gd" id="1_jf5hj"]
 [ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="1_nu6qp"]
@@ -12,6 +12,7 @@
 [ext_resource type="Resource" uid="uid://4die7ndt8jg" path="res://data/items/carrot_seeds.tres" id="10_veibo"]
 [ext_resource type="Resource" uid="uid://wxpxh33oavud" path="res://data/items/corn_seeds.tres" id="11_tdmcf"]
 [ext_resource type="Resource" uid="uid://btrxtxt1ogdfn" path="res://data/items/tomato_seeds.tres" id="12_drfua"]
+[ext_resource type="Resource" uid="uid://dq8kldbqwdvg6" path="res://data/items/land_deed.tres" id="13_20mgl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jf5hj"]
 shader = ExtResource("2_nu6qp")
@@ -61,7 +62,7 @@ theme_override_constants/separation = 8
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
-text = "The Shop                     [font_size=12][color=#ccc]note: work-in-progress![/color][/font_size]"
+text = "The Shop                     [font_size=12][color=#ccc]note: work-in-progress! this needs some balancing :)[/color][/font_size]"
 fit_content = true
 autowrap_mode = 0
 
@@ -78,17 +79,17 @@ theme_override_constants/v_separation = 8
 [node name="SellItem" parent="PanelContainer/MarginContainer/VBoxContainer/HFlowContainer" instance=ExtResource("5_l8pt0")]
 layout_mode = 2
 item = ExtResource("7_vb4x5")
-value = 8
+value = 18
 
 [node name="SellItem2" parent="PanelContainer/MarginContainer/VBoxContainer/HFlowContainer" instance=ExtResource("5_l8pt0")]
 layout_mode = 2
 item = ExtResource("6_d6x5o")
-value = 35
+value = 95
 
 [node name="SellItem3" parent="PanelContainer/MarginContainer/VBoxContainer/HFlowContainer" instance=ExtResource("5_l8pt0")]
 layout_mode = 2
 item = ExtResource("8_75vii")
-value = 260
+value = 725
 
 [node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -103,31 +104,33 @@ layout_mode = 2
 theme_override_constants/h_separation = 8
 theme_override_constants/v_separation = 8
 
-[node name="SellItem" parent="PanelContainer/MarginContainer/VBoxContainer/HFlowContainer2" instance=ExtResource("9_ip6mv")]
+[node name="BuyItem" parent="PanelContainer/MarginContainer/VBoxContainer/HFlowContainer2" instance=ExtResource("9_ip6mv")]
 layout_mode = 2
 item = ExtResource("10_veibo")
 value = 5
 
-[node name="SellItem2" parent="PanelContainer/MarginContainer/VBoxContainer/HFlowContainer2" instance=ExtResource("9_ip6mv")]
+[node name="BuyItem2" parent="PanelContainer/MarginContainer/VBoxContainer/HFlowContainer2" instance=ExtResource("9_ip6mv")]
 layout_mode = 2
 item = ExtResource("11_tdmcf")
 value = 40
 
-[node name="SellItem3" parent="PanelContainer/MarginContainer/VBoxContainer/HFlowContainer2" instance=ExtResource("9_ip6mv")]
+[node name="BuyItem3" parent="PanelContainer/MarginContainer/VBoxContainer/HFlowContainer2" instance=ExtResource("9_ip6mv")]
 layout_mode = 2
 item = ExtResource("12_drfua")
 value = 400
 
 [node name="HSeparator2" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
 
 [node name="Label3" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
-text = "Purchase Personal Items"
+text = "Other Items"
 label_settings = SubResource("LabelSettings_jf5hj")
 
 [node name="HFlowContainer3" type="HFlowContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
-visible = false
 layout_mode = 2
+
+[node name="BuyItem" parent="PanelContainer/MarginContainer/VBoxContainer/HFlowContainer3" instance=ExtResource("9_ip6mv")]
+layout_mode = 2
+item = ExtResource("13_20mgl")
+value = 1000

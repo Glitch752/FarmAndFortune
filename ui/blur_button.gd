@@ -114,4 +114,6 @@ func _update_style():
         style = hover_style
     else:
         style = normal_style
-    add_theme_stylebox_override("panel", style)
+    
+    if style:
+        add_theme_stylebox_override("panel", style)

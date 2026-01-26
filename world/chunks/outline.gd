@@ -21,7 +21,6 @@ func _ready():
         MapSingleton.get_chunk_at(chunk_position + Vector2i.LEFT)
     ]
 
-    _update_outline_visibility()
     if chunk_data != null:
         chunk_data.unlocked_changed.connect(_on_chunk_unlocked_changed)
         _on_chunk_unlocked_changed(chunk_data.unlocked)
@@ -30,19 +29,22 @@ func _ready():
 
     for neighbor in surrounding_chunk_data:
         if neighbor != null:
-            neighbor.unlocked_changed.connect(_update_outline_visibility)
+            neighbor.unlocked_changed.connect(func(_unlocked): _update_outline_visibility())
 
 func _on_chunk_unlocked_changed(new_unlocked: bool) -> void:
     if new_unlocked:
         bg.color = Color.TRANSPARENT
     else:
         bg.color = locked_background
+    _update_outline_visibility()
 
 func _update_outline_visibility() -> void:
     outline_line_visibility = PackedByteArray()
     for dir in [Vector2i.UP, Vector2i.RIGHT, Vector2i.DOWN, Vector2i.LEFT]:
         var neighbor = MapSingleton.get_chunk_at(chunk_position + dir)
-        if neighbor == null or neighbor.unlocked:
-            outline_line_visibility.append(1)
+        if neighbor == null:
+            outline_line_visibility.append(1)  
+        elif chunk_data.unlocked:
+            outline_line_visibility.append(int(not neighbor.unlocked))
         else:
-            outline_line_visibility.append(0)
+            outline_line_visibility.append(int(neighbor.unlocked))

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://dq8kldbqwdvg6"]
+
+[ext_resource type="Texture2D" uid="uid://duahrwccsawwp" path="res://art/icons/scroll.png" id="1_nv5sm"]
+[ext_resource type="Script" uid="uid://bcbq2ty83ram" path="res://data/item_data.gd" id="2_uuuew"]
+
+[resource]
+script = ExtResource("2_uuuew")
+id = &"land_deed"
+name = "Land Deed"
+icon = ExtResource("1_nv5sm")
+description = "A land deed which can be used to expand to new land."
+metadata/_custom_type_script = "uid://bcbq2ty83ram"

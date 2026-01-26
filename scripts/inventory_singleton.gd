@@ -40,6 +40,25 @@ func spend_money(amount: int) -> bool:
         return true
     return false
 
+# For testing only
+func _input(event: InputEvent) -> void:
+    if OS.has_feature("release"):
+        return
+    
+    if event is InputEventKey:
+        var key_event: InputEventKey = event
+        if key_event.pressed and not key_event.echo:
+            if key_event.keycode == Key.KEY_N:
+                earn_money(10000)
+            elif key_event.keycode == Key.KEY_M:
+                earn_money(100000)
+
+func _ready() -> void:
+    DialogueSingleton.dialogue_event_triggered.connect(func(event: String):
+        if event == "take_the_million":
+            spend_money(1000000)
+    )
+
 func format_money(amount: int) -> String:
     # Format as X,XXX
     var abs_amount = abs(amount)

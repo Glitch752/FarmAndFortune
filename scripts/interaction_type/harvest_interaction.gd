@@ -19,3 +19,4 @@ func interact(tile: Vector2i) -> void:
     for item in harvest_items:
         InventorySingleton.add_item(item.item_id, item.quantity)
     MapSingleton.set_crop_at(tile, null)
+    SaveData.total_crops_harvested += 1

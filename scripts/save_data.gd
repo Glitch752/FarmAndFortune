@@ -10,6 +10,15 @@ var character_name: String = ""
 var character: StringName = &"farmer_1"
 var play_time_seconds: float = 0
 
+func format_play_time() -> String:
+    var seconds = int(play_time_seconds) % 60
+    @warning_ignore("integer_division")
+    var total_minutes = int(play_time_seconds) / 60
+    var minutes = total_minutes % 60
+    @warning_ignore("integer_division")
+    var hours = total_minutes / 60
+    return "%02d:%02d:%02d" % [hours, minutes, seconds]
+
 var money: int = 0
 var gross_earnings: int = 0
 var total_crops_harvested: int = 0

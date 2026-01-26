@@ -14,7 +14,7 @@ font_color = Color(0.87, 0.62625504, 0.51330006, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_ac2cw"]
 font_color = Color(0.8, 0.8, 0.8, 1)
 
-[node name="SellItem" type="PanelContainer"]
+[node name="BuyItem" type="PanelContainer"]
 theme = ExtResource("1_7dphg")
 theme_override_styles/panel = ExtResource("2_cj1mc")
 script = ExtResource("3_7dphg")

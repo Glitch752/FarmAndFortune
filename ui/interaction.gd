@@ -41,10 +41,19 @@ func _process(delta: float) -> void:
 
     var required_time = InteractionSingleton.current_interaction.duration
 
+    $%LandPurchase.visible = false
     if not InteractionSingleton.can_interact():
         interacting = false
         interact_progress = 0.0
         progress_bar.visible = false
+
+        if InteractionSingleton.is_locked() and InventorySingleton.has_item(&"land_deed"):
+            $%LandPurchase.visible = true
+
+            if Input.is_action_just_pressed("interact"):
+                MapSingleton.get_chunk_at_tile(highlighted_tile).unlocked = true
+                InventorySingleton.remove_item(&"land_deed", 1)
+                get_viewport().set_input_as_handled()
         return
 
     if Input.is_action_just_pressed("interact"):

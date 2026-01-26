@@ -7,20 +7,19 @@
 
 [node name="BaseCrop" instance=ExtResource("1_572n0")]
 script = ExtResource("2_572n0")
-growth_percentage = 1.0
 
 [node name="Plant" type="Sprite2D" parent="Mask" index="0"]
 unique_name_in_owner = true
 modulate = Color(0.9, 0.81119996, 0.756, 1)
-position = Vector2(7, 20)
-scale = Vector2(0.03, 0.03)
+position = Vector2(7, 25)
+scale = Vector2(0.015, 0.015)
 texture = ExtResource("3_572n0")
 
 [node name="Tomato1" type="Sprite2D" parent="Mask" index="1"]
 unique_name_in_owner = true
 position = Vector2(10.095367, 18.276001)
 rotation = -0.09599311
-scale = Vector2(0.012, 0.012)
+scale = Vector2(1e-05, 1e-05)
 texture = ExtResource("4_bl0dj")
 offset = Vector2(-2.9845734, 169.42987)
 
@@ -28,7 +27,7 @@ offset = Vector2(-2.9845734, 169.42987)
 unique_name_in_owner = true
 position = Vector2(5.348938, 14.49292)
 rotation = 0.143117
-scale = Vector2(0.013, 0.013)
+scale = Vector2(1e-05, 1e-05)
 texture = ExtResource("4_bl0dj")
 offset = Vector2(-0.48059082, 170.68275)
 flip_h = true

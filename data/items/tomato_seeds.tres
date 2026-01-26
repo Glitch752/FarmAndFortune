@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://btrxtxt1ogdfn"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://btrxtxt1ogdfn"]
 
 [ext_resource type="Texture2D" uid="uid://bgfa2i6ymejpc" path="res://art/seeds_generated/tomato_icon.png" id="1_akbme"]
+[ext_resource type="Resource" uid="uid://co0dnbq8nmp8j" path="res://data/crops/tomato.tres" id="1_cmy8j"]
 [ext_resource type="Script" uid="uid://bcbq2ty83ram" path="res://data/item_data.gd" id="2_cmy8j"]
 
 [resource]
@@ -9,4 +10,5 @@ id = &"tomato_seeds"
 name = "Tomato Seeds"
 icon = ExtResource("1_akbme")
 description = "Tomato seeds. Used to plant tomatoes."
+crop = ExtResource("1_cmy8j")
 metadata/_custom_type_script = "uid://bcbq2ty83ram"

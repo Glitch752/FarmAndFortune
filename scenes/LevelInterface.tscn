@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c7m6n2cj5286m"]
+[gd_scene load_steps=23 format=3 uid="uid://c7m6n2cj5286m"]
 
 [ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="1_xdkid"]
 [ext_resource type="Script" uid="uid://dhwrl2hfys2bq" path="res://ui/stats.gd" id="2_2n88a"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://d0bsbmh18741c" path="res://ui/dialogue/Dialogue.tscn" id="14_2n88a"]
 [ext_resource type="PackedScene" uid="uid://cf72ihm5tthdq" path="res://ui/inventory/Inventory.tscn" id="14_pudrt"]
 [ext_resource type="PackedScene" uid="uid://b805vfj5yr7f6" path="res://ui/shop/ShopUI.tscn" id="15_607py"]
+[ext_resource type="PackedScene" uid="uid://dm44oy76iwsws" path="res://ui/WinUI.tscn" id="17_efrwg"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_xdkid"]
 font_color = Color(0.5, 1, 0.60833335, 1)
@@ -147,6 +148,20 @@ grow_vertical = 0
 
 [node name="ShopUI" parent="." instance=ExtResource("15_607py")]
 layout_mode = 1
+
+[node name="WinUI" parent="." instance=ExtResource("17_efrwg")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -116.0
+offset_top = -110.0
+offset_right = 116.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Dialogue" parent="." instance=ExtResource("14_2n88a")]
 layout_mode = 1

@@ -8,18 +8,19 @@ Initial minimum playable game
   - [X] Save/quit
   - [X] Settings
 - [X] Simple intro dialogue
-- Shop
-  - Purchase seeds
-  - Sell seeds
-- Info text for selected tile
-- Purchase new world areas
+- [X] Shop
+  - [X] Purchase seeds
+  - [X] Sell seeds
 - [X] Playtime tracking
-- End game (once player makes it to $1M)
+- [X] Purchase new world areas
+- [X] End game (once player makes it to $1M)
   - [X] Outro dialogue
-  - Popup showing total playtime
-  - Keep playing
+  - [X] Popup showing total playtime
+  - [X] Keep playing
+- Publish web build
 
 Added polish and gameplay
+- Info text for selected tile
 - Save file deletion and renaming
 - Simple autosave and saving indicator
 - Particles on farming interactions and ready crops

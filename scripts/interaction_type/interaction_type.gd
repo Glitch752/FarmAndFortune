@@ -2,7 +2,7 @@ class_name InteractionType extends Resource
 
 var color: Color = Color.WHITE
 
-var duration: float = 0.05
+var duration: float = 0.25
 
 ## Only should be called on unlocked tiles and after can_interact() returns true.
 func interact(_tile: Vector2i) -> void:
