@@ -5,7 +5,11 @@ signal inventory_changed()
 @warning_ignore("unused_signal")
 signal item_selected(item: ItemData)
 
-var items: Dictionary[StringName, int] = SaveData.inventory
+var items: Dictionary[StringName, int]:
+    get:
+        return SaveData.inventory
+    set(value):
+        SaveData.inventory = value
 
 func add_item(item_id: StringName, quantity: int = 1) -> void:
     if items.has(item_id):

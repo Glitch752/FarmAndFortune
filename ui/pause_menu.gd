@@ -55,12 +55,16 @@ func _format_play_time(total_seconds: float) -> String:
     return "%02d:%02d:%02d" % [hours, minutes, seconds]
 
 func _format_stats() -> String:
-    return """Play time: [color=#88ee88]{play_time}[/color]
+    return """Current Save: [color=#88ee88]{save_name}[/color]
+Character Name: [color=#88ee88]{character_name}[/color]
+Play time: [color=#88ee88]{play_time}[/color]
 
 Gross earnings: [color=#88ee88]${gross_earnings}[/color]
 Money: [color=#88ee88]${money}[/color]
 
 Total crops harvested: [color=#88ee88]{total_crops_harvested}[/color]""".format({
+        "save_name": SaveData.loaded_save_name,
+        "character_name": SaveData.character_name,
         "play_time": _format_play_time(SaveData.play_time_seconds),
         "gross_earnings": SaveData.gross_earnings,
         "money": SaveData.money,

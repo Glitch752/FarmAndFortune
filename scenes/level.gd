@@ -1,9 +1,8 @@
 extends Node2D
 
 func _init():
-    # If we directly load into the
-    # level scene, we want to make
-    # sure we can load a level
+    # If we directly load into the level scene or create a new save,
+    # generate the map and reset appropriately
     MapSingleton._ensure_map_loaded()
 
 func _process(delta: float) -> void:

@@ -25,8 +25,8 @@ label_settings = SubResource("LabelSettings_dra5d")
 [node name="SaveNameInput" type="LineEdit" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
-focus_neighbor_bottom = NodePath("../CharacterSelector/VBoxContainer/Header/PreviousCategory")
-focus_next = NodePath("../CharacterSelector/VBoxContainer/Header/PreviousCategory")
+focus_neighbor_bottom = NodePath("../CharacterNameInput")
+focus_next = NodePath("../CharacterNameInput")
 text = "My Farm"
 placeholder_text = "Save name..."
 max_length = 20
@@ -45,8 +45,10 @@ label_settings = SubResource("LabelSettings_dra5d")
 [node name="CharacterNameInput" type="LineEdit" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
+focus_neighbor_top = NodePath("../SaveNameInput")
 focus_neighbor_bottom = NodePath("../CharacterSelector/VBoxContainer/Header/PreviousCategory")
 focus_next = NodePath("../CharacterSelector/VBoxContainer/Header/PreviousCategory")
+focus_previous = NodePath("../SaveNameInput")
 text = "Dr. Farmsalot"
 placeholder_text = "Character name..."
 max_length = 20
@@ -65,11 +67,11 @@ focus_next = NodePath("../CreateSave")
 focus_previous = NodePath("../SaveNameInput")
 
 [node name="PreviousCategory" parent="CharacterSelector/VBoxContainer/Header" index="0"]
-focus_neighbor_top = NodePath("../../../../SaveNameInput")
-focus_previous = NodePath("../../../../SaveNameInput")
+focus_neighbor_top = NodePath("../../../../CharacterNameInput")
+focus_previous = NodePath("../../../../CharacterNameInput")
 
 [node name="NextCategory" parent="CharacterSelector/VBoxContainer/Header" index="2"]
-focus_neighbor_top = NodePath("../../../../SaveNameInput")
+focus_neighbor_top = NodePath("../../../../CharacterNameInput")
 
 [node name="PreviousVariant" parent="CharacterSelector/VBoxContainer/Character" index="0"]
 focus_neighbor_bottom = NodePath("../../../../CreateSave")

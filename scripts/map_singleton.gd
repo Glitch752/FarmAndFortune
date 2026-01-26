@@ -17,9 +17,12 @@ var chunks: Dictionary[Vector2i, MapChunk] = {}
 var map_loaded: bool = false
 
 ## Primarily for development purposes; ensures the map is generated.
-func _ensure_map_loaded() -> void:
+## Returns if the map was generated (meaning not already loaded).
+func _ensure_map_loaded() -> bool:
     if not map_loaded:
         _generate_map()
+        return true
+    return false
 
 func get_chunk_at(chunk_pos: Vector2i) -> MapChunk:
     return chunks.get(chunk_pos, null)

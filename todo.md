@@ -40,3 +40,4 @@ Stretch gameplay stuff
 - Potentially add an actual player character in the world
 - Fishing
 - A physical shop location / general starting town area
+- Save info preview in save loading list

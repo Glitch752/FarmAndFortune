@@ -6,6 +6,7 @@ var loaded_save_name: String = ""
 
 var inventory: Dictionary[StringName, int] = {}
 
+var character_name: String = ""
 var character: StringName = &"farmer_1"
 var play_time_seconds: float = 0
 
@@ -13,7 +14,7 @@ var money: int = 0
 var gross_earnings: int = 0
 var total_crops_harvested: int = 0
 
-var camera_position: Vector2 = MapSingleton.TOTAL_WORLD_SIZE_PIXELS * Vector2.ONE / 2.0
+var camera_position: Vector2
 
 func _init() -> void:
     pass
@@ -58,19 +59,23 @@ func load_save(save_id: String) -> void:
     
     loaded_save_id = save_id
     loaded_save_name = data.metadata.name
-    if loaded_save_name == "":
-        loaded_save_name = "Unnamed Save"
 
     inventory = {}
     inventory = data.inventory
     camera_position = data.camera_position
 
-    play_time_seconds = data.metadata.play_time_seconds
+    character_name = data.metadata.character_name
     character = data.metadata.character
+    play_time_seconds = data.metadata.play_time_seconds
 
     money = data.metadata.money
     gross_earnings = data.metadata.gross_earnings
     total_crops_harvested = data.metadata.total_crops_harvested
+
+    if character_name == "":
+        character_name = "Unnamed"
+    if loaded_save_name == "":
+        loaded_save_name = "Unnamed Save"
 
     if data.serialized_world.size() > 0:
         # World has already been saved; otherwise, we'll generate it
@@ -82,9 +87,10 @@ func load_save(save_id: String) -> void:
     # Load the level scene
     get_tree().change_scene_to_packed(preload("res://scenes/Level.tscn"))
 
-func create_new_save(save_name: String, character_id: String) -> void:
+func create_new_save(save_name: String, save_character_name: String, character_id: String) -> void:
     var metadata = SaveFileMetaData.new()
     metadata.name = save_name
+    metadata.character_name = save_character_name
     metadata.character = character_id
     metadata.last_modified = Time.get_unix_time_from_system()
 
