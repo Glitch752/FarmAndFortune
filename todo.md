@@ -6,7 +6,7 @@ Initial minimum playable game
   - [X] Emoji selector (i guess?)
 - [X] Pause menu
   - [X] Save/quit
-  - Settings
+  - [X] Settings
 - Simple intro dialogue
 - Shop
   - Purchase seeds
@@ -30,6 +30,7 @@ Added polish and gameplay
 - Shop upgrades like gloves and a better shovel to make farming more efficient
 - "Check-in" dialogue
 - World loading screen/popup
+- Simple market trends so you chose when to sell?
 
 Stretch gameplay stuff
 - More crop types

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b2d1p2gey38o3"]
+[gd_scene load_steps=27 format=3 uid="uid://b2d1p2gey38o3"]
 
 [ext_resource type="Script" uid="uid://cm6chi6qipi8c" path="res://scenes/level.gd" id="1_qifjx"]
 [ext_resource type="Script" uid="uid://cwh0bxalewkly" path="res://world/map.gd" id="2_6vs76"]
@@ -6,6 +6,108 @@
 [ext_resource type="PackedScene" uid="uid://c7m6n2cj5286m" path="res://scenes/LevelInterface.tscn" id="3_6vs76"]
 [ext_resource type="PackedScene" uid="uid://b70htm1f5xsu1" path="res://ui/Interaction.tscn" id="3_kl8ac"]
 [ext_resource type="PackedScene" uid="uid://cypshkmphya6q" path="res://ui/PauseMenu.tscn" id="6_dke22"]
+[ext_resource type="Script" uid="uid://57n60mmj06i3" path="res://scripts/dialogue/dialogue_trigger_money.gd" id="7_4qegb"]
+[ext_resource type="Script" uid="uid://g71qqy4l0108" path="res://scripts/dialogue/dialogue_entry.gd" id="8_faw0r"]
+
+[sub_resource type="Resource" id="Resource_2eouu"]
+script = ExtResource("8_faw0r")
+speaker = 1
+text = "So… this is it? This spot of dirt in the middle of nowhere is your entire operation?"
+metadata/_custom_type_script = "uid://g71qqy4l0108"
+
+[sub_resource type="Resource" id="Resource_faw0r"]
+script = ExtResource("8_faw0r")
+text = "Hey, it's not a random spot of dirt. It's [i]future profits[/i]. Probably."
+metadata/_custom_type_script = "uid://g71qqy4l0108"
+
+[sub_resource type="Resource" id="Resource_rccsh"]
+script = ExtResource("8_faw0r")
+speaker = 1
+text = "You owe [b]$1,000,000[/b], and interest is rising. [i]Fast[/i].”"
+metadata/_custom_type_script = "uid://g71qqy4l0108"
+
+[sub_resource type="Resource" id="Resource_ax7ne"]
+script = ExtResource("8_faw0r")
+text = "I know, I know! Just give me some time. Crops grow. Money grows, right?"
+metadata/_custom_type_script = "uid://g71qqy4l0108"
+
+[sub_resource type="Resource" id="Resource_sv41r"]
+script = ExtResource("8_faw0r")
+speaker = 1
+text = "...You have one chance. Make this land pay for itself."
+metadata/_custom_type_script = "uid://g71qqy4l0108"
+
+[sub_resource type="Resource" id="Resource_m0xki"]
+script = ExtResource("8_faw0r")
+text = "Then I guess I'd better start planting."
+metadata/_custom_type_script = "uid://g71qqy4l0108"
+
+[sub_resource type="Resource" id="Resource_xe3hh"]
+script = ExtResource("8_faw0r")
+speaker = 1
+text = "Well, I admit it. You're making progress."
+metadata/_custom_type_script = "uid://g71qqy4l0108"
+
+[sub_resource type="Resource" id="Resource_p6oy6"]
+script = ExtResource("8_faw0r")
+text = "And the farm's bigger. The crops are selling. See? I told you I had a plan."
+metadata/_custom_type_script = "uid://g71qqy4l0108"
+
+[sub_resource type="Resource" id="Resource_opqd1"]
+script = ExtResource("8_faw0r")
+speaker = 1
+text = "You've made some progress, but don't get comfortable..."
+metadata/_custom_type_script = "uid://g71qqy4l0108"
+
+[sub_resource type="Resource" id="Resource_xyj84"]
+script = ExtResource("8_faw0r")
+text = "I won't. Every harvest gets me closer."
+metadata/_custom_type_script = "uid://g71qqy4l0108"
+
+[sub_resource type="Resource" id="Resource_gips2"]
+script = ExtResource("8_faw0r")
+speaker = 1
+text = "Good, because the clock hasn't stopped."
+metadata/_custom_type_script = "uid://g71qqy4l0108"
+
+[sub_resource type="Resource" id="Resource_wsd7d"]
+script = ExtResource("8_faw0r")
+speaker = 1
+text = "...That's it. The balance is zero."
+metadata/_custom_type_script = "uid://g71qqy4l0108"
+
+[sub_resource type="Resource" id="Resource_iw3v5"]
+script = ExtResource("8_faw0r")
+text = "Zero? That's it?"
+metadata/_custom_type_script = "uid://g71qqy4l0108"
+
+[sub_resource type="Resource" id="Resource_40jy2"]
+script = ExtResource("8_faw0r")
+speaker = 1
+text = "Deal's a deal. You paid before our biannual interest."
+metadata/_custom_type_script = "uid://g71qqy4l0108"
+
+[sub_resource type="Resource" id="Resource_0akr6"]
+script = ExtResource("8_faw0r")
+text = "So... I keep the farm?"
+metadata/_custom_type_script = "uid://g71qqy4l0108"
+
+[sub_resource type="Resource" id="Resource_u2nc6"]
+script = ExtResource("8_faw0r")
+speaker = 1
+text = "It's all yours. Looks like the hard work paid off."
+metadata/_custom_type_script = "uid://g71qqy4l0108"
+
+[sub_resource type="Resource" id="Resource_vs87s"]
+script = ExtResource("8_faw0r")
+text = "Heh, I guess this \"measly farm\" did okay."
+metadata/_custom_type_script = "uid://g71qqy4l0108"
+
+[sub_resource type="Resource" id="Resource_sv6t6"]
+script = ExtResource("8_faw0r")
+speaker = 1
+text = "So it did. Enjoy it."
+metadata/_custom_type_script = "uid://g71qqy4l0108"
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_qifjx")
@@ -32,3 +134,24 @@ layer = 3
 
 [node name="PauseMenu" parent="CanvasLayer2" instance=ExtResource("6_dke22")]
 visible = false
+
+[node name="StartDialogueTrigger" type="Node" parent="."]
+script = ExtResource("7_4qegb")
+dialogue_sequence = "start"
+dialogue = Array[ExtResource("8_faw0r")]([SubResource("Resource_2eouu"), SubResource("Resource_faw0r"), SubResource("Resource_rccsh"), SubResource("Resource_ax7ne"), SubResource("Resource_sv41r"), SubResource("Resource_m0xki")])
+metadata/_custom_type_script = "uid://57n60mmj06i3"
+
+[node name="MidGameDialogueTrigger" type="Node" parent="."]
+script = ExtResource("7_4qegb")
+required_money = 250000
+dialogue_sequence = "midgame"
+dialogue = Array[ExtResource("8_faw0r")]([SubResource("Resource_xe3hh"), SubResource("Resource_p6oy6"), SubResource("Resource_opqd1"), SubResource("Resource_xyj84"), SubResource("Resource_gips2")])
+metadata/_custom_type_script = "uid://57n60mmj06i3"
+
+[node name="WinDialogueTrigger" type="Node" parent="."]
+editor_description = "The huge excuse because I didn't want to implement interest :sob:"
+script = ExtResource("7_4qegb")
+required_money = 1000000
+dialogue_sequence = "midgame"
+dialogue = Array[ExtResource("8_faw0r")]([SubResource("Resource_wsd7d"), SubResource("Resource_iw3v5"), SubResource("Resource_40jy2"), SubResource("Resource_0akr6"), SubResource("Resource_u2nc6"), SubResource("Resource_vs87s"), SubResource("Resource_sv6t6")])
+metadata/_custom_type_script = "uid://57n60mmj06i3"

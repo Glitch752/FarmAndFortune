@@ -1,0 +1,90 @@
+[gd_scene load_steps=8 format=3 uid="uid://c6yn7hr6stq5x"]
+
+[ext_resource type="Script" uid="uid://tt2ivpmvmo0h" path="res://ui/dialogue/dialogue_entry_display.gd" id="1_5j07u"]
+[ext_resource type="Script" uid="uid://d0ucdkwax7bqx" path="res://ui/nodes/transform_container.gd" id="1_sgjf5"]
+[ext_resource type="StyleBox" uid="uid://dwmkl21pqn0ad" path="res://ui/primaryPanel.tres" id="3_kfs1b"]
+[ext_resource type="Texture2D" uid="uid://byiqemq6pqbtt" path="res://art/characters/debt_collector.png" id="4_phenu"]
+
+[sub_resource type="Shader" id="Shader_f3ecl"]
+code = "shader_type canvas_item;
+
+uniform sampler2D screen_texture : hint_screen_texture, filter_linear_mipmap;
+uniform float blur = 2.0;
+/// 0-255
+uniform float alpha = 100;
+uniform bool use_alpha_channel = true;
+
+void fragment() {
+    COLOR = vec4(
+        mix(texture(screen_texture, SCREEN_UV, blur).rgb, COLOR.rgb, alpha / 255.0),
+        use_alpha_channel ? COLOR.a : 1.0
+    );
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i1xkd"]
+shader = SubResource("Shader_f3ecl")
+shader_parameter/blur = 4.0
+shader_parameter/alpha = 150.0
+shader_parameter/use_alpha_channel = true
+
+[sub_resource type="LabelSettings" id="LabelSettings_y3bqr"]
+font_color = Color(0.88, 0.88, 0.88, 1)
+
+[node name="TransformContainer" type="Container"]
+script = ExtResource("1_5j07u")
+metadata/_custom_type_script = "uid://d0ucdkwax7bqx"
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+material = SubResource("ShaderMaterial_i1xkd")
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_kfs1b")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+layout_direction = 2
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="TransformContainer" type="Container" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+script = ExtResource("1_sgjf5")
+visual_scale = Vector2(1.1, 1.1)
+visual_pivot_offset_perc = Vector2(0.5, 0.5)
+metadata/_custom_type_script = "uid://d0ucdkwax7bqx"
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer/TransformContainer"]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+texture = ExtResource("4_phenu")
+expand_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Character name"
+label_settings = SubResource("LabelSettings_y3bqr")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/bold_font_size = 20
+theme_override_font_sizes/bold_italics_font_size = 20
+theme_override_font_sizes/italics_font_size = 20
+theme_override_font_sizes/mono_font_size = 20
+bbcode_enabled = true
+text = "Some label [i]with bbcode[/i]"
+visible_characters = 13
+visible_ratio = 0.617
+
+[node name="Control" type="Control" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2

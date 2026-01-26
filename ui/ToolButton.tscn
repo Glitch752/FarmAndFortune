@@ -1,13 +1,19 @@
-[gd_scene load_steps=12 format=3 uid="uid://c0qm7ovj3aec4"]
+[gd_scene load_steps=13 format=3 uid="uid://c0qm7ovj3aec4"]
 
-[ext_resource type="Material" uid="uid://4p2g18w6yasx" path="res://ui/panelBlur.tres" id="1_c3fve"]
+[ext_resource type="Shader" uid="uid://coof3kxlypjxl" path="res://graphics/glassblur.gdshader" id="1_o0ldk"]
 [ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="2_vgv5g"]
 [ext_resource type="Script" uid="uid://ct6slv7ptkvep" path="res://ui/tool_button.gd" id="3_l6iv4"]
 [ext_resource type="Script" uid="uid://dtiyyefskk5op" path="res://ui/nodes/stack_container.gd" id="4_o0ldk"]
 [ext_resource type="Script" uid="uid://d0ucdkwax7bqx" path="res://ui/nodes/transform_container.gd" id="5_l6iv4"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o0ldk"]
+shader = ExtResource("1_o0ldk")
+shader_parameter/blur = 2.0
+shader_parameter/alpha = 0.0
+shader_parameter/use_alpha_channel = true
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c3fve"]
-bg_color = Color(0, 0, 0, 0.003921569)
+bg_color = Color(0, 0, 0, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -27,7 +33,7 @@ shadow_size = 0
 shadow_color = Color(0, 0, 0, 0.39215687)
 
 [node name="ToolButton" type="Button"]
-material = ExtResource("1_c3fve")
+material = SubResource("ShaderMaterial_o0ldk")
 custom_minimum_size = Vector2(110, 36)
 theme = ExtResource("2_vgv5g")
 theme_override_styles/normal = SubResource("StyleBoxFlat_c3fve")

@@ -6,4 +6,4 @@ enum DialogueSpeaker {
 }
 
 @export var speaker: DialogueSpeaker = DialogueSpeaker.FARMER
-@export var text: String = ""
+@export_multiline var text: String = ""
