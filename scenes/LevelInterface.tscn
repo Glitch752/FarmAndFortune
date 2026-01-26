@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c7m6n2cj5286m"]
+[gd_scene load_steps=22 format=3 uid="uid://c7m6n2cj5286m"]
 
 [ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="1_xdkid"]
 [ext_resource type="Script" uid="uid://dhwrl2hfys2bq" path="res://ui/stats.gd" id="2_2n88a"]
@@ -6,6 +6,7 @@
 [ext_resource type="StyleBox" uid="uid://dwmkl21pqn0ad" path="res://ui/primaryPanel.tres" id="2_msvpg"]
 [ext_resource type="PackedScene" uid="uid://bfttmmdwpwctf" path="res://ui/BlurButton.tscn" id="4_5idoe"]
 [ext_resource type="PackedScene" uid="uid://c0qm7ovj3aec4" path="res://ui/ToolButton.tscn" id="4_x080e"]
+[ext_resource type="Script" uid="uid://ddsb0l7eowo71" path="res://ui/shop/shop_button.gd" id="6_817l7"]
 [ext_resource type="Script" uid="uid://c8dhtfiqxnb" path="res://ui/interaction_tool_ui.gd" id="6_ldihh"]
 [ext_resource type="Texture2D" uid="uid://cysal3jjxlduu" path="res://ui/icons/tools/shovel.png" id="7_fcdxv"]
 [ext_resource type="Script" uid="uid://ei3ago7dda2u" path="res://scripts/interaction_type/dig_interaction.gd" id="9_b0joa"]
@@ -15,6 +16,7 @@
 [ext_resource type="Script" uid="uid://c5p428qel5vsk" path="res://scripts/interaction_type/harvest_interaction.gd" id="11_pudrt"]
 [ext_resource type="PackedScene" uid="uid://d0bsbmh18741c" path="res://ui/dialogue/Dialogue.tscn" id="14_2n88a"]
 [ext_resource type="PackedScene" uid="uid://cf72ihm5tthdq" path="res://ui/inventory/Inventory.tscn" id="14_pudrt"]
+[ext_resource type="PackedScene" uid="uid://b805vfj5yr7f6" path="res://ui/shop/ShopUI.tscn" id="15_607py"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_xdkid"]
 font_color = Color(0.5, 1, 0.60833335, 1)
@@ -75,6 +77,12 @@ offset_bottom = 68.0
 
 [node name="ShopButton" parent="Buttons" instance=ExtResource("4_5idoe")]
 layout_mode = 2
+script = ExtResource("6_817l7")
+shop_ui = NodePath("../../ShopUI")
+icon = null
+normal_style = null
+hover_style = null
+press_style = null
 
 [node name="Tools" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -136,6 +144,9 @@ offset_top = -56.0
 offset_right = 56.0
 offset_bottom = -16.0
 grow_vertical = 0
+
+[node name="ShopUI" parent="." instance=ExtResource("15_607py")]
+layout_mode = 1
 
 [node name="Dialogue" parent="." instance=ExtResource("14_2n88a")]
 layout_mode = 1

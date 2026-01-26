@@ -31,6 +31,9 @@ func earn_money(amount: int) -> void:
     money += amount
     gross_earnings += amount
 
+func has_money(amount: int) -> bool:
+    return money >= amount
+
 func spend_money(amount: int) -> bool:
     if money >= amount:
         money -= amount

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://dovnwruvxlixp"]
+
+[ext_resource type="Texture2D" uid="uid://ca5nofs2b1v87" path="res://art/crops/corn_icon.png" id="1_sr4r6"]
+[ext_resource type="Script" uid="uid://bcbq2ty83ram" path="res://data/item_data.gd" id="2_x3kkp"]
+
+[resource]
+script = ExtResource("2_x3kkp")
+id = &"corn"
+name = "Corn"
+icon = ExtResource("1_sr4r6")
+description = "Corn. Can be sold for money."
+metadata/_custom_type_script = "uid://bcbq2ty83ram"

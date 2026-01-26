@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://b2d1p2gey38o3"]
+[gd_scene load_steps=30 format=3 uid="uid://b2d1p2gey38o3"]
 
 [ext_resource type="Script" uid="uid://cm6chi6qipi8c" path="res://scenes/level.gd" id="1_qifjx"]
 [ext_resource type="Script" uid="uid://cwh0bxalewkly" path="res://world/map.gd" id="2_6vs76"]
@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://cypshkmphya6q" path="res://ui/PauseMenu.tscn" id="6_dke22"]
 [ext_resource type="Script" uid="uid://57n60mmj06i3" path="res://scripts/dialogue/dialogue_trigger_money.gd" id="7_4qegb"]
 [ext_resource type="Script" uid="uid://g71qqy4l0108" path="res://scripts/dialogue/dialogue_entry.gd" id="8_faw0r"]
+[ext_resource type="Script" uid="uid://bhlil6k0xd0mc" path="res://scripts/dialogue/dialogue_step.gd" id="8_rccsh"]
+[ext_resource type="Script" uid="uid://xjammrjdoa4d" path="res://scripts/dialogue/dialogue_step_event.gd" id="10_ax7ne"]
 
 [sub_resource type="Resource" id="Resource_2eouu"]
 script = ExtResource("8_faw0r")
@@ -109,6 +111,11 @@ speaker = 1
 text = "So it did. Enjoy it."
 metadata/_custom_type_script = "uid://g71qqy4l0108"
 
+[sub_resource type="Resource" id="Resource_witbp"]
+script = ExtResource("10_ax7ne")
+event_name = "win_game"
+metadata/_custom_type_script = "uid://xjammrjdoa4d"
+
 [node name="Level" type="Node2D"]
 script = ExtResource("1_qifjx")
 
@@ -138,14 +145,14 @@ visible = false
 [node name="StartDialogueTrigger" type="Node" parent="."]
 script = ExtResource("7_4qegb")
 dialogue_sequence = "start"
-dialogue = Array[ExtResource("8_faw0r")]([SubResource("Resource_2eouu"), SubResource("Resource_faw0r"), SubResource("Resource_rccsh"), SubResource("Resource_ax7ne"), SubResource("Resource_sv41r"), SubResource("Resource_m0xki")])
+dialogue = Array[ExtResource("8_rccsh")]([SubResource("Resource_2eouu"), SubResource("Resource_faw0r"), SubResource("Resource_rccsh"), SubResource("Resource_ax7ne"), SubResource("Resource_sv41r"), SubResource("Resource_m0xki")])
 metadata/_custom_type_script = "uid://57n60mmj06i3"
 
 [node name="MidGameDialogueTrigger" type="Node" parent="."]
 script = ExtResource("7_4qegb")
 required_money = 250000
 dialogue_sequence = "midgame"
-dialogue = Array[ExtResource("8_faw0r")]([SubResource("Resource_xe3hh"), SubResource("Resource_p6oy6"), SubResource("Resource_opqd1"), SubResource("Resource_xyj84"), SubResource("Resource_gips2")])
+dialogue = Array[ExtResource("8_rccsh")]([SubResource("Resource_xe3hh"), SubResource("Resource_p6oy6"), SubResource("Resource_opqd1"), SubResource("Resource_xyj84"), SubResource("Resource_gips2")])
 metadata/_custom_type_script = "uid://57n60mmj06i3"
 
 [node name="WinDialogueTrigger" type="Node" parent="."]
@@ -153,5 +160,5 @@ editor_description = "The huge excuse because I didn't want to implement interes
 script = ExtResource("7_4qegb")
 required_money = 1000000
 dialogue_sequence = "midgame"
-dialogue = Array[ExtResource("8_faw0r")]([SubResource("Resource_wsd7d"), SubResource("Resource_iw3v5"), SubResource("Resource_40jy2"), SubResource("Resource_0akr6"), SubResource("Resource_u2nc6"), SubResource("Resource_vs87s"), SubResource("Resource_sv6t6")])
+dialogue = Array[ExtResource("8_rccsh")]([SubResource("Resource_wsd7d"), SubResource("Resource_iw3v5"), SubResource("Resource_40jy2"), SubResource("Resource_0akr6"), SubResource("Resource_u2nc6"), SubResource("Resource_vs87s"), SubResource("Resource_sv6t6"), SubResource("Resource_witbp")])
 metadata/_custom_type_script = "uid://57n60mmj06i3"

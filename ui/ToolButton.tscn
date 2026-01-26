@@ -65,6 +65,7 @@ metadata/_custom_type_script = "uid://dtiyyefskk5op"
 layout_mode = 2
 script = ExtResource("5_l6iv4")
 visual_position = Vector2(1, 1)
+effective_scale = null
 metadata/_custom_type_script = "uid://d0ucdkwax7bqx"
 
 [node name="TextureShadow" type="TextureRect" parent="MarginContainer/HBoxContainer/StackContainer/TransformContainer"]

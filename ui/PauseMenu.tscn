@@ -10,6 +10,7 @@
 shader = ExtResource("1_c7v6e")
 shader_parameter/blur = 2.0
 shader_parameter/alpha = 100.0
+shader_parameter/use_alpha_channel = true
 
 [sub_resource type="LabelSettings" id="LabelSettings_bqsny"]
 font_size = 24

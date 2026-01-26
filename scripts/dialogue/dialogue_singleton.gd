@@ -2,6 +2,7 @@ extends Node
 
 signal show_dialogue_entry(entry: DialogueEntry)
 signal dialogue_sequence_ended()
+signal dialogue_event_triggered(event_name: String)
 
 var dialogue_state: DialogueState:
     get:
@@ -13,10 +14,10 @@ func has_seen_sequence(sequence_id: String) -> bool:
     return dialogue_state.seen_dialogue_sequences.has(sequence_id)
 
 var current_dialogue_sequence: String = ""
-var dialogue_queue: Array[DialogueEntry] = []
+var dialogue_queue: Array[DialogueStep] = []
 
 ## Starts a dialogue sequence if it hasn't been seen before.
-func start_dialogue_sequence(sequence_id: String, dialogue_entries: Array[DialogueEntry]) -> void:
+func start_dialogue_sequence(sequence_id: String, dialogue_steps: Array[DialogueStep]) -> void:
     if current_dialogue_sequence == sequence_id:
         return
 
@@ -28,19 +29,25 @@ func start_dialogue_sequence(sequence_id: String, dialogue_entries: Array[Dialog
         return
     
     current_dialogue_sequence = sequence_id
-    dialogue_queue = dialogue_entries.duplicate()
-    _show_next_dialogue_entry()
+    dialogue_queue = dialogue_steps.duplicate()
+    _show_next_dialogue_step()
 
 func show_next() -> void:
-    _show_next_dialogue_entry()
+    _show_next_dialogue_step()
 
-func _show_next_dialogue_entry() -> void:
+func _show_next_dialogue_step() -> void:
     if dialogue_queue.size() == 0:
         _end_dialogue_sequence()
         return
     
-    var entry: DialogueEntry = dialogue_queue.pop_front()
-    show_dialogue_entry.emit(entry)
+    var step: DialogueStep = dialogue_queue.pop_front()
+
+    if step is DialogueStepEvent:
+        dialogue_event_triggered.emit(step.event_name)
+        _show_next_dialogue_step()
+        return
+
+    show_dialogue_entry.emit(step as DialogueEntry)
 
 func _end_dialogue_sequence() -> void:
     if current_dialogue_sequence != "":

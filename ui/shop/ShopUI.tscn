@@ -1,0 +1,133 @@
+[gd_scene load_steps=15 format=3 uid="uid://b805vfj5yr7f6"]
+
+[ext_resource type="Script" uid="uid://df772lefl4pnx" path="res://ui/shop/shop_ui.gd" id="1_jf5hj"]
+[ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="1_nu6qp"]
+[ext_resource type="Shader" uid="uid://coof3kxlypjxl" path="res://graphics/glassblur.gdshader" id="2_nu6qp"]
+[ext_resource type="StyleBox" uid="uid://dwmkl21pqn0ad" path="res://ui/primaryPanel.tres" id="3_l8pt0"]
+[ext_resource type="PackedScene" uid="uid://bxd6at02n5snx" path="res://ui/shop/ShopSellItem.tscn" id="5_l8pt0"]
+[ext_resource type="Resource" uid="uid://dovnwruvxlixp" path="res://data/items/corn.tres" id="6_d6x5o"]
+[ext_resource type="Resource" uid="uid://brtuy3xhl4nf" path="res://data/items/carrot.tres" id="7_vb4x5"]
+[ext_resource type="Resource" uid="uid://b7nw3k6yuf1s8" path="res://data/items/tomato.tres" id="8_75vii"]
+[ext_resource type="PackedScene" uid="uid://tp2toxnbxe0d" path="res://ui/shop/ShopBuyItem.tscn" id="9_ip6mv"]
+[ext_resource type="Resource" uid="uid://4die7ndt8jg" path="res://data/items/carrot_seeds.tres" id="10_veibo"]
+[ext_resource type="Resource" uid="uid://wxpxh33oavud" path="res://data/items/corn_seeds.tres" id="11_tdmcf"]
+[ext_resource type="Resource" uid="uid://btrxtxt1ogdfn" path="res://data/items/tomato_seeds.tres" id="12_drfua"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jf5hj"]
+shader = ExtResource("2_nu6qp")
+shader_parameter/blur = 2.0
+shader_parameter/alpha = 200.0
+shader_parameter/use_alpha_channel = true
+
+[sub_resource type="LabelSettings" id="LabelSettings_jf5hj"]
+font_size = 18
+font_color = Color(0.8, 0.8, 0.8, 1)
+
+[node name="ShopUI" type="Container"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+theme = ExtResource("1_nu6qp")
+script = ExtResource("1_jf5hj")
+metadata/_custom_type_script = "uid://d0ucdkwax7bqx"
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+material = SubResource("ShaderMaterial_jf5hj")
+custom_minimum_size = Vector2(550, 0)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_l8pt0")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "The Shop                     [font_size=12][color=#ccc]note: work-in-progress![/color][/font_size]"
+fit_content = true
+autowrap_mode = 0
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Sell Produce"
+label_settings = SubResource("LabelSettings_jf5hj")
+
+[node name="HFlowContainer" type="HFlowContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+
+[node name="SellItem" parent="PanelContainer/MarginContainer/VBoxContainer/HFlowContainer" instance=ExtResource("5_l8pt0")]
+layout_mode = 2
+item = ExtResource("7_vb4x5")
+value = 8
+
+[node name="SellItem2" parent="PanelContainer/MarginContainer/VBoxContainer/HFlowContainer" instance=ExtResource("5_l8pt0")]
+layout_mode = 2
+item = ExtResource("6_d6x5o")
+value = 35
+
+[node name="SellItem3" parent="PanelContainer/MarginContainer/VBoxContainer/HFlowContainer" instance=ExtResource("5_l8pt0")]
+layout_mode = 2
+item = ExtResource("8_75vii")
+value = 260
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Purchase Seeds"
+label_settings = SubResource("LabelSettings_jf5hj")
+
+[node name="HFlowContainer2" type="HFlowContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 8
+
+[node name="SellItem" parent="PanelContainer/MarginContainer/VBoxContainer/HFlowContainer2" instance=ExtResource("9_ip6mv")]
+layout_mode = 2
+item = ExtResource("10_veibo")
+value = 5
+
+[node name="SellItem2" parent="PanelContainer/MarginContainer/VBoxContainer/HFlowContainer2" instance=ExtResource("9_ip6mv")]
+layout_mode = 2
+item = ExtResource("11_tdmcf")
+value = 40
+
+[node name="SellItem3" parent="PanelContainer/MarginContainer/VBoxContainer/HFlowContainer2" instance=ExtResource("9_ip6mv")]
+layout_mode = 2
+item = ExtResource("12_drfua")
+value = 400
+
+[node name="HSeparator2" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Purchase Personal Items"
+label_settings = SubResource("LabelSettings_jf5hj")
+
+[node name="HFlowContainer3" type="HFlowContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2

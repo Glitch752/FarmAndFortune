@@ -1,0 +1,76 @@
+[gd_scene load_steps=8 format=3 uid="uid://bxd6at02n5snx"]
+
+[ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="1_5yik4"]
+[ext_resource type="StyleBox" uid="uid://cujbo0fpuf2e7" path="res://ui/secondaryPanel.tres" id="1_abkob"]
+[ext_resource type="Texture2D" uid="uid://ca5nofs2b1v87" path="res://art/crops/corn_icon.png" id="2_5yik4"]
+[ext_resource type="Script" uid="uid://b707qe7k28w58" path="res://ui/shop/shop_sell_item.gd" id="3_ac2cw"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_l8pt0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_5yik4"]
+font_size = 14
+font_color = Color(0.554915, 0.87, 0.51330006, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ac2cw"]
+font_color = Color(0.8, 0.8, 0.8, 1)
+
+[node name="SellItem" type="PanelContainer"]
+theme = ExtResource("1_5yik4")
+theme_override_styles/panel = ExtResource("1_abkob")
+script = ExtResource("3_ac2cw")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ItemName" type="Label" parent="VBoxContainer/HBoxContainer2/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Corn"
+label_settings = SubResource("LabelSettings_l8pt0")
+
+[node name="ValueLabel" type="Label" parent="VBoxContainer/HBoxContainer2/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "$0/ea"
+label_settings = SubResource("LabelSettings_5yik4")
+
+[node name="ItemTexture" type="TextureRect" parent="VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("2_5yik4")
+expand_mode = 3
+stretch_mode = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 4
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+text = "Sell "
+label_settings = SubResource("LabelSettings_ac2cw")
+
+[node name="SellOneButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(45, 20)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "One"
+
+[node name="SellAllButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(45, 20)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "All"

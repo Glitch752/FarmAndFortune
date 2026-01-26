@@ -1,4 +1,4 @@
-class_name DialogueEntry extends Resource
+class_name DialogueEntry extends DialogueStep
 
 enum DialogueSpeaker {
     FARMER,
