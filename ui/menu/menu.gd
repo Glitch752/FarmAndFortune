@@ -34,7 +34,7 @@ func update_visible_submenu() -> void:
 func _ready() -> void:
     # If on the web, hide the exit button
     if OS.has_feature("web"):
-        $ExitButton.hide()
+        $%ExitButton.hide()
 
     $%ExitButton.pressed.connect(_on_exit_pressed)
     
