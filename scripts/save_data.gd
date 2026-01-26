@@ -16,6 +16,8 @@ var total_crops_harvested: int = 0
 
 var camera_position: Vector2
 
+var dialogue_state: DialogueState = DialogueState.new()
+
 func _init() -> void:
     pass
 
@@ -28,6 +30,7 @@ func save() -> void:
     
     data.inventory = inventory
     data.camera_position = camera_position
+    data.dialogue_state = dialogue_state
 
     data.world_data_version = Serialization.WorldDataVersion.VERSION_1
 
@@ -60,7 +63,7 @@ func load_save(save_id: String) -> void:
     loaded_save_id = save_id
     loaded_save_name = data.metadata.name
 
-    inventory = {}
+    dialogue_state = data.dialogue_state
     inventory = data.inventory
     camera_position = data.camera_position
 

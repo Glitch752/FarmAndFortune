@@ -25,6 +25,7 @@ InteractionSingleton="*res://scripts/interaction_singleton.gd"
 InventorySingleton="*res://scripts/inventory_singleton.gd"
 SoundManager="*res://audio/SoundManager.tscn"
 CharacterSingleton="*res://scripts/character_singleton.gd"
+DialogueSingleton="*res://scripts/dialogue/dialogue_singleton.gd"
 
 [display]
 

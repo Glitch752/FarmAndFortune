@@ -5,6 +5,8 @@ class_name SaveFileData extends Resource
 @export var inventory: Dictionary[StringName, int] = {
     &"carrot_seeds": 10
 }
+@export var dialogue_state: DialogueState = DialogueState.new()
+
+@export var camera_position: Vector2 = MapSingleton.TOTAL_WORLD_SIZE_PIXELS * Vector2.ONE / 2.0
 @export var world_data_version: Serialization.WorldDataVersion = Serialization.WorldDataVersion.VERSION_1
 @export var serialized_world: PackedByteArray = PackedByteArray()
-@export var camera_position: Vector2 = MapSingleton.TOTAL_WORLD_SIZE_PIXELS * Vector2.ONE / 2.0

@@ -31,3 +31,4 @@ script = ExtResource("2_k5jlv")
 layer = 3
 
 [node name="PauseMenu" parent="CanvasLayer2" instance=ExtResource("6_dke22")]
+visible = false

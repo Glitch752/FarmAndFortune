@@ -1,14 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://cypshkmphya6q"]
+[gd_scene load_steps=8 format=3 uid="uid://cypshkmphya6q"]
 
 [ext_resource type="Shader" uid="uid://coof3kxlypjxl" path="res://graphics/glassblur.gdshader" id="1_c7v6e"]
 [ext_resource type="Theme" uid="uid://chyuq11b71wpt" path="res://ui/uiTheme.tres" id="2_4dg4t"]
 [ext_resource type="Script" uid="uid://dervpitvquwc6" path="res://ui/pause_menu.gd" id="2_8tehv"]
 [ext_resource type="PackedScene" uid="uid://e1wj20hwh8ty" path="res://ui/menu/MenuButton.tscn" id="3_1q10k"]
+[ext_resource type="PackedScene" uid="uid://c6ove0fq3pgrm" path="res://ui/settings/SettingsMenu.tscn" id="5_ptdjk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4qegb"]
 shader = ExtResource("1_c7v6e")
 shader_parameter/blur = 2.0
 shader_parameter/alpha = 100.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_bqsny"]
+font_size = 24
 
 [node name="PauseMenu" type="ColorRect"]
 process_mode = 3
@@ -66,3 +70,23 @@ Money: [color=#88ee88]$1,000[/color]
 Total crops harvested: [color=#88ee88]1,000[/color]"
 fit_content = true
 autowrap_mode = 0
+
+[node name="SettingsContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -464.0
+offset_top = 48.0
+offset_right = -64.0
+offset_bottom = 127.0
+grow_horizontal = 0
+theme_override_constants/separation = 12
+
+[node name="Label" type="Label" parent="SettingsContainer"]
+layout_mode = 2
+text = "Settings"
+label_settings = SubResource("LabelSettings_bqsny")
+
+[node name="SettingsMenu" parent="SettingsContainer" instance=ExtResource("5_ptdjk")]
+layout_mode = 2
